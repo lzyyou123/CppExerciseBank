@@ -10,7 +10,7 @@
 
 ## 在线浏览
 
-👉 **https://（部署后填入）.github.io/cpp-exercises/**
+👉 **https://lzyyou123.github.io/CppExerciseBank/**
 
 在线版可**看题、做选择题、查看编程题参考代码**。
 
@@ -33,7 +33,7 @@
 
 ```bash
 # 1. 克隆
-git clone https://github.com/<your-name>/cpp-exercises.git
+git clone https://github.com/lzyyou123/CppExerciseBank.git
 cd cpp-exercises
 
 # 2. 启动判题服务（默认 127.0.0.1:8765，并自动打开浏览器）
@@ -69,7 +69,7 @@ g++ --version
 ## 目录结构
 
 ```
-cpp-exercises/
+CppExerciseBank/
 ├── index.html               # 完整版页面（含判题入口，GitHub Pages 部署入口）
 ├── readonly_index.html      # 只读分享版（隐藏判题入口，适合直接发给同学）
 ├── data/                    # 题库源数据，ch01 ~ ch10 按章拆分
