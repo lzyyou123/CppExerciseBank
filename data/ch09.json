@@ -1,0 +1,887 @@
+{
+ "id": "9",
+ "short": "第9章",
+ "name": "结构体、共用体与枚举",
+ "color": "#0369a1",
+ "intro": "教材第 9 章：结构体类型的定义与变量声明、成员的三种访问方式（. 与 ->），结构体数组与结构体指针，结构体作函数参数，共用体的存储特点，以及枚举类型的定义与使用、typedef 类型别名。",
+ "choice": [
+  {
+   "id": "9-c1",
+   "level": "easy",
+   "q": "定义结构体类型使用的关键字是？",
+   "options": [
+    "union",
+    "struct",
+    "enum",
+    "typedef"
+   ],
+   "answer": 1,
+   "explain": "struct 用来定义结构体类型，它的各个成员分别占用各自的存储空间。"
+  },
+  {
+   "id": "9-c2",
+   "level": "easy",
+   "q": "已知结构体变量 stu，访问其成员 name 的正确写法是？",
+   "options": [
+    "stu->name",
+    "stu.name",
+    "stu:name",
+    "*stu.name"
+   ],
+   "answer": 1,
+   "explain": "结构体变量用成员运算符 . 访问成员；只有结构体指针才用 ->。"
+  },
+  {
+   "id": "9-c3",
+   "level": "easy",
+   "q": "若 p 是指向结构体变量的指针，访问其成员 score 的正确写法是？",
+   "options": [
+    "p.score",
+    "p->score",
+    "*p.score",
+    "&p.score"
+   ],
+   "answer": 1,
+   "explain": "p->score 等价于 (*p).score，- > 是给结构体指针专用的成员访问运算符。"
+  },
+  {
+   "id": "9-c4",
+   "level": "easy",
+   "q": "共用体（union）类型的主要特点是？",
+   "options": [
+    "各成员依次存放在连续空间",
+    "所有成员共用同一段存储空间，其长度等于最长成员的长度",
+    "只能存放整数",
+    "成员不能用 . 访问"
+   ],
+   "answer": 1,
+   "explain": "共用体的所有成员起始地址相同、相互覆盖，任一时刻只有最后存入的成员有效。"
+  },
+  {
+   "id": "9-c5",
+   "level": "easy",
+   "q": "定义枚举类型使用的关键字是？",
+   "options": [
+    "enum",
+    "struct",
+    "union",
+    "define"
+   ],
+   "answer": 0,
+   "explain": "enum 用于定义枚举类型，把若干个整型常量列举出来作为一组有名字的取值。"
+  },
+  {
+   "id": "9-c6",
+   "level": "easy",
+   "q": "若有定义 struct student { char name[20]; int age; } a[10]; 则 a[2].age 表示？",
+   "options": [
+    "第 3 个学生元素的 age 成员",
+    "第 2 个学生元素的 age 成员",
+    "全部学生的 age 之和",
+    "非法写法"
+   ],
+   "answer": 0,
+   "explain": "下标从 0 开始，a[2] 是第 3 个结构体元素，再用 . 访问它的 age 成员。"
+  },
+  {
+   "id": "9-c7",
+   "level": "mid",
+   "q": "语句 typedef struct node NODE; 的作用是？",
+   "options": [
+    "定义了一个新结构体",
+    "为 struct node 起别名 NODE，之后可用 NODE 声明变量",
+    "声明了一个结构体变量",
+    "把 NODE 转成 node"
+   ],
+   "answer": 1,
+   "explain": "typedef 不创建新类型，只是给已有类型起一个简短的别名，方便书写。"
+  },
+  {
+   "id": "9-c8",
+   "level": "mid",
+   "q": "关于结构体变量作函数参数，说法正确的是？",
+   "options": [
+    "不能作为函数参数",
+    "可以把整个结构体按值传给函数，函数内修改不影响原变量",
+    "只能传地址",
+    "只能传递第一个成员"
+   ],
+   "answer": 1,
+   "explain": "结构体可以整体作参数（值传递，复制一份），若要修改原结构体则应传指针。"
+  },
+  {
+   "id": "9-c9",
+   "level": "mid",
+   "q": "下列不能作为结构体成员类型的是？",
+   "options": [
+    "int 型变量",
+    "字符数组",
+    "另一个已定义的结构体类型",
+    "函数定义"
+   ],
+   "answer": 3,
+   "explain": "结构体成员可以是基本类型、数组、指针或另一个结构体，但不能是函数定义（函数指针可以）。"
+  },
+  {
+   "id": "9-c10",
+   "level": "mid",
+   "q": "若定义 enum week { Mon, Tue, Wed }; 则 Tue 的值是？",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "不确定"
+   ],
+   "answer": 1,
+   "explain": "枚举常量默认从 0 开始依次加 1：Mon = 0，Tue = 1，Wed = 2。"
+  },
+  {
+   "id": "9-c11",
+   "level": "easy",
+   "q": "以下程序的输出结果是？",
+   "code": "struct stu s = {1001, \"Li\"};\nprintf(\"%d,%s\", s.num, s.name);",
+   "options": [
+    "1001,Li",
+    "1001,1001",
+    "Li,1001",
+    "编译错误"
+   ],
+   "answer": 0,
+   "explain": "结构体变量用成员运算符 . 访问各成员，s.num 为 1001，s.name 为字符数组 \"Li\"，按 %d、%s 顺序输出 1001,Li。",
+   "pre": "struct stu\n{\n    int num;\n    char name[10];\n};"
+  },
+  {
+   "id": "9-c12",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "struct stu s = {1002, \"Wang\"};\nstruct stu *p = &s;\nprintf(\"%d,%s\", p->num, p->name);",
+   "options": [
+    "1002,Wang",
+    "1002,1002",
+    "Wang,1002",
+    "编译错误"
+   ],
+   "answer": 0,
+   "explain": "指针访问成员用 ->，p->num 等价于 (*p).num。p 指向 s，故输出 1002,Wang。注意 -> 只能用于指针，. 只能用于变量。",
+   "pre": "struct stu\n{\n    int num;\n    char name[10];\n};"
+  },
+  {
+   "id": "9-c13",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "struct point p[3] = {{1, 2}, {3, 4}, {5, 6}};\nint i, s = 0;\nfor (i = 0; i < 3; i++)\n    s = s + p[i].x;\nprintf(\"%d\", s);",
+   "options": [
+    "9",
+    "21",
+    "15",
+    "6"
+   ],
+   "answer": 0,
+   "explain": "结构体数组元素用 p[i].成员 访问。累加各元素 x 成员：1+3+5=9。若累加 y 成员则为 12。",
+   "pre": "struct point\n{\n    int x;\n    int y;\n};"
+  },
+  {
+   "id": "9-c14",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "union data d;\nd.i = 0;\nd.c = 'A';\nprintf(\"%d\", d.i);",
+   "options": [
+    "65",
+    "0",
+    "1",
+    "16706"
+   ],
+   "answer": 0,
+   "explain": "共用体所有成员共用同一段存储空间，后写 c 会覆盖 i 的第一个字节。'A' 的 ASCII 码是 65，且 i 此前已清 0，故 d.i 读出来是 65。",
+   "pre": "union data\n{\n    int i;\n    char c;\n};"
+  },
+  {
+   "id": "9-c15",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "printf(\"%d %d %d\", red, green, blue);",
+   "options": [
+    "0 3 4",
+    "0 1 2",
+    "1 2 3",
+    "0 3 3"
+   ],
+   "answer": 0,
+   "explain": "枚举值从 0 开始递增；red 未指定故为 0，green 显式指定为 3，后面的 blue 在 green 基础上加 1 得 4。",
+   "pre": "enum color { red, green = 3, blue };"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错",
+    "难题"
+   ],
+   "q": "下列程序的运行结果是（按常见 8 字节对齐）：",
+   "code": "#include <stdio.h>\nstruct S\n{\n    int a;\n    char b;\n    double c;\n};\nint main()\n{\n    printf(\"%d\", (int)sizeof(struct S));\n    return 0;\n}",
+   "options": [
+    "13",
+    "16",
+    "24",
+    "8"
+   ],
+   "answer": 1,
+   "expect": "16",
+   "explain": "结构体存在内存对齐：int 占 4 字节，char 占 1 字节后需填充 3 字节对齐到 8 字节边界，double 占 8 字节，共 4+1+3+8=16 字节。所以 sizeof 结构体不等于各成员大小简单相加。",
+   "id": "09-c16"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "难题"
+   ],
+   "q": "下列程序的运行结果是（按常见 8 字节对齐）：",
+   "code": "#include <stdio.h>\nunion U\n{\n    int a;\n    char b[5];\n    double c;\n};\nint main()\n{\n    printf(\"%d\", (int)sizeof(union U));\n    return 0;\n}",
+   "options": [
+    "5",
+    "8",
+    "13",
+    "17"
+   ],
+   "answer": 1,
+   "expect": "8",
+   "explain": "共用体的所有成员共用同一块存储空间，其大小等于最长成员并满足对齐要求：最长成员为 double 的 8 字节，故 sizeof 为 8，不是各成员之和。",
+   "id": "09-c17"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错",
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nstruct P\n{\n    int x;\n};\nint main()\n{\n    struct P p = {5}, *q = &p;\n    int a = q->x++;\n    printf(\"%d,%d\", a, p.x);\n    return 0;\n}",
+   "options": [
+    "5,5",
+    "5,6",
+    "6,6",
+    "6,5"
+   ],
+   "answer": 1,
+   "expect": "5,6",
+   "explain": "q->x++ 是后缀自增：先把 x 的原值 5 赋给 a，再让 x 增 1 变成 6，所以输出 5,6。-> 运算符与 . 优先级相同，均高于 ++。",
+   "id": "09-c18"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nstruct P\n{\n    int a;\n    int b;\n};\nint main()\n{\n    struct P p1 = {1, 2}, p2;\n    p2 = p1;\n    p2.a = 9;\n    printf(\"%d,%d\", p1.a, p2.a);\n    return 0;\n}",
+   "options": [
+    "9,9",
+    "1,9",
+    "1,1",
+    "编译错误"
+   ],
+   "answer": 1,
+   "expect": "1,9",
+   "explain": "同类型的结构体变量可以整体赋值，赋值是把各成员的值逐个复制一份（值拷贝），之后修改 p2.a 不影响 p1.a，输出 1,9。",
+   "id": "09-c19"
+  }
+ ],
+ "coding": [
+  {
+   "id": "9-1",
+   "title": "学生成绩总分与平均分",
+   "level": "easy",
+   "tags": [
+    "结构体",
+    "输入输出"
+   ],
+   "desc": "定义学生结构体类型（包含姓名、语文、数学、英语三门成绩），输入一个学生的信息，输出他的总分和平均分。",
+   "input": "一行：姓名（不含空格，长度不超过 19）以及三个整数成绩，用空格分隔。",
+   "output": "第一行输出总分（整数），第二行输出平均分（保留两位小数）。",
+   "samples": [
+    {
+     "in": "Tom 80 90 100",
+     "out": "270\n90.00"
+    }
+   ],
+   "tests": [
+    {
+     "in": "Tom 80 90 100",
+     "out": "270\n90.00"
+    },
+    {
+     "in": "Amy 60 60 60",
+     "out": "180\n60.00"
+    },
+    {
+     "in": "Bob 55 78 92",
+     "out": "225\n75.00"
+    },
+    {
+     "in": "Cathy 100 100 99",
+     "out": "299\n99.67"
+    },
+    {
+     "in": "Dan 0 0 1",
+     "out": "1\n0.33"
+    }
+   ],
+   "hint": "先定义 struct student { char name[20]; int c, m, e; }; 再声明变量，用 scanf(\"%s %d %d %d\", s.name, &s.c, &s.m, &s.e) 读入。",
+   "code": "#include <stdio.h>\n\nstruct student\n{\n    char name[20];\n    int c, m, e;\n};\n\nint main()\n{\n    struct student s;\n    int sum;\n    scanf(\"%s %d %d %d\", s.name, &s.c, &s.m, &s.e);\n    sum = s.c + s.m + s.e;\n    printf(\"%d\\n\", sum);\n    printf(\"%.2f\\n\", sum / 3.0);\n    return 0;\n}"
+  },
+  {
+   "id": "9-2",
+   "title": "平均分最高的学生",
+   "level": "mid",
+   "tags": [
+    "结构体数组",
+    "打擂台"
+   ],
+   "desc": "输入 n 个学生的姓名和三门课成绩，输出平均分最高的学生姓名（平均分相同则取最先出现的一个）。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行为姓名和三个整数成绩。",
+   "output": "输出一行，为平均分最高的学生姓名。",
+   "samples": [
+    {
+     "in": "3\nTom 80 90 70\nAmy 95 85 90\nBob 70 70 70",
+     "out": "Amy"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3\nTom 80 90 70\nAmy 95 85 90\nBob 70 70 70",
+     "out": "Amy"
+    },
+    {
+     "in": "1\nSam 88 88 88",
+     "out": "Sam"
+    },
+    {
+     "in": "2\nLi 100 0 0\nWang 40 40 40",
+     "out": "Wang"
+    },
+    {
+     "in": "4\nA 60 60 60\nB 61 60 60\nC 60 61 60\nD 60 60 61",
+     "out": "B"
+    },
+    {
+     "in": "2\nX 90 90 90\nY 91 90 90",
+     "out": "Y"
+    }
+   ],
+   "hint": "用结构体数组存全部学生，打擂台比较时用总分（避免浮点误差）判断即可，注意用 > 保证取第一个。",
+   "code": "#include <stdio.h>\n\nstruct student\n{\n    char name[20];\n    int c, m, e;\n};\n\nint main()\n{\n    struct student s[50];\n    int n, i, best = 0, sum, bs = -1;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%s %d %d %d\", s[i].name, &s[i].c, &s[i].m, &s[i].e);\n    for (i = 0; i < n; i++)\n    {\n        sum = s[i].c + s[i].m + s[i].e;\n        if (sum > bs)\n        {\n            bs = sum;\n            best = i;\n        }\n    }\n    printf(\"%s\\n\", s[best].name);\n    return 0;\n}"
+  },
+  {
+   "id": "9-3",
+   "title": "按总分从高到低排序",
+   "level": "mid",
+   "tags": [
+    "结构体数组",
+    "冒泡排序"
+   ],
+   "desc": "输入 n 个学生的姓名和三门课成绩，按总分从高到低排序后，依次输出每个人的姓名和总分。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行为姓名和三个整数成绩。",
+   "output": "输出 n 行，每行一个姓名和一个总分，中间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "3\nTom 80 90 70\nAmy 95 85 90\nBob 70 70 70",
+     "out": "Amy 270\nTom 240\nBob 210"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3\nTom 80 90 70\nAmy 95 85 90\nBob 70 70 70",
+     "out": "Amy 270\nTom 240\nBob 210"
+    },
+    {
+     "in": "2\nA 100 100 100\nB 50 50 50",
+     "out": "A 300\nB 150"
+    },
+    {
+     "in": "4\nP 60 60 60\nQ 61 60 60\nR 60 61 60\nS 60 60 61",
+     "out": "Q 181\nR 181\nS 181\nP 180"
+    },
+    {
+     "in": "1\nSolo 1 2 3",
+     "out": "Solo 6"
+    },
+    {
+     "in": "3\nX 90 90 90\nY 91 90 90\nZ 89 90 90",
+     "out": "Y 271\nX 270\nZ 269"
+    }
+   ],
+   "hint": "结构体变量可以直接整体赋值，交换时用临时结构体变量 temp = a[i]; a[i] = a[j]; a[j] = temp; 即可。",
+   "code": "#include <stdio.h>\n\nstruct student\n{\n    char name[20];\n    int c, m, e;\n    int sum;\n};\n\nint main()\n{\n    struct student s[50], t;\n    int n, i, j;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%s %d %d %d\", s[i].name, &s[i].c, &s[i].m, &s[i].e);\n        s[i].sum = s[i].c + s[i].m + s[i].e;\n    }\n    for (i = 0; i < n - 1; i++)\n        for (j = 0; j < n - 1 - i; j++)\n            if (s[j].sum < s[j + 1].sum)\n            {\n                t = s[j];\n                s[j] = s[j + 1];\n                s[j + 1] = t;\n            }\n    for (i = 0; i < n; i++)\n        printf(\"%s %d\\n\", s[i].name, s[i].sum);\n    return 0;\n}"
+  },
+  {
+   "id": "9-4",
+   "title": "日期的第二天",
+   "level": "mid",
+   "tags": [
+    "结构体",
+    "switch"
+   ],
+   "desc": "定义日期结构体（年、月、日），输入一个合法日期，输出它的后一天。",
+   "input": "一行三个整数：年、月、日，用空格分隔。",
+   "output": "输出一行三个整数，为后一天的日期，中间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "2024 2 28",
+     "out": "2024 2 29"
+    }
+   ],
+   "tests": [
+    {
+     "in": "2024 2 28",
+     "out": "2024 2 29"
+    },
+    {
+     "in": "2023 2 28",
+     "out": "2023 3 1"
+    },
+    {
+     "in": "2024 12 31",
+     "out": "2025 1 1"
+    },
+    {
+     "in": "2024 4 30",
+     "out": "2024 5 1"
+    },
+    {
+     "in": "1900 2 28",
+     "out": "1900 3 1"
+    }
+   ],
+   "hint": "先判断本月天数（2 月要考虑闰年），若日小于该月天数则日加 1；否则日置 1 且月加 1，若月超过 12 则月置 1 且年加 1。",
+   "code": "#include <stdio.h>\n\nstruct date\n{\n    int y, m, d;\n};\n\nint daysOfMonth(int y, int m)\n{\n    int t[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};\n    if (m == 2 && ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0))\n        return 29;\n    return t[m];\n}\n\nint main()\n{\n    struct date a;\n    scanf(\"%d %d %d\", &a.y, &a.m, &a.d);\n    if (a.d < daysOfMonth(a.y, a.m))\n        a.d = a.d + 1;\n    else\n    {\n        a.d = 1;\n        if (a.m < 12)\n            a.m = a.m + 1;\n        else\n        {\n            a.m = 1;\n            a.y = a.y + 1;\n        }\n    }\n    printf(\"%d %d %d\\n\", a.y, a.m, a.d);\n    return 0;\n}"
+  },
+  {
+   "id": "9-5",
+   "title": "复数的加法",
+   "level": "mid",
+   "tags": [
+    "结构体",
+    "浮点输出"
+   ],
+   "desc": "定义复数结构体（实部、虚部），输入两个复数，输出它们的和，格式为 a+bi 或 a-bi。",
+   "input": "两行，每行两个实数（保留一位小数以内），分别为第一个复数和第二个复数的实部与虚部。",
+   "output": "输出一行，格式如 3.0+5.0i；虚部为负数时用减号，即 3.0-5.0i 的形式（保留一位小数）。",
+   "samples": [
+    {
+     "in": "1.0 2.0\n3.0 4.0",
+     "out": "4.0+6.0i"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1.0 2.0\n3.0 4.0",
+     "out": "4.0+6.0i"
+    },
+    {
+     "in": "1.5 -2.5\n0.5 1.0",
+     "out": "2.0-1.5i"
+    },
+    {
+     "in": "-1.0 -1.0\n1.0 1.0",
+     "out": "0.0+0.0i"
+    },
+    {
+     "in": "0.0 0.0\n0.0 0.0",
+     "out": "0.0+0.0i"
+    },
+    {
+     "in": "2.0 3.0\n2.0 -3.0",
+     "out": "4.0+0.0i"
+    }
+   ],
+   "hint": "把两个复数的实部、虚部分别相加；输出时先输出实部，再根据虚部正负输出 + 或 -，虚部取绝对值输出再拼上 i。",
+   "code": "#include <stdio.h>\n#include <math.h>\n\nstruct comp\n{\n    double r, i;\n};\n\nint main()\n{\n    struct comp a, b, c;\n    scanf(\"%lf %lf\", &a.r, &a.i);\n    scanf(\"%lf %lf\", &b.r, &b.i);\n    c.r = a.r + b.r;\n    c.i = a.i + b.i;\n    if (c.i < 0)\n        printf(\"%.1f-%.1fi\\n\", c.r, fabs(c.i));\n    else\n        printf(\"%.1f+%.1fi\\n\", c.r, c.i);\n    return 0;\n}"
+  },
+  {
+   "id": "9-6",
+   "title": "用枚举输出星期名",
+   "level": "easy",
+   "tags": [
+    "枚举",
+    "switch"
+   ],
+   "desc": "定义枚举类型表示星期（1 表示星期一，依次到 7 表示星期日），输入一个整数，输出对应的星期名称。",
+   "input": "一行一个整数 n（1 ≤ n ≤ 7）。",
+   "output": "输出一行，为对应的中文星期名称，例如输入 1 输出 星期一。",
+   "samples": [
+    {
+     "in": "1",
+     "out": "星期一"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1",
+     "out": "星期一"
+    },
+    {
+     "in": "3",
+     "out": "星期三"
+    },
+    {
+     "in": "6",
+     "out": "星期六"
+    },
+    {
+     "in": "7",
+     "out": "星期日"
+    },
+    {
+     "in": "5",
+     "out": "星期五"
+    }
+   ],
+   "hint": "定义 enum week { Mon = 1, Tue, Wed, Thu, Fri, Sat, Sun }; 用 switch 或数组映射输出对应名称。",
+   "code": "#include <stdio.h>\n\nenum week { Mon = 1, Tue, Wed, Thu, Fri, Sat, Sun };\n\nint main()\n{\n    int n;\n    enum week w;\n    scanf(\"%d\", &n);\n    w = (enum week)n;\n    switch (w)\n    {\n        case Mon: printf(\"星期一\\n\"); break;\n        case Tue: printf(\"星期二\\n\"); break;\n        case Wed: printf(\"星期三\\n\"); break;\n        case Thu: printf(\"星期四\\n\"); break;\n        case Fri: printf(\"星期五\\n\"); break;\n        case Sat: printf(\"星期六\\n\"); break;\n        case Sun: printf(\"星期日\\n\"); break;\n        default: printf(\"error\\n\");\n    }\n    return 0;\n}"
+  },
+  {
+   "id": "9-7",
+   "title": "统计不及格人数",
+   "level": "easy",
+   "tags": [
+    "结构体数组",
+    "计数"
+   ],
+   "desc": "输入 n 个学生的姓名和成绩，统计成绩低于 60 分的人数。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行为姓名和一个整数成绩。",
+   "output": "输出一行，为不及格人数。",
+   "samples": [
+    {
+     "in": "3\nTom 59\nAmy 60\nBob 30",
+     "out": "2"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3\nTom 59\nAmy 60\nBob 30",
+     "out": "2"
+    },
+    {
+     "in": "1\nA 100",
+     "out": "0"
+    },
+    {
+     "in": "2\nB 0\nC 59",
+     "out": "2"
+    },
+    {
+     "in": "5\nA 60\nB 61\nC 59\nD 59\nE 100",
+     "out": "2"
+    },
+    {
+     "in": "2\nX 59\nY 58",
+     "out": "2"
+    }
+   ],
+   "hint": "用结构体数组存放，遍历时判断 score < 60 就累加计数。",
+   "code": "#include <stdio.h>\n\nstruct student\n{\n    char name[20];\n    int score;\n};\n\nint main()\n{\n    struct student s[50];\n    int n, i, cnt = 0;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%s %d\", s[i].name, &s[i].score);\n        if (s[i].score < 60)\n            cnt++;\n    }\n    printf(\"%d\\n\", cnt);\n    return 0;\n}"
+  },
+  {
+   "id": "9-8",
+   "title": "用结构体指针修改成绩",
+   "level": "mid",
+   "tags": [
+    "结构体指针",
+    "函数"
+   ],
+   "desc": "定义函数 addBonus(struct student *p)，把学生成绩加 5 分（最高不超过 100），输入一个学生信息后输出加分后的成绩。",
+   "input": "一行：姓名和一个整数成绩（0 ≤ 成绩 ≤ 100），用空格分隔。",
+   "output": "输出一行，为加分后的成绩。",
+   "samples": [
+    {
+     "in": "Tom 80",
+     "out": "85"
+    }
+   ],
+   "tests": [
+    {
+     "in": "Tom 80",
+     "out": "85"
+    },
+    {
+     "in": "Amy 98",
+     "out": "100"
+    },
+    {
+     "in": "Bob 0",
+     "out": "5"
+    },
+    {
+     "in": "Cathy 100",
+     "out": "100"
+    },
+    {
+     "in": "Dan 59",
+     "out": "64"
+    }
+   ],
+   "hint": "函数形参是结构体指针，用 p->score 访问成员；用地址调用 addBonus(&s)，这样函数内的修改才会作用到原变量。",
+   "code": "#include <stdio.h>\n\nstruct student\n{\n    char name[20];\n    int score;\n};\n\nvoid addBonus(struct student *p)\n{\n    p->score = p->score + 5;\n    if (p->score > 100)\n        p->score = 100;\n}\n\nint main()\n{\n    struct student s;\n    scanf(\"%s %d\", s.name, &s.score);\n    addBonus(&s);\n    printf(\"%d\\n\", s.score);\n    return 0;\n}"
+  },
+  {
+   "id": "9-9",
+   "title": "按学号查找学生",
+   "level": "mid",
+   "tags": [
+    "结构体数组",
+    "查找"
+   ],
+   "desc": "输入 n 个学生的学号和姓名，再输入一个待查学号，输出该学号对应的姓名；若查不到输出 not found。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行为学号（整数）和姓名；最后一行一个整数表示待查学号。",
+   "output": "输出一行，为查到的姓名，找不到则输出 not found。",
+   "samples": [
+    {
+     "in": "3\n101 Tom\n102 Amy\n103 Bob\n102",
+     "out": "Amy"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3\n101 Tom\n102 Amy\n103 Bob\n102",
+     "out": "Amy"
+    },
+    {
+     "in": "3\n101 Tom\n102 Amy\n103 Bob\n200",
+     "out": "not found"
+    },
+    {
+     "in": "1\n1001 Solo\n1001",
+     "out": "Solo"
+    },
+    {
+     "in": "2\n1 A\n2 B\n1",
+     "out": "A"
+    },
+    {
+     "in": "4\n11 Ann\n12 Ben\n13 Cat\n14 Dan\n14",
+     "out": "Dan"
+    }
+   ],
+   "hint": "用结构体数组保存学号与姓名，遍历比较学号，找到后输出并 break；循环结束仍未找到则输出 not found。",
+   "code": "#include <stdio.h>\n\nstruct student\n{\n    int id;\n    char name[20];\n};\n\nint main()\n{\n    struct student s[50];\n    int n, i, key, found = 0;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%d %s\", &s[i].id, s[i].name);\n    scanf(\"%d\", &key);\n    for (i = 0; i < n; i++)\n        if (s[i].id == key)\n        {\n            printf(\"%s\\n\", s[i].name);\n            found = 1;\n            break;\n        }\n    if (!found)\n        printf(\"not found\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "9-10",
+   "title": "图书按价格排序",
+   "level": "mid",
+   "tags": [
+    "结构体数组",
+    "排序"
+   ],
+   "desc": "输入 n 本图书的书名和价格，按价格从低到高排序后依次输出书名。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行为书名（不含空格）和一个实数价格。",
+   "output": "输出 n 行，为按价格从低到高排序后的书名。",
+   "samples": [
+    {
+     "in": "3\nC 45.5\nA 30.0\nB 39.9",
+     "out": "A\nB\nC"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3\nC 45.5\nA 30.0\nB 39.9",
+     "out": "A\nB\nC"
+    },
+    {
+     "in": "1\nSolo 10.0",
+     "out": "Solo"
+    },
+    {
+     "in": "4\nP 10.0\nQ 10.0\nR 5.0\nS 20.0",
+     "out": "R\nP\nQ\nS"
+    },
+    {
+     "in": "2\nX 99.9\nY 99.8",
+     "out": "Y\nX"
+    },
+    {
+     "in": "3\nMath 25.5\nPhysics 30.0\nChemistry 19.9",
+     "out": "Chemistry\nMath\nPhysics"
+    }
+   ],
+   "hint": "结构体数组用冒泡排序交换整个结构体变量即可，比较时用 price 成员（double 直接比较大小）。",
+   "code": "#include <stdio.h>\n\nstruct book\n{\n    char name[40];\n    double price;\n};\n\nint main()\n{\n    struct book b[50], t;\n    int n, i, j;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%s %lf\", b[i].name, &b[i].price);\n    for (i = 0; i < n - 1; i++)\n        for (j = 0; j < n - 1 - i; j++)\n            if (b[j].price > b[j + 1].price)\n            {\n                t = b[j];\n                b[j] = b[j + 1];\n                b[j + 1] = t;\n            }\n    for (i = 0; i < n; i++)\n        printf(\"%s\\n\", b[i].name);\n    return 0;\n}"
+  },
+  {
+   "id": "9-p11",
+   "title": "成绩表按总分降序、总分相同按学号升序",
+   "level": "hard",
+   "tags": [
+    "结构体",
+    "排序",
+    "多关键字"
+   ],
+   "tag": [
+    "难题"
+   ],
+   "desc": "输入 n 个学生的学号和总分，按总分从高到低排序；总分相同的，学号小的排在前面。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行一个学号（整数）和总分（整数）。",
+   "output": "输出 n 行，每行为排序后的学号和总分，中间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "4\n1001 260\n1002 280\n1003 260\n1004 250",
+     "out": "1002 280\n1001 260\n1003 260\n1004 250"
+    }
+   ],
+   "tests": [
+    {
+     "in": "4\n1001 260\n1002 280\n1003 260\n1004 250",
+     "out": "1002 280\n1001 260\n1003 260\n1004 250"
+    },
+    {
+     "in": "3\n5 90\n1 90\n3 90",
+     "out": "1 90\n3 90\n5 90"
+    },
+    {
+     "in": "1\n7 100",
+     "out": "7 100"
+    },
+    {
+     "in": "5\n101 50\n102 60\n103 70\n104 80\n105 90",
+     "out": "105 90\n104 80\n103 70\n102 60\n101 50"
+    }
+   ],
+   "hint": "交换条件写成：总分小的往后放；总分相等且学号大的往后放。也就是 if (a[i].total < a[i+1].total || (a[i].total == a[i+1].total && a[i].id > a[i+1].id)) 时交换这两个结构体，整体用冒泡即可。",
+   "code": "#include <stdio.h>\n\nstruct Stu\n{\n    int id;\n    int total;\n};\n\nint main()\n{\n    int n, i, j;\n    struct Stu a[50], t;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%d%d\", &a[i].id, &a[i].total);\n    for (i = 0; i < n - 1; i++)\n        for (j = 0; j < n - 1 - i; j++)\n            if (a[j].total < a[j + 1].total ||\n                (a[j].total == a[j + 1].total && a[j].id > a[j + 1].id))\n            {\n                t = a[j];\n                a[j] = a[j + 1];\n                a[j + 1] = t;\n            }\n    for (i = 0; i < n; i++)\n        printf(\"%d %d\\n\", a[i].id, a[i].total);\n    return 0;\n}"
+  },
+  {
+   "id": "9-p12",
+   "title": "统计高于平均分的人数",
+   "level": "mid",
+   "tags": [
+    "结构体数组",
+    "平均值",
+    "统计"
+   ],
+   "tag": [
+    "常考"
+   ],
+   "desc": "输入 n 个学生的姓名和成绩，先输出平均分（保留 1 位小数），再输出高于平均分的人数。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；接下来 n 行，每行一个姓名（不含空格）和一个成绩（整数）。",
+   "output": "共两行：第一行为平均分，保留 1 位小数；第二行为成绩高于平均分的人数。",
+   "samples": [
+    {
+     "in": "4\nzhang 80\nli 90\nwang 70\nzhao 60",
+     "out": "75.0\n2"
+    }
+   ],
+   "tests": [
+    {
+     "in": "4\nzhang 80\nli 90\nwang 70\nzhao 60",
+     "out": "75.0\n2"
+    },
+    {
+     "in": "3\nA 100\nB 100\nC 100",
+     "out": "100.0\n0"
+    },
+    {
+     "in": "1\nTom 55",
+     "out": "55.0\n0"
+    },
+    {
+     "in": "5\na 60\nb 61\nc 62\nd 63\ne 64",
+     "out": "62.0\n2"
+    }
+   ],
+   "hint": "先把成绩累加求平均值（除以 1.0*n 避免整除截断），再遍历一遍统计 a[i].score > avg 的人数。注意两次遍历用的是同一份数据，不要边累加边统计。",
+   "code": "#include <stdio.h>\n\nstruct Stu\n{\n    char name[20];\n    int score;\n};\n\nint main()\n{\n    int n, i, s = 0, c = 0;\n    double avg;\n    struct Stu a[50];\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%s%d\", a[i].name, &a[i].score);\n    for (i = 0; i < n; i++)\n        s = s + a[i].score;\n    avg = s / (1.0 * n);\n    for (i = 0; i < n; i++)\n        if (a[i].score > avg)\n            c++;\n    printf(\"%.1f\\n\", avg);\n    printf(\"%d\\n\", c);\n    return 0;\n}"
+  },
+  {
+   "id": "9-p13",
+   "title": "结构体作为参数：值传递与指针传递",
+   "level": "hard",
+   "tags": [
+    "结构体",
+    "参数传递",
+    "指针"
+   ],
+   "tag": [
+    "易错"
+   ],
+   "desc": "定义学生结构体（姓名、成绩）。写两个函数：addByValue 用结构体值参数给成绩加 10 分，addByPointer 用结构体指针参数给成绩加 10 分。主函数先输出加分前的成绩，再依次调用两个函数并各输出一次成绩。",
+   "input": "一行，一个姓名（不含空格）和一个成绩（整数，0 ≤ 成绩 ≤ 100）。",
+   "output": "共三行：第一行为原始成绩，第二行为调用 addByValue 后的成绩，第三行为调用 addByPointer 后的成绩。",
+   "samples": [
+    {
+     "in": "zhang 80",
+     "out": "80\n80\n90"
+    }
+   ],
+   "tests": [
+    {
+     "in": "zhang 80",
+     "out": "80\n80\n90"
+    },
+    {
+     "in": "li 0",
+     "out": "0\n0\n10"
+    },
+    {
+     "in": "wang 90",
+     "out": "90\n90\n100"
+    },
+    {
+     "in": "A 55",
+     "out": "55\n55\n65"
+    },
+    {
+     "in": "tom 100",
+     "out": "100\n100\n110"
+    }
+   ],
+   "hint": "结构体作为值参数时，函数里改的是副本，主函数的成绩不变；用指针参数（struct Stu *p）配合 p->score 才能改到主函数的变量。先加一次再取地址传给指针函数即可。",
+   "code": "#include <stdio.h>\n\nstruct Stu\n{\n    char name[20];\n    int score;\n};\n\nvoid addByValue(struct Stu s)\n{\n    s.score = s.score + 10;\n}\n\nvoid addByPointer(struct Stu *p)\n{\n    p->score = p->score + 10;\n}\n\nint main()\n{\n    struct Stu a;\n    scanf(\"%s%d\", a.name, &a.score);\n    printf(\"%d\\n\", a.score);\n    addByValue(a);\n    printf(\"%d\\n\", a.score);\n    addByPointer(&a);\n    printf(\"%d\\n\", a.score);\n    return 0;\n}"
+  },
+  {
+   "id": "9-p14",
+   "title": "用结构体求某日期是这一年的第几天",
+   "level": "hard",
+   "tags": [
+    "结构体",
+    "数组",
+    "闰年"
+   ],
+   "tag": [
+    "难题",
+    "常考"
+   ],
+   "desc": "用结构体表示日期（年、月、日），输入一个日期，输出它是这一年的第几天。",
+   "input": "一行，三个整数：年、月、日（1900 ≤ 年 ≤ 2100，日期保证合法）。",
+   "output": "输出一行，为这一天是该年的第几天。",
+   "samples": [
+    {
+     "in": "2024 3 1",
+     "out": "61"
+    }
+   ],
+   "tests": [
+    {
+     "in": "2024 3 1",
+     "out": "61"
+    },
+    {
+     "in": "2023 3 1",
+     "out": "60"
+    },
+    {
+     "in": "2024 12 31",
+     "out": "366"
+    },
+    {
+     "in": "2023 1 1",
+     "out": "1"
+    },
+    {
+     "in": "2000 2 29",
+     "out": "60"
+    }
+   ],
+   "hint": "用一个 12 个月的数组存每月天数，先算出前 m-1 个月的天数总和再加上日；如果是闰年且月份大于 2，还要把 2 月从 28 天改成 29 天（多加 1 天）。闰年条件是 (y%4==0 && y%100!=0) || y%400==0。",
+   "code": "#include <stdio.h>\n\nstruct Date\n{\n    int y;\n    int m;\n    int d;\n};\n\nint dayOfYear(struct Date t)\n{\n    int a[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};\n    int i, s = t.d;\n    if ((t.y % 4 == 0 && t.y % 100 != 0) || t.y % 400 == 0)\n        a[2] = 29;\n    for (i = 1; i < t.m; i++)\n        s = s + a[i];\n    return s;\n}\n\nint main()\n{\n    struct Date t;\n    scanf(\"%d%d%d\", &t.y, &t.m, &t.d);\n    printf(\"%d\\n\", dayOfYear(t));\n    return 0;\n}"
+  }
+ ]
+}

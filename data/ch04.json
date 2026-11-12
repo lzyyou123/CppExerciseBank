@@ -1,0 +1,1046 @@
+{
+ "id": "4",
+ "short": "第4章",
+ "name": "选择结构程序设计",
+ "color": "#7c3aed",
+ "intro": "教材第 4 章：关系运算符与逻辑运算符、if 单分支 / 双分支 / 多分支、if 嵌套、switch 语句。注意 else 的配对规则与条件表达式的书写。",
+ "choice": [
+  {
+   "id": "4-c1",
+   "level": "easy",
+   "q": "在 C 语言中，if 语句的条件表达式的值为多少时执行其后的语句？",
+   "options": [
+    "非 0",
+    "大于 0",
+    "等于 1",
+    "等于 0"
+   ],
+   "answer": 0,
+   "explain": "C 语言没有逻辑型，用 0 表示假，任何非 0 值都表示真。因此 if (5)、if (-1) 都成立。"
+  },
+  {
+   "id": "4-c2",
+   "level": "easy",
+   "q": "else 子句总是与哪个 if 配对？",
+   "options": [
+    "其前面最近且尚未配对的 if",
+    "第一个 if",
+    "外层 if",
+    "缩进对齐的那个 if"
+   ],
+   "answer": 0,
+   "explain": "C 语言规定 else 与它前面最近的、还没有配对的 if 配对，与书写缩进无关，写代码时要靠大括号避免歧义。"
+  },
+  {
+   "id": "4-c3",
+   "level": "easy",
+   "q": "设有 int x = 3; 则表达式 3 > 2 > 1 的值是？",
+   "options": [
+    "0",
+    "1",
+    "3",
+    "语法错误"
+   ],
+   "answer": 0,
+   "explain": "关系运算符从左向右结合：先算 3 > 2 得 1，再算 1 > 1 得 0。要判断 2 在 1 和 3 之间应写 x > 1 && x < 3。"
+  },
+  {
+   "id": "4-c4",
+   "level": "easy",
+   "q": "判断变量 x 是否在区间 [0, 10] 内，正确的表达式是？",
+   "options": [
+    "x >= 0 && x <= 10",
+    "0 <= x <= 10",
+    "x >= 0 || x <= 10",
+    "x >= 0 and x <= 10"
+   ],
+   "answer": 0,
+   "explain": "C 语言不能用数学上的连写不等式，必须用逻辑与 && 连接两个关系表达式。"
+  },
+  {
+   "id": "4-c5",
+   "level": "easy",
+   "q": "设有 int a = 0, b = 5; 执行表达式 a && b++ 后，b 的值是？",
+   "options": [
+    "5",
+    "6",
+    "0",
+    "1"
+   ],
+   "answer": 0,
+   "explain": "&& 具有短路特性：左操作数为 0 时右边不再计算，所以 b++ 没有执行，b 仍为 5。"
+  },
+  {
+   "id": "4-c6",
+   "level": "easy",
+   "q": "若要判断字符变量 ch 是不是大写字母，正确的条件是？",
+   "options": [
+    "ch >= 'A' && ch <= 'Z'",
+    "ch >= A && ch <= Z",
+    "'A' <= ch <= 'Z'",
+    "ch > 'A' || ch < 'Z'"
+   ],
+   "answer": 0,
+   "explain": "字符常量必须加单引号，且要用逻辑与连接两个比较；用 || 会把几乎所有字符都判为真。"
+  },
+  {
+   "id": "4-c7",
+   "level": "mid",
+   "q": "switch 语句中，每个 case 分支末尾通常要加什么语句跳出？",
+   "options": [
+    "break;",
+    "continue;",
+    "return;",
+    "goto;"
+   ],
+   "answer": 0,
+   "explain": "不加 break 会发生「穿透」，继续执行后面的 case 分支；continue 只用于循环。"
+  },
+  {
+   "id": "4-c8",
+   "level": "mid",
+   "q": "判断年份 y 是闰年的正确条件是？",
+   "options": [
+    "(y % 4 == 0 && y % 100 != 0) || y % 400 == 0",
+    "y % 4 == 0 || y % 400 == 0",
+    "y % 4 == 0 && y % 100 == 0",
+    "y % 100 == 0"
+   ],
+   "answer": 0,
+   "explain": "闰年规则：能被 4 整除且不能被 100 整除，或者能被 400 整除。"
+  },
+  {
+   "id": "4-c9",
+   "level": "mid",
+   "q": "若写成 if (x = 0) 而不是 if (x == 0)，会出现什么问题？",
+   "options": [
+    "条件永远为假，同时 x 被赋值为 0",
+    "编译报错无法通过",
+    "条件永远为真",
+    "与 if (x == 0) 效果完全相同"
+   ],
+   "answer": 0,
+   "explain": "= 是赋值运算符，表达式的值是赋的值 0，因此条件恒为假，而且 x 的原值被破坏。这是初学者最常见的错误之一。"
+  },
+  {
+   "id": "4-c10",
+   "level": "mid",
+   "q": "下列运算符中优先级最高的是？",
+   "options": [
+    "!",
+    "&&",
+    "||",
+    "=="
+   ],
+   "answer": 0,
+   "explain": "优先级从高到低为：!（逻辑非）> 关系运算符 > == / != > && > ||。所以 !a == b 是先取非再比较。"
+  },
+  {
+   "id": "4-c11",
+   "level": "easy",
+   "q": "以下程序的输出结果是？",
+   "code": "int a = 5, b = 3;\nif (a > b)\n    if (a > 0) printf(\"A\");\n    else printf(\"B\");",
+   "options": [
+    "A",
+    "B",
+    "AB",
+    "无输出"
+   ],
+   "answer": 0,
+   "explain": "else 与最近的 if 配对，即与 if (a > 0) 配对。a>b 成立进入内层，a>0 也成立，输出 A，else 分支不执行。"
+  },
+  {
+   "id": "4-c12",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "int x = 2, s = 0;\nswitch (x)\n{\ncase 1: s = s + 1;\ncase 2: s = s + 2;\ncase 3: s = s + 3; break;\ndefault: s = 100;\n}\nprintf(\"%d\", s);",
+   "options": [
+    "5",
+    "2",
+    "3",
+    "100"
+   ],
+   "answer": 0,
+   "explain": "switch 从匹配的 case 2 处开始，但没有 break，会继续向下贯穿执行 case 3：s 先得 2，再得 5，遇到 break 结束。这就是「case 贯穿」。"
+  },
+  {
+   "id": "4-c13",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "int i = 0;\nif (i++ && i++)\n    printf(\"T%d\", i);\nelse\n    printf(\"F%d\", i);",
+   "options": [
+    "F1",
+    "T1",
+    "F2",
+    "T2"
+   ],
+   "answer": 0,
+   "explain": "i++ 是后置自增，表达式值为 0（假），&& 发生短路，右边第二个 i++ 不再执行；只有第一个 i++ 让 i 变成 1，走 else 输出 F1。"
+  },
+  {
+   "id": "4-c14",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "int a = 3, b = 4, c = 5;\nprintf(\"%d\", a > b ? a : b > c ? b : c);",
+   "options": [
+    "5",
+    "4",
+    "3",
+    "1"
+   ],
+   "answer": 0,
+   "explain": "条件运算符从右向左结合：先算 b>c?b:c，4>5 不成立取 c=5；再算 a>b?3:5，3>4 不成立取 5。故输出 5。"
+  },
+  {
+   "id": "4-c15",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "int x = 3;\nprintf(\"%d %d\", 1 < x < 5, 5 < x < 1);",
+   "options": [
+    "1 1",
+    "1 0",
+    "0 1",
+    "0 0"
+   ],
+   "answer": 0,
+   "explain": "关系运算符从左向右结合：1<x 得 1，再算 1<5 得 1；5<x 得 0，再算 0<1 得 1。两个结果都是 1。判断区间不能写成 1<x<5 这种连续形式。"
+  },
+  {
+   "id": "4-c16",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "char ch = 'B';\nswitch (ch)\n{\ncase 'A': printf(\"90+\"); break;\ncase 'B':\ncase 'C': printf(\"60-89\"); break;\ndefault: printf(\"fail\");\n}",
+   "options": [
+    "60-89",
+    "90+",
+    "60-8990+",
+    "fail"
+   ],
+   "answer": 0,
+   "explain": "ch='B' 匹配 case 'B'，该 case 后没有语句，直接贯穿到 case 'C' 执行 printf(\"60-89\")，然后 break 结束。多个 case 共用一段代码是常见写法。"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错",
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    int a = 0, b = 1, x = 0;\n    if (a > 0)\n        if (b > 0) x = 1;\n        else       x = 2;\n    printf(\"%d\", x);\n    return 0;\n}",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "编译错误"
+   ],
+   "answer": 0,
+   "expect": "0",
+   "explain": "else 与最近的未配对 if 结合，else 属于内层 if。外层条件 a>0 为假，整个 if 语句被跳过，x 仍为 0。",
+   "id": "4-c17"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    int n = 2;\n    switch (n)\n    {\n        case 1: printf(\"A\");\n        case 2: printf(\"B\");\n        case 3: printf(\"C\"); break;\n        default: printf(\"D\");\n    }\n    return 0;\n}",
+   "options": [
+    "B",
+    "BC",
+    "ABC",
+    "BCD"
+   ],
+   "answer": 1,
+   "expect": "BC",
+   "explain": "case 只是入口标签，没有 break 就会继续往下执行（fall through）。本题从 case 2 进入，依次输出 B、C，遇 break 才跳出。",
+   "id": "4-c18"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错",
+    "难题"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    int i = 0;\n    if (i++ && i++) { }\n    printf(\"%d\", i);\n    return 0;\n}",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "answer": 1,
+   "expect": "1",
+   "explain": "&& 具有短路特性：左边 i++ 先用 0 参与判断，判断为假后右边的 i++ 根本不会执行。因此 i 只自增一次，结果为 1。",
+   "id": "4-c19"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "难题"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    int a = 1, b = 3, c = 2;\n    printf(\"%d\", a > b ? a : b > c ? b : c);\n    return 0;\n}",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "0"
+   ],
+   "answer": 2,
+   "expect": "3",
+   "explain": "条件运算符右结合，等价于 a>b ? a : (b>c ? b : c)。a>b 为假，取后者；b>c 为真取 b，即 3。",
+   "id": "4-c20"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    int x = 1, y = 0;\n    switch (x)\n    {\n        case 0: y++;\n        case 1: y += 2; break;\n        case 2: y += 3;\n    }\n    printf(\"%d\", y);\n    return 0;\n}",
+   "options": [
+    "0",
+    "2",
+    "3",
+    "5"
+   ],
+   "answer": 1,
+   "expect": "2",
+   "explain": "x=1 从 case 1 进入，执行 y+=2 后遇 break 跳出，y=2。case 0 的分支不会被执行，因为它只是一个入口标签。",
+   "id": "4-c21"
+  }
+ ],
+ "coding": [
+  {
+   "id": "4-1",
+   "title": "判断奇数还是偶数",
+   "level": "easy",
+   "tags": [
+    "if-else",
+    "取余"
+   ],
+   "desc": "输入一个整数，判断它是奇数还是偶数。",
+   "input": "一行一个整数 n。",
+   "output": "一行输出「偶数」或「奇数」",
+   "samples": [
+    {
+     "in": "4",
+     "out": "偶数"
+    }
+   ],
+   "tests": [
+    {
+     "in": "4",
+     "out": "偶数"
+    },
+    {
+     "in": "7",
+     "out": "奇数"
+    },
+    {
+     "in": "0",
+     "out": "偶数"
+    },
+    {
+     "in": "-3",
+     "out": "奇数"
+    },
+    {
+     "in": "101",
+     "out": "奇数"
+    }
+   ],
+   "hint": "用 n % 2 判断：余数为 0 是偶数；结果为负数时余数也是负数，所以用 == 0 判断更稳妥。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    if (n % 2 == 0)\n        printf(\"偶数\\n\");\n    else\n        printf(\"奇数\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-2",
+   "title": "判断闰年",
+   "level": "mid",
+   "tags": [
+    "逻辑表达式"
+   ],
+   "desc": "输入一个年份，判断它是不是闰年。闰年规则：能被 4 整除但不能被 100 整除，或者能被 400 整除。",
+   "input": "一行一个整数 y，表示年份。",
+   "output": "一行输出「是闰年」或「不是闰年」",
+   "samples": [
+    {
+     "in": "2024",
+     "out": "是闰年"
+    }
+   ],
+   "tests": [
+    {
+     "in": "2024",
+     "out": "是闰年"
+    },
+    {
+     "in": "1900",
+     "out": "不是闰年"
+    },
+    {
+     "in": "2000",
+     "out": "是闰年"
+    },
+    {
+     "in": "2023",
+     "out": "不是闰年"
+    },
+    {
+     "in": "1600",
+     "out": "是闰年"
+    }
+   ],
+   "hint": "把两个条件用逻辑或连接：((y % 4 == 0 && y % 100 != 0) || y % 400 == 0)，注意括号不要漏。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int y;\n    scanf(\"%d\", &y);\n    if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0)\n        printf(\"是闰年\\n\");\n    else\n        printf(\"不是闰年\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-3",
+   "title": "三个数中的最大值",
+   "level": "easy",
+   "tags": [
+    "if-else",
+    "比较"
+   ],
+   "desc": "输入三个整数，输出其中最大的一个。",
+   "input": "一行三个整数，用空格分隔。",
+   "output": "一行一个整数，为三个数中的最大值。",
+   "samples": [
+    {
+     "in": "3 9 5",
+     "out": "9"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3 9 5",
+     "out": "9"
+    },
+    {
+     "in": "10 10 2",
+     "out": "10"
+    },
+    {
+     "in": "-1 -5 -3",
+     "out": "-1"
+    },
+    {
+     "in": "0 0 0",
+     "out": "0"
+    },
+    {
+     "in": "7 2 9",
+     "out": "9"
+    }
+   ],
+   "hint": "可以先假设第一个数最大，再依次与后两个数比较，谁大就把 max 换成谁。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b, c, max;\n    scanf(\"%d %d %d\", &a, &b, &c);\n    max = a;\n    if (b > max)\n        max = b;\n    if (c > max)\n        max = c;\n    printf(\"%d\\n\", max);\n    return 0;\n}"
+  },
+  {
+   "id": "4-4",
+   "title": "分段函数求值",
+   "level": "mid",
+   "tags": [
+    "多分支",
+    "if-else if"
+   ],
+   "desc": "按下面的分段函数求 y 的值：当 x < 0 时 y = x² + 1；当 0 ≤ x < 10 时 y = 2x + 1；当 x ≥ 10 时 y = x - 5。",
+   "input": "一行一个实数 x。",
+   "output": "一行一个实数，为 y 的值，保留两位小数。",
+   "samples": [
+    {
+     "in": "-2",
+     "out": "5.00"
+    }
+   ],
+   "tests": [
+    {
+     "in": "-2",
+     "out": "5.00"
+    },
+    {
+     "in": "0",
+     "out": "1.00"
+    },
+    {
+     "in": "5",
+     "out": "11.00"
+    },
+    {
+     "in": "10",
+     "out": "5.00"
+    },
+    {
+     "in": "-0.5",
+     "out": "1.25"
+    }
+   ],
+   "hint": "用 if ... else if ... else 三分支，条件按从小到大的顺序写，区间边界不要重复判断。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double x, y;\n    scanf(\"%lf\", &x);\n    if (x < 0)\n        y = x * x + 1;\n    else if (x < 10)\n        y = 2 * x + 1;\n    else\n        y = x - 5;\n    printf(\"%.2f\\n\", y);\n    return 0;\n}"
+  },
+  {
+   "id": "4-5",
+   "title": "成绩等级评定",
+   "level": "mid",
+   "tags": [
+    "多分支"
+   ],
+   "desc": "输入一个考试成绩（0~100 的整数），按下表输出等级：90 分及以上为 A，80~89 为 B，70~79 为 C，60~69 为 D，60 分以下为 E。",
+   "input": "一行一个整数 score（0 ≤ score ≤ 100）。",
+   "output": "一行一个大写字母，表示等级。",
+   "samples": [
+    {
+     "in": "95",
+     "out": "A"
+    }
+   ],
+   "tests": [
+    {
+     "in": "95",
+     "out": "A"
+    },
+    {
+     "in": "90",
+     "out": "A"
+    },
+    {
+     "in": "85",
+     "out": "B"
+    },
+    {
+     "in": "60",
+     "out": "D"
+    },
+    {
+     "in": "42",
+     "out": "E"
+    }
+   ],
+   "hint": "从高分往低分依次判断：if (score >= 90) ... else if (score >= 80) ... 后面不用再判断上限。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int score;\n    scanf(\"%d\", &score);\n    if (score >= 90)\n        printf(\"A\\n\");\n    else if (score >= 80)\n        printf(\"B\\n\");\n    else if (score >= 70)\n        printf(\"C\\n\");\n    else if (score >= 60)\n        printf(\"D\\n\");\n    else\n        printf(\"E\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-6",
+   "title": "能否构成三角形",
+   "level": "mid",
+   "tags": [
+    "逻辑与",
+    "if-else"
+   ],
+   "desc": "输入三条边的长度，判断它们能否构成三角形。判定条件：任意两边之和大于第三边。",
+   "input": "一行三个实数，为三条边长。",
+   "output": "一行输出「能构成三角形」或「不能构成三角形」",
+   "samples": [
+    {
+     "in": "3 4 5",
+     "out": "能构成三角形"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3 4 5",
+     "out": "能构成三角形"
+    },
+    {
+     "in": "1 2 3",
+     "out": "不能构成三角形"
+    },
+    {
+     "in": "5 5 5",
+     "out": "能构成三角形"
+    },
+    {
+     "in": "2 3 10",
+     "out": "不能构成三角形"
+    },
+    {
+     "in": "6 8 10",
+     "out": "能构成三角形"
+    }
+   ],
+   "hint": "任意两边之和大于第三边，等价于两个较短边之和大于最长边，也可以三个条件用 && 连接一次写完。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double a, b, c;\n    scanf(\"%lf %lf %lf\", &a, &b, &c);\n    if (a + b > c && a + c > b && b + c > a)\n        printf(\"能构成三角形\\n\");\n    else\n        printf(\"不能构成三角形\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-7",
+   "title": "求绝对值",
+   "level": "easy",
+   "tags": [
+    "if"
+   ],
+   "desc": "输入一个实数，输出它的绝对值。",
+   "input": "一行一个实数 x。",
+   "output": "一行一个实数，为 |x|，保留两位小数。",
+   "samples": [
+    {
+     "in": "-3.5",
+     "out": "3.50"
+    }
+   ],
+   "tests": [
+    {
+     "in": "-3.5",
+     "out": "3.50"
+    },
+    {
+     "in": "2.75",
+     "out": "2.75"
+    },
+    {
+     "in": "0",
+     "out": "0.00"
+    },
+    {
+     "in": "-0.1",
+     "out": "0.10"
+    },
+    {
+     "in": "12",
+     "out": "12.00"
+    }
+   ],
+   "hint": "如果 x 小于 0，就把 x 变成 -x，再输出；不要用 math.h 里的 fabs，用 if 自己写。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double x;\n    scanf(\"%lf\", &x);\n    if (x < 0)\n        x = -x;\n    printf(\"%.2f\\n\", x);\n    return 0;\n}"
+  },
+  {
+   "id": "4-8",
+   "title": "快递运费计算",
+   "level": "mid",
+   "tags": [
+    "分段计费",
+    "if-else"
+   ],
+   "desc": "某快递首重 1 公斤收费 10 元，超过 1 公斤的部分每公斤加收 5 元（本题重量均为整公斤）。输入包裹重量，求运费。",
+   "input": "一行一个正整数 w（单位：公斤，1 ≤ w ≤ 100）。",
+   "output": "一行一个整数，为应付运费。",
+   "samples": [
+    {
+     "in": "1",
+     "out": "10"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1",
+     "out": "10"
+    },
+    {
+     "in": "2",
+     "out": "15"
+    },
+    {
+     "in": "5",
+     "out": "30"
+    },
+    {
+     "in": "10",
+     "out": "55"
+    },
+    {
+     "in": "3",
+     "out": "20"
+    }
+   ],
+   "hint": "分两种情况：w <= 1 时运费 10 元；否则运费 = 10 + (w - 1) * 5。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int w, fee;\n    scanf(\"%d\", &w);\n    if (w <= 1)\n        fee = 10;\n    else\n        fee = 10 + (w - 1) * 5;\n    printf(\"%d\\n\", fee);\n    return 0;\n}"
+  },
+  {
+   "id": "4-9",
+   "title": "手机套餐比较",
+   "level": "hard",
+   "tags": [
+    "多分支",
+    "综合"
+   ],
+   "desc": "两种手机流量套餐：A 套餐月租 30 元含 10GB 流量，超出部分每 GB 收 5 元；B 套餐无月租，每 GB 收 3 元。输入本月使用流量（整 GB），输出两种套餐的费用以及更划算的那个。",
+   "input": "一行一个整数 g（0 ≤ g ≤ 100），表示本月流量使用量。",
+   "output": "共三行。第一行为 A 套餐费用，第二行为 B 套餐费用，第三行输出「A」或「B」或「相同」，表示费用更低的套餐",
+   "samples": [
+    {
+     "in": "5",
+     "out": "30\n15\nB"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5",
+     "out": "30\n15\nB"
+    },
+    {
+     "in": "10",
+     "out": "30\n30\n相同"
+    },
+    {
+     "in": "20",
+     "out": "80\n60\nB"
+    },
+    {
+     "in": "0",
+     "out": "30\n0\nB"
+    },
+    {
+     "in": "15",
+     "out": "55\n45\nB"
+    }
+   ],
+   "hint": "先分别算出两种费用，再用 if / else if / else 比较：A 便宜输出 A，B 便宜输出 B，相等输出「相同」。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int g, a, b;\n    scanf(\"%d\", &g);\n    if (g <= 10)\n        a = 30;\n    else\n        a = 30 + (g - 10) * 5;\n    b = 3 * g;\n    printf(\"%d\\n\", a);\n    printf(\"%d\\n\", b);\n    if (a < b)\n        printf(\"A\\n\");\n    else if (b < a)\n        printf(\"B\\n\");\n    else\n        printf(\"相同\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-10",
+   "title": "判断字符类别",
+   "level": "mid",
+   "tags": [
+    "字符比较",
+    "逻辑与"
+   ],
+   "desc": "输入一个字符，判断它属于大写字母、小写字母、数字还是其他字符。",
+   "input": "一行一个字符。",
+   "output": "一行输出「大写字母」「小写字母」「数字」或「其他字符」",
+   "samples": [
+    {
+     "in": "G",
+     "out": "大写字母"
+    }
+   ],
+   "tests": [
+    {
+     "in": "G",
+     "out": "大写字母"
+    },
+    {
+     "in": "q",
+     "out": "小写字母"
+    },
+    {
+     "in": "7",
+     "out": "数字"
+    },
+    {
+     "in": "#",
+     "out": "其他字符"
+    },
+    {
+     "in": "M",
+     "out": "大写字母"
+    }
+   ],
+   "hint": "按 ASCII 码区间判断：'A'~'Z'、'a'~'z'、'0'~'9'，用 else if 依次判断。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char ch;\n    scanf(\"%c\", &ch);\n    if (ch >= 'A' && ch <= 'Z')\n        printf(\"大写字母\\n\");\n    else if (ch >= 'a' && ch <= 'z')\n        printf(\"小写字母\\n\");\n    else if (ch >= '0' && ch <= '9')\n        printf(\"数字\\n\");\n    else\n        printf(\"其他字符\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-11",
+   "title": "能同时被 3 和 5 整除吗",
+   "level": "easy",
+   "tags": [
+    "if",
+    "逻辑运算"
+   ],
+   "desc": "输入一个整数，判断它能否同时被 3 和 5 整除。",
+   "input": "一行一个整数 n（-10000 ≤ n ≤ 10000）。",
+   "output": "若能同时被 3 和 5 整除，输出 yes；否则输出 no。",
+   "samples": [
+    {
+     "in": "15",
+     "out": "yes"
+    }
+   ],
+   "tests": [
+    {
+     "in": "15",
+     "out": "yes"
+    },
+    {
+     "in": "9",
+     "out": "no"
+    },
+    {
+     "in": "30",
+     "out": "yes"
+    },
+    {
+     "in": "-15",
+     "out": "yes"
+    },
+    {
+     "in": "7",
+     "out": "no"
+    }
+   ],
+   "hint": "条件写成 n % 3 == 0 && n % 5 == 0，两个条件都要成立才能用 &&；不能用 & 或逗号表达式。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    if (n % 3 == 0 && n % 5 == 0)\n        printf(\"yes\\n\");\n    else\n        printf(\"no\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-12",
+   "title": "简易计算器",
+   "level": "mid",
+   "tags": [
+    "switch",
+    "分支"
+   ],
+   "desc": "输入一个形如 a op b 的算式（op 为 + - * / 之一），输出运算结果。若除数为 0，输出 error。",
+   "input": "一行：整数 a、运算符 op、整数 b，用空格分隔（除法按整数除法）。",
+   "output": "输出一行运算结果；除数为 0 时输出 error。",
+   "samples": [
+    {
+     "in": "12 + 5",
+     "out": "17"
+    }
+   ],
+   "tests": [
+    {
+     "in": "12 + 5",
+     "out": "17"
+    },
+    {
+     "in": "12 - 5",
+     "out": "7"
+    },
+    {
+     "in": "7 * 8",
+     "out": "56"
+    },
+    {
+     "in": "20 / 4",
+     "out": "5"
+    },
+    {
+     "in": "9 / 0",
+     "out": "error"
+    }
+   ],
+   "hint": "用 switch (op) 分别处理四种运算符，每个 case 后记得 break；division 前要先判断 b 是否为 0。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b;\n    char op;\n    scanf(\"%d %c %d\", &a, &op, &b);\n    switch (op)\n    {\n        case '+': printf(\"%d\\n\", a + b); break;\n        case '-': printf(\"%d\\n\", a - b); break;\n        case '*': printf(\"%d\\n\", a * b); break;\n        case '/':\n            if (b == 0)\n                printf(\"error\\n\");\n            else\n                printf(\"%d\\n\", a / b);\n            break;\n        default: printf(\"error\\n\");\n    }\n    return 0;\n}"
+  },
+  {
+   "id": "4-13",
+   "title": "某年某月有多少天",
+   "level": "mid",
+   "tags": [
+    "switch",
+    "嵌套分支"
+   ],
+   "desc": "输入年份和月份，输出该月有多少天。闰年的判断规则：能被 4 整除且不能被 100 整除，或能被 400 整除。",
+   "input": "一行两个整数：年份 year 与月份 month（1 ≤ month ≤ 12），用空格分隔。",
+   "output": "输出一个整数，表示该月的天数。",
+   "samples": [
+    {
+     "in": "2024 2",
+     "out": "29"
+    }
+   ],
+   "tests": [
+    {
+     "in": "2024 2",
+     "out": "29"
+    },
+    {
+     "in": "2023 2",
+     "out": "28"
+    },
+    {
+     "in": "2000 2",
+     "out": "29"
+    },
+    {
+     "in": "1900 2",
+     "out": "28"
+    },
+    {
+     "in": "2024 11",
+     "out": "30"
+    }
+   ],
+   "hint": "1、3、5、7、8、10、12 月为 31 天，4、6、9、11 月为 30 天，2 月要再判断是否闰年：闰年 29 天，否则 28 天。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int y, m, days;\n    scanf(\"%d %d\", &y, &m);\n    switch (m)\n    {\n        case 1: case 3: case 5: case 7: case 8: case 10: case 12:\n            days = 31; break;\n        case 4: case 6: case 9: case 11:\n            days = 30; break;\n        case 2:\n            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0)\n                days = 29;\n            else\n                days = 28;\n            break;\n        default:\n            days = 0;\n    }\n    printf(\"%d\\n\", days);\n    return 0;\n}"
+  },
+  {
+   "id": "4-p14",
+   "title": "三个整数从小到大排序",
+   "level": "hard",
+   "tags": [
+    "选择结构",
+    "if",
+    "交换"
+   ],
+   "tag": [
+    "难题",
+    "常考"
+   ],
+   "desc": "输入三个整数，把它们按从小到大的顺序输出。",
+   "input": "一行，三个整数（-10000 ≤ 整数 ≤ 10000）。",
+   "output": "输出一行，三个整数从小到大排列，数与数之间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "3 1 2",
+     "out": "1 2 3"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3 1 2",
+     "out": "1 2 3"
+    },
+    {
+     "in": "1 2 3",
+     "out": "1 2 3"
+    },
+    {
+     "in": "5 5 1",
+     "out": "1 5 5"
+    },
+    {
+     "in": "9 8 7",
+     "out": "7 8 9"
+    },
+    {
+     "in": "-1 0 -5",
+     "out": "-5 -1 0"
+    }
+   ],
+   "hint": "用三次比较交换：先让 a≤b，再让 a≤c，最后让 b≤c。每次比较若不满足顺序就借助临时变量交换，不用写复杂的分支嵌套。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b, c, t;\n    scanf(\"%d%d%d\", &a, &b, &c);\n    if (a > b)\n    {\n        t = a;\n        a = b;\n        b = t;\n    }\n    if (a > c)\n    {\n        t = a;\n        a = c;\n        c = t;\n    }\n    if (b > c)\n    {\n        t = b;\n        b = c;\n        c = t;\n    }\n    printf(\"%d %d %d\\n\", a, b, c);\n    return 0;\n}"
+  },
+  {
+   "id": "4-p15",
+   "title": "判断三角形的类型",
+   "level": "hard",
+   "tags": [
+    "选择结构",
+    "多分支",
+    "勾股定理"
+   ],
+   "tag": [
+    "难题",
+    "易错"
+   ],
+   "desc": "输入三条边的长度（整数），判断它们能否构成三角形；若能，再判断是等边、等腰、直角还是一般三角形。",
+   "input": "一行，三个正整数（1 ≤ 边长 ≤ 1000）。",
+   "output": "输出一行：不能构成三角形输出 none；等边三角形输出 equilateral；等腰三角形输出 isosceles；直角三角形输出 right；其他输出 scalene。",
+   "samples": [
+    {
+     "in": "3 4 5",
+     "out": "right"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3 4 5",
+     "out": "right"
+    },
+    {
+     "in": "3 3 3",
+     "out": "equilateral"
+    },
+    {
+     "in": "3 3 4",
+     "out": "isosceles"
+    },
+    {
+     "in": "1 2 3",
+     "out": "none"
+    },
+    {
+     "in": "2 3 4",
+     "out": "scalene"
+    }
+   ],
+   "hint": "先用任意两边之和大于第三边排除不成立的情况（注意要写三组判断并注意 <= ）；再依次判断三边相等、勾股定理（a*a+b*b==c*c，三组要都试）、两边相等。判断顺序决定优先级。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b, c;\n    scanf(\"%d%d%d\", &a, &b, &c);\n    if (a + b <= c || a + c <= b || b + c <= a)\n        printf(\"none\\n\");\n    else if (a == b && b == c)\n        printf(\"equilateral\\n\");\n    else if (a * a + b * b == c * c || a * a + c * c == b * b || b * b + c * c == a * a)\n        printf(\"right\\n\");\n    else if (a == b || b == c || a == c)\n        printf(\"isosceles\\n\");\n    else\n        printf(\"scalene\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-p16",
+   "title": "BMI 指数与健康等级",
+   "level": "mid",
+   "tags": [
+    "选择结构",
+    "浮点比较",
+    "多分支"
+   ],
+   "tag": [
+    "常考"
+   ],
+   "desc": "输入身高（米）和体重（千克），先输出 BMI 指数（保留 2 位小数），再输出健康等级。",
+   "input": "一行，两个实数：身高 h（米）和体重 w（千克）。",
+   "output": "共两行：第一行为 BMI 指数，保留 2 位小数；第二行为等级，BMI<18.5 输出 thin，18.5≤BMI<24 输出 normal，24≤BMI<28 输出 overweight，BMI≥28 输出 obese。",
+   "samples": [
+    {
+     "in": "1.75 70",
+     "out": "22.86\nnormal"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1.75 70",
+     "out": "22.86\nnormal"
+    },
+    {
+     "in": "1.70 50",
+     "out": "17.30\nthin"
+    },
+    {
+     "in": "1.60 65",
+     "out": "25.39\noverweight"
+    },
+    {
+     "in": "1.75 90",
+     "out": "29.39\nobese"
+    },
+    {
+     "in": "1.80 80",
+     "out": "24.69\noverweight"
+    }
+   ],
+   "hint": "BMI = w / (h*h)。多分支用 if ... else if ... else 从上往下判断，条件只写上限即可，因为前面的分支已经排除了更小的情况。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double h, w, bmi;\n    scanf(\"%lf%lf\", &h, &w);\n    bmi = w / (h * h);\n    printf(\"%.2f\\n\", bmi);\n    if (bmi < 18.5)\n        printf(\"thin\\n\");\n    else if (bmi < 24)\n        printf(\"normal\\n\");\n    else if (bmi < 28)\n        printf(\"overweight\\n\");\n    else\n        printf(\"obese\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "4-p17",
+   "title": "判断元音字母还是辅音字母",
+   "level": "mid",
+   "tags": [
+    "switch",
+    "break",
+    "字符判断"
+   ],
+   "tag": [
+    "易错"
+   ],
+   "desc": "输入一个英文字母，判断它是元音字母（a、e、i、o、u，大小写都算）还是辅音字母。",
+   "input": "一行，一个英文字母。",
+   "output": "输出一行：元音字母输出 vowel，辅音字母输出 consonant。",
+   "samples": [
+    {
+     "in": "a",
+     "out": "vowel"
+    }
+   ],
+   "tests": [
+    {
+     "in": "a",
+     "out": "vowel"
+    },
+    {
+     "in": "Z",
+     "out": "consonant"
+    },
+    {
+     "in": "E",
+     "out": "vowel"
+    },
+    {
+     "in": "m",
+     "out": "consonant"
+    },
+    {
+     "in": "U",
+     "out": "vowel"
+    }
+   ],
+   "hint": "用 switch 时可以把多个 case 写在一起共用一段代码，例如 case 'a': case 'A': ...，但这段代码末尾必须有 break，否则会“穿透”到 default 输出错误结果。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char c;\n    scanf(\"%c\", &c);\n    switch (c)\n    {\n    case 'a':\n    case 'e':\n    case 'i':\n    case 'o':\n    case 'u':\n    case 'A':\n    case 'E':\n    case 'I':\n    case 'O':\n    case 'U':\n        printf(\"vowel\\n\");\n        break;\n    default:\n        printf(\"consonant\\n\");\n    }\n    return 0;\n}"
+  }
+ ]
+}

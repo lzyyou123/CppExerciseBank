@@ -1,0 +1,1048 @@
+{
+ "id": "2",
+ "short": "第2章",
+ "name": "基本数据类型",
+ "color": "#0891b2",
+ "intro": "教材第 2 章：整型、实型、字符型，常量与变量，数据类型转换，sizeof 运算符。本章只练数据类型本身，不涉及分支与循环。",
+ "choice": [
+  {
+   "id": "2-c1",
+   "level": "easy",
+   "q": "在常见的 32 位 / 64 位 Windows 编译器中，int 类型通常占几个字节？",
+   "options": [
+    "4",
+    "1",
+    "2",
+    "8"
+   ],
+   "answer": 0,
+   "explain": "Windows 平台 int 为 4 字节、short 2 字节、long 4 字节、long long 8 字节；char 恒为 1 字节。"
+  },
+  {
+   "id": "2-c2",
+   "level": "easy",
+   "q": "char ch = 'A'; 则表达式 ch + 1 的值是？",
+   "options": [
+    "66",
+    "65",
+    "B",
+    "1"
+   ],
+   "answer": 0,
+   "explain": "字符参与算术运算时先转成 ASCII 码，'A' 是 65，65 + 1 = 66；若用 %c 输出则是字符 B。"
+  },
+  {
+   "id": "2-c3",
+   "level": "easy",
+   "q": "已知 int a = 3; 则表达式 (float)a / 2 的值是？",
+   "options": [
+    "1.5",
+    "1",
+    "2",
+    "1.0"
+   ],
+   "answer": 0,
+   "explain": "先把 a 转成 float，再做浮点除法，得到 1.5；若写成 a / 2 则是整数除法得 1。"
+  },
+  {
+   "id": "2-c4",
+   "level": "easy",
+   "q": "把 3.9 赋给 int 型变量 n（n = 3.9;），n 的值是？",
+   "options": [
+    "3",
+    "4",
+    "3.9",
+    "编译错误"
+   ],
+   "answer": 0,
+   "explain": "实数赋给整型变量时只保留整数部分，直接截断而不是四舍五入，所以是 3。"
+  },
+  {
+   "id": "2-c5",
+   "level": "easy",
+   "q": "关于 float 与 double，下列说法正确的是？",
+   "options": [
+    "double 占 8 字节，精度比 float 高",
+    "float 占 8 字节",
+    "float 精度比 double 高",
+    "两者完全等价"
+   ],
+   "answer": 0,
+   "explain": "float 占 4 字节、约 7 位有效数字；double 占 8 字节、约 15 位有效数字，所以 double 精度更高。"
+  },
+  {
+   "id": "2-c6",
+   "level": "easy",
+   "q": "下列常量中，属于字符常量的是？",
+   "options": [
+    "'a'",
+    "\"a\"",
+    "a",
+    "97"
+   ],
+   "answer": 0,
+   "explain": "单引号括起来的是字符常量；双引号括起来的是字符串常量；不加引号的是标识符；97 是整型常量。"
+  },
+  {
+   "id": "2-c7",
+   "level": "mid",
+   "q": "下列定义常量的语句，正确的是？",
+   "options": [
+    "const float PI = 3.14159;",
+    "const float PI = 3.14159",
+    "float const PI;",
+    "PI = 3.14159;"
+   ],
+   "answer": 0,
+   "explain": "const 常量定义时必须初始化并加分号；用 const 修饰后不能再被赋值。"
+  },
+  {
+   "id": "2-c8",
+   "level": "mid",
+   "q": "表达式 'a' - 'A' 的值是？",
+   "options": [
+    "32",
+    "0",
+    "97",
+    "1"
+   ],
+   "answer": 0,
+   "explain": "'a' 的 ASCII 码是 97，'A' 是 65，97 - 65 = 32。小写字母比对应大写字母大 32，常用于大小写转换。"
+  },
+  {
+   "id": "2-c9",
+   "level": "mid",
+   "q": "若 int a = 7, b = 2; 则 a / b 与 a % b 的值分别是？",
+   "options": [
+    "3 和 1",
+    "3.5 和 1",
+    "3 和 0",
+    "4 和 1"
+   ],
+   "answer": 0,
+   "explain": "两个整数相除结果仍为整数，只取整数部分得 3；% 求余数得 1。"
+  },
+  {
+   "id": "2-c10",
+   "level": "mid",
+   "q": "printf 中输出 double 型数据应使用的格式符是？",
+   "options": [
+    "%f",
+    "%d",
+    "%c",
+    "%s"
+   ],
+   "answer": 0,
+   "explain": "%f 用于输出实数（float / double），%d 输出整数，%c 输出字符，%s 输出字符串。"
+  },
+  {
+   "id": "2-c11",
+   "level": "easy",
+   "q": "以下程序的输出结果是？",
+   "code": "int a = 5;\nprintf(\"%d\", a / 2 * 2);",
+   "options": [
+    "4",
+    "5",
+    "5.0",
+    "2"
+   ],
+   "answer": 0,
+   "explain": "a/2 是两个 int 相除，结果取整为 2，再乘 2 得 4，小数部分已经丢掉，不会恢复成 5。若要得到 5 需写 (double)a/2*2。"
+  },
+  {
+   "id": "2-c12",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "printf(\"%d %d\", -7 % 3, 7 % -3);",
+   "options": [
+    "-1 1",
+    "1 -1",
+    "-1 -1",
+    "1 1"
+   ],
+   "answer": 0,
+   "explain": "C 语言求余的结果符号与被除数相同：-7%3 中 -7 是被除数，结果为 -1；7%-3 中被除数是 7，结果为 1。"
+  },
+  {
+   "id": "2-c13",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "char c = 'a';\nprintf(\"%c,%d\", c, c);",
+   "options": [
+    "a,97",
+    "97,97",
+    "a,a",
+    "97,a"
+   ],
+   "answer": 0,
+   "explain": "char 变量存放的是字符的 ASCII 码。%c 按字符形式输出 a，%d 按整数形式输出它对应的 ASCII 码 97。"
+  },
+  {
+   "id": "2-c14",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "int i = 5;\nint a = i++;\nint b = i;\nprintf(\"%d,%d\", a, b);",
+   "options": [
+    "5,6",
+    "6,6",
+    "6,5",
+    "5,5"
+   ],
+   "answer": 0,
+   "explain": "i++ 是后置自增：先把 i 的当前值 5 赋给 a，i 再变 6，所以 a=5、b=6。若写 ++i 则 a、b 都是 6。"
+  },
+  {
+   "id": "2-c15",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "printf(\"%d %d\", (int)sizeof(int), (int)sizeof(char));",
+   "options": [
+    "4 1",
+    "2 1",
+    "4 2",
+    "8 1"
+   ],
+   "answer": 0,
+   "explain": "sizeof 求类型所占字节数，常见 32/64 位编译器下 int 占 4 字节、char 占 1 字节。sizeof 的结果是无符号整型，输出时加上 (int) 强制转换更规范。"
+  },
+  {
+   "id": "2-c16",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "double d = 3.99;\nint n = d;\nprintf(\"%d %d\", n, (int)(d + 0.5));",
+   "options": [
+    "3 4",
+    "4 4",
+    "3 3",
+    "4 3"
+   ],
+   "answer": 0,
+   "explain": "浮点数赋给整型变量只取整数部分，不四舍五入，故 n=3；d+0.5=4.49，再强制转换为 int 得 4。这就是用「加 0.5 再取整」实现四舍五入的经典写法。"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错",
+    "常考"
+   ],
+   "q": "int 为 32 位、short 为 16 位时，下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    short a = 32767;\n    a = a + 1;\n    printf(\"%d\", a);\n    return 0;\n}",
+   "options": [
+    "32768",
+    "-32768",
+    "0",
+    "32767"
+   ],
+   "answer": 1,
+   "expect": "-32768",
+   "explain": "short 占 16 位，最大值为 32767。加 1 后按补码回绕变成 -32768，这就是整型溢出，不会报错也不会变成更大正数。",
+   "id": "2-c17"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    int a = 3, b = 2;\n    printf(\"%d,%.2f\", a / b, (double)a / b);\n    return 0;\n}",
+   "options": [
+    "1,1.50",
+    "1.5,1.50",
+    "1,1.00",
+    "1.5,1.5"
+   ],
+   "answer": 0,
+   "expect": "1,1.50",
+   "explain": "两个 int 相除只做整数除法，小数被截断得 1；强制类型转换后有一个 double 参与运算，才按浮点除法得 1.50。",
+   "id": "2-c18"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    char c = 'a';\n    printf(\"%c,%d,%c\", c, c, c - 32);\n    return 0;\n}",
+   "options": [
+    "a,97,A",
+    "a,a,97",
+    "97,97,65",
+    "A,65,A"
+   ],
+   "answer": 0,
+   "expect": "a,97,A",
+   "explain": "字符按 ASCII 码存储，%c 输出字符本身、%d 输出其编码值；同一个变量用不同格式符输出会得到不同结果。'a'=97，减 32 得 65 即 'A'。",
+   "id": "2-c19"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    printf(\"%d,%d,%d,%d\", -7 / 2, -7 % 2, 7 / -2, 7 % -2);\n    return 0;\n}",
+   "options": [
+    "-3,-1,-3,1",
+    "-4,-1,-4,1",
+    "-3,-1,3,1",
+    "-3,1,-3,-1"
+   ],
+   "answer": 0,
+   "expect": "-3,-1,-3,1",
+   "explain": "C 的整数除法向零取整，-7/2 得 -3（不是 -4）；取余结果符号与被除数相同：-7%2=-1，7%-2=1。",
+   "id": "2-c20"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "难题",
+    "易错"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    double x = 0.1, y = 0.2;\n    printf(\"%d\", (x + y) == 0.3);\n    return 0;\n}",
+   "options": [
+    "1",
+    "0",
+    "0.3",
+    "编译错误"
+   ],
+   "answer": 1,
+   "expect": "0",
+   "explain": "0.1 和 0.2 无法用二进制浮点精确表示，相加后与 0.3 存在极小误差，因此相等比较为假。浮点数判断相等要用 fabs(x-y)<1e-6 这类方式。",
+   "id": "2-c21"
+  }
+ ],
+ "coding": [
+  {
+   "id": "2-1",
+   "title": "各种数据类型占几个字节",
+   "level": "mid",
+   "tags": [
+    "sizeof",
+    "数据类型"
+   ],
+   "desc": "用 sizeof 运算符输出 char、short、int、long、long long、float、double 各自占用的字节数。",
+   "input": "无输入。",
+   "output": "共 7 行，格式为「类型名 字节数」，例如「int 4」，顺序依次为 char、short、int、long、long long、float、double",
+   "samples": [
+    {
+     "in": "",
+     "out": "char 1\nshort 2\nint 4\nlong 4\nlong long 8\nfloat 4\ndouble 8"
+    }
+   ],
+   "tests": [
+    {
+     "in": "",
+     "out": "char 1\nshort 2\nint 4\nlong 4\nlong long 8\nfloat 4\ndouble 8"
+    },
+    {
+     "in": "",
+     "out": "char 1\nshort 2\nint 4\nlong 4\nlong long 8\nfloat 4\ndouble 8"
+    },
+    {
+     "in": "",
+     "out": "char 1\nshort 2\nint 4\nlong 4\nlong long 8\nfloat 4\ndouble 8"
+    },
+    {
+     "in": "",
+     "out": "char 1\nshort 2\nint 4\nlong 4\nlong long 8\nfloat 4\ndouble 8"
+    },
+    {
+     "in": "",
+     "out": "char 1\nshort 2\nint 4\nlong 4\nlong long 8\nfloat 4\ndouble 8"
+    }
+   ],
+   "hint": "sizeof(类型名) 得到该类型占的字节数，可以直接用 %d 输出。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    printf(\"char %d\\n\", sizeof(char));\n    printf(\"short %d\\n\", sizeof(short));\n    printf(\"int %d\\n\", sizeof(int));\n    printf(\"long %d\\n\", sizeof(long));\n    printf(\"long long %d\\n\", sizeof(long long));\n    printf(\"float %d\\n\", sizeof(float));\n    printf(\"double %d\\n\", sizeof(double));\n    return 0;\n}"
+  },
+  {
+   "id": "2-2",
+   "title": "字符与它的编码",
+   "level": "easy",
+   "tags": [
+    "char",
+    "ASCII"
+   ],
+   "desc": "输入一个字符，输出这个字符本身和它的 ASCII 码。",
+   "input": "一行一个字符。",
+   "output": "共两行。第一行为该字符本身，第二行为它的 ASCII 码（整数）。",
+   "samples": [
+    {
+     "in": "a",
+     "out": "a\n97"
+    }
+   ],
+   "tests": [
+    {
+     "in": "a",
+     "out": "a\n97"
+    },
+    {
+     "in": "A",
+     "out": "A\n65"
+    },
+    {
+     "in": "0",
+     "out": "0\n48"
+    },
+    {
+     "in": "z",
+     "out": "z\n122"
+    },
+    {
+     "in": "#",
+     "out": "#\n35"
+    }
+   ],
+   "hint": "用 %c 输出字符本身，用 %d 输出同一个变量的 ASCII 码。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char ch;\n    scanf(\"%c\", &ch);\n    printf(\"%c\\n\", ch);\n    printf(\"%d\\n\", ch);\n    return 0;\n}"
+  },
+  {
+   "id": "2-3",
+   "title": "小写字母转大写",
+   "level": "easy",
+   "tags": [
+    "char",
+    "字符运算"
+   ],
+   "desc": "输入一个小写字母，输出它对应的大写字母。",
+   "input": "一行一个小写字母（a~z）。",
+   "output": "一行一个大写字母。",
+   "samples": [
+    {
+     "in": "a",
+     "out": "A"
+    }
+   ],
+   "tests": [
+    {
+     "in": "a",
+     "out": "A"
+    },
+    {
+     "in": "d",
+     "out": "D"
+    },
+    {
+     "in": "m",
+     "out": "M"
+    },
+    {
+     "in": "z",
+     "out": "Z"
+    },
+    {
+     "in": "q",
+     "out": "Q"
+    }
+   ],
+   "hint": "小写字母比对应的大写字母的 ASCII 码大 32，所以写成 ch - 32；用 %c 输出。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char ch, up;\n    scanf(\"%c\", &ch);\n    up = ch - 32;\n    printf(\"%c\\n\", up);\n    return 0;\n}"
+  },
+  {
+   "id": "2-4",
+   "title": "商和余数",
+   "level": "easy",
+   "tags": [
+    "整除",
+    "取余"
+   ],
+   "desc": "输入两个整数，分别输出它们的商和余数。",
+   "input": "一行两个整数 a 和 b，b 不为 0。",
+   "output": "共两行。第一行为 a / b 的商，第二行为 a % b 的余数。",
+   "samples": [
+    {
+     "in": "7 3",
+     "out": "2\n1"
+    }
+   ],
+   "tests": [
+    {
+     "in": "7 3",
+     "out": "2\n1"
+    },
+    {
+     "in": "100 7",
+     "out": "14\n2"
+    },
+    {
+     "in": "9 9",
+     "out": "1\n0"
+    },
+    {
+     "in": "25 4",
+     "out": "6\n1"
+    },
+    {
+     "in": "-7 2",
+     "out": "-3\n-1"
+    }
+   ],
+   "hint": "/ 用于整除，% 用于求余数，两者都要求操作数是整数。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    printf(\"%d\\n\", a / b);\n    printf(\"%d\\n\", a % b);\n    return 0;\n}"
+  },
+  {
+   "id": "2-5",
+   "title": "精度差异对比",
+   "level": "mid",
+   "tags": [
+    "float",
+    "double",
+    "精度"
+   ],
+   "desc": "分别用 float 和 double 计算 1/3，并输出到小数点后 10 位，观察两者的差异。",
+   "input": "无输入。",
+   "output": "共两行。第一行为 float 的结果，第二行为 double 的结果，均保留十位小数。",
+   "samples": [
+    {
+     "in": "",
+     "out": "0.3333333433\n0.3333333333"
+    }
+   ],
+   "tests": [
+    {
+     "in": "",
+     "out": "0.3333333433\n0.3333333333"
+    },
+    {
+     "in": "",
+     "out": "0.3333333433\n0.3333333333"
+    },
+    {
+     "in": "",
+     "out": "0.3333333433\n0.3333333333"
+    },
+    {
+     "in": "",
+     "out": "0.3333333433\n0.3333333333"
+    },
+    {
+     "in": "",
+     "out": "0.3333333433\n0.3333333333"
+    }
+   ],
+   "hint": "写成 1.0f/3.0f 得到 float 结果，1.0/3.0 得到 double 结果；输出用 %.10f。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    float f;\n    double d;\n    f = 1.0f / 3.0f;\n    d = 1.0 / 3.0;\n    printf(\"%.10f\\n\", f);\n    printf(\"%.10f\\n\", d);\n    return 0;\n}"
+  },
+  {
+   "id": "2-6",
+   "title": "强制类型转换",
+   "level": "easy",
+   "tags": [
+    "强制转换"
+   ],
+   "desc": "输入一个实数，输出它取整后的结果。",
+   "input": "一行一个实数 x（可为负数）。",
+   "output": "一行一个整数，为 (int)x 的结果。",
+   "samples": [
+    {
+     "in": "3.9",
+     "out": "3"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3.9",
+     "out": "3"
+    },
+    {
+     "in": "-2.7",
+     "out": "-2"
+    },
+    {
+     "in": "0.99",
+     "out": "0"
+    },
+    {
+     "in": "100.0",
+     "out": "100"
+    },
+    {
+     "in": "-0.5",
+     "out": "0"
+    }
+   ],
+   "hint": "强制类型转换写成 (int)x，只保留整数部分，负数同样向 0 截断，例如 -2.7 变成 -2。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double x;\n    int n;\n    scanf(\"%lf\", &x);\n    n = (int)x;\n    printf(\"%d\\n\", n);\n    return 0;\n}"
+  },
+  {
+   "id": "2-7",
+   "title": "三门课的总分与平均分",
+   "level": "easy",
+   "tags": [
+    "算术运算",
+    "%.2f"
+   ],
+   "desc": "输入三门课的成绩，输出总分和平均分。",
+   "input": "一行三个整数，表示三门课成绩。",
+   "output": "共两行。第一行为总分（整数），第二行为平均分，保留两位小数。",
+   "samples": [
+    {
+     "in": "90 85 78",
+     "out": "253\n84.33"
+    }
+   ],
+   "tests": [
+    {
+     "in": "90 85 78",
+     "out": "253\n84.33"
+    },
+    {
+     "in": "60 60 60",
+     "out": "180\n60.00"
+    },
+    {
+     "in": "100 90 80",
+     "out": "270\n90.00"
+    },
+    {
+     "in": "45 67 88",
+     "out": "200\n66.67"
+    },
+    {
+     "in": "59 61 63",
+     "out": "183\n61.00"
+    }
+   ],
+   "hint": "平均分要写成 sum / 3.0，如果写 sum / 3 会做整除丢掉小数。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b, c, sum;\n    double avg;\n    scanf(\"%d %d %d\", &a, &b, &c);\n    sum = a + b + c;\n    avg = sum / 3.0;\n    printf(\"%d\\n\", sum);\n    printf(\"%.2f\\n\", avg);\n    return 0;\n}"
+  },
+  {
+   "id": "2-8",
+   "title": "商品总价",
+   "level": "easy",
+   "tags": [
+    "float",
+    "混合运算"
+   ],
+   "desc": "已知商品的单价和购买数量，求总价。",
+   "input": "一行一个实数和一个整数：单价、数量，用空格分隔。",
+   "output": "一行一个实数，为总价，保留两位小数。",
+   "samples": [
+    {
+     "in": "12.5 3",
+     "out": "37.50"
+    }
+   ],
+   "tests": [
+    {
+     "in": "12.5 3",
+     "out": "37.50"
+    },
+    {
+     "in": "9.9 10",
+     "out": "99.00"
+    },
+    {
+     "in": "0.5 7",
+     "out": "3.50"
+    },
+    {
+     "in": "33.33 3",
+     "out": "99.99"
+    },
+    {
+     "in": "100 1",
+     "out": "100.00"
+    }
+   ],
+   "hint": "单价用 double 保存，数量用 int，相乘结果自动为 double；输出用 %.2f。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double price, total;\n    int num;\n    scanf(\"%lf %d\", &price, &num);\n    total = price * num;\n    printf(\"%.2f\\n\", total);\n    return 0;\n}"
+  },
+  {
+   "id": "2-9",
+   "title": "圆柱的体积",
+   "level": "mid",
+   "tags": [
+    "常量",
+    "算术表达式"
+   ],
+   "desc": "已知圆柱的底面半径和高，求体积（圆周率取 3.14159）。",
+   "input": "一行两个实数：半径 r 和高 h。",
+   "output": "一行一个实数，为体积，保留两位小数。",
+   "samples": [
+    {
+     "in": "1 1",
+     "out": "3.14"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1 1",
+     "out": "3.14"
+    },
+    {
+     "in": "2 5",
+     "out": "62.83"
+    },
+    {
+     "in": "0.5 10",
+     "out": "7.85"
+    },
+    {
+     "in": "3 3",
+     "out": "84.82"
+    },
+    {
+     "in": "1.5 2.5",
+     "out": "17.67"
+    }
+   ],
+   "hint": "体积 = π × r² × h，r² 写成 r * r。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    double r, h, v;\n    scanf(\"%lf %lf\", &r, &h);\n    v = 3.14159 * r * r * h;\n    printf(\"%.2f\\n\", v);\n    return 0;\n}"
+  },
+  {
+   "id": "2-10",
+   "title": "整数转对应的字符",
+   "level": "mid",
+   "tags": [
+    "char",
+    "类型转换"
+   ],
+   "desc": "输入一个 32~126 之间的整数，输出它对应的字符。",
+   "input": "一行一个整数 n（32 ≤ n ≤ 126）。",
+   "output": "一行一个字符，为 ASCII 码 n 对应的字符。",
+   "samples": [
+    {
+     "in": "65",
+     "out": "A"
+    }
+   ],
+   "tests": [
+    {
+     "in": "65",
+     "out": "A"
+    },
+    {
+     "in": "97",
+     "out": "a"
+    },
+    {
+     "in": "48",
+     "out": "0"
+    },
+    {
+     "in": "32",
+     "out": ""
+    },
+    {
+     "in": "126",
+     "out": "~"
+    }
+   ],
+   "hint": "把整数赋给 char 变量，或用 %c 直接输出整数，都会按 ASCII 码转换；空格是 32。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n;\n    char ch;\n    scanf(\"%d\", &n);\n    ch = (char)n;\n    printf(\"%c\\n\", ch);\n    return 0;\n}"
+  },
+  {
+   "id": "2-11",
+   "title": "左移与右移运算",
+   "level": "mid",
+   "tags": [
+    "位运算",
+    "运算符"
+   ],
+   "desc": "输入整数 a 和位移位数 n，输出 a 左移 n 位和 a 右移 n 位的结果。",
+   "input": "一行两个整数 a 与 n（0 ≤ n ≤ 8，1 ≤ a ≤ 1000），用空格分隔。",
+   "output": "第一行输出 a << n 的结果，第二行输出 a >> n 的结果。",
+   "samples": [
+    {
+     "in": "5 1",
+     "out": "10\n2"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5 1",
+     "out": "10\n2"
+    },
+    {
+     "in": "8 2",
+     "out": "32\n2"
+    },
+    {
+     "in": "1 4",
+     "out": "16\n0"
+    },
+    {
+     "in": "100 3",
+     "out": "800\n12"
+    },
+    {
+     "in": "7 0",
+     "out": "7\n7"
+    }
+   ],
+   "hint": "左移 n 位相当于乘以 2 的 n 次方，右移 n 位相当于整除 2 的 n 次方（对正数而言）。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, n;\n    scanf(\"%d %d\", &a, &n);\n    printf(\"%d\\n\", a << n);\n    printf(\"%d\\n\", a >> n);\n    return 0;\n}"
+  },
+  {
+   "id": "2-12",
+   "title": "整数除法与浮点除法",
+   "level": "mid",
+   "tags": [
+    "强制类型转换",
+    "除法"
+   ],
+   "desc": "输入两个整数 a、b（b 不为 0），分别输出它们的整数除法结果和浮点除法结果。",
+   "input": "一行两个整数 a 与 b（1 ≤ a ≤ 1000，1 ≤ b ≤ 1000），用空格分隔。",
+   "output": "第一行输出 a / b 的整数结果，第二行输出 a / b 的实数结果（保留两位小数）。",
+   "samples": [
+    {
+     "in": "7 2",
+     "out": "3\n3.50"
+    }
+   ],
+   "tests": [
+    {
+     "in": "7 2",
+     "out": "3\n3.50"
+    },
+    {
+     "in": "100 8",
+     "out": "12\n12.50"
+    },
+    {
+     "in": "5 5",
+     "out": "1\n1.00"
+    },
+    {
+     "in": "1 3",
+     "out": "0\n0.33"
+    },
+    {
+     "in": "999 100",
+     "out": "9\n9.99"
+    }
+   ],
+   "hint": "a / b 两个操作数都是 int，结果仍为 int（舍去小数）；要得到实数结果必须把其中一个转成 double。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    printf(\"%d\\n\", a / b);\n    printf(\"%.2f\\n\", (double)a / b);\n    return 0;\n}"
+  },
+  {
+   "id": "2-13",
+   "title": "字母的后一个字符",
+   "level": "easy",
+   "tags": [
+    "字符",
+    "ASCII"
+   ],
+   "desc": "输入一个小写字母，输出它在字母表中的后一个字母，以及该字母对应的 ASCII 码。",
+   "input": "一行一个小写字母（'a' ~ 'y'）。",
+   "output": "第一行输出后一个字母，第二行输出该字母的 ASCII 码（整数）。",
+   "samples": [
+    {
+     "in": "a",
+     "out": "b\n98"
+    }
+   ],
+   "tests": [
+    {
+     "in": "a",
+     "out": "b\n98"
+    },
+    {
+     "in": "c",
+     "out": "d\n100"
+    },
+    {
+     "in": "x",
+     "out": "y\n121"
+    },
+    {
+     "in": "m",
+     "out": "n\n110"
+    },
+    {
+     "in": "y",
+     "out": "z\n122"
+    }
+   ],
+   "hint": "字符在 C 中以 ASCII 码存放，可以直接参与加法：c + 1 就是下一个字母，用 %c 输出字符、%d 输出编码。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char c;\n    scanf(\"%c\", &c);\n    c = c + 1;\n    printf(\"%c\\n\", c);\n    printf(\"%d\\n\", c);\n    return 0;\n}"
+  },
+  {
+   "id": "2-p14",
+   "title": "数字字符转成数值",
+   "level": "easy",
+   "tags": [
+    "字符",
+    "ASCII",
+    "类型转换"
+   ],
+   "tag": [
+    "常考"
+   ],
+   "desc": "输入一个数字字符（'0'~'9'），输出它所代表的整数以及该整数的平方。",
+   "input": "一行，一个数字字符。",
+   "output": "共两行：第一行为该字符对应的整数，第二行为该整数的平方。",
+   "samples": [
+    {
+     "in": "7",
+     "out": "7\n49"
+    }
+   ],
+   "tests": [
+    {
+     "in": "7",
+     "out": "7\n49"
+    },
+    {
+     "in": "0",
+     "out": "0\n0"
+    },
+    {
+     "in": "9",
+     "out": "9\n81"
+    },
+    {
+     "in": "5",
+     "out": "5\n25"
+    },
+    {
+     "in": "3",
+     "out": "3\n9"
+    }
+   ],
+   "hint": "数字字符的 ASCII 码是连续的，'0' 的码值是 48，所以字符 c 对应的数值是 c - '0'。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char c;\n    int v;\n    scanf(\"%c\", &c);\n    v = c - '0';\n    printf(\"%d\\n\", v);\n    printf(\"%d\\n\", v * v);\n    return 0;\n}"
+  },
+  {
+   "id": "2-p15",
+   "title": "两个大整数相乘（小心溢出）",
+   "level": "hard",
+   "tags": [
+    "数据类型",
+    "long long",
+    "溢出"
+   ],
+   "tag": [
+    "易错",
+    "难题"
+   ],
+   "desc": "输入两个整数 a 和 b，输出它们的乘积。注意乘积可能超出 int 的表示范围。",
+   "input": "一行，两个整数 a、b（-100000 ≤ a, b ≤ 100000）。",
+   "output": "输出一行，为 a 与 b 的乘积。",
+   "samples": [
+    {
+     "in": "100000 100000",
+     "out": "10000000000"
+    }
+   ],
+   "tests": [
+    {
+     "in": "100000 100000",
+     "out": "10000000000"
+    },
+    {
+     "in": "65536 65536",
+     "out": "4294967296"
+    },
+    {
+     "in": "46341 46341",
+     "out": "2147488281"
+    },
+    {
+     "in": "1000 1000",
+     "out": "1000000"
+    },
+    {
+     "in": "-50000 50000",
+     "out": "-2500000000"
+    }
+   ],
+   "hint": "int 只能存到约 21 亿，100000×100000=10^10 早就溢出了。要先把其中一个数转成 long long 再乘：printf(\"%lld\\n\", (long long)a * b)；直接用 %d 输出会得到错误结果。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int a, b;\n    scanf(\"%d%d\", &a, &b);\n    printf(\"%lld\\n\", (long long)a * b);\n    return 0;\n}"
+  },
+  {
+   "id": "2-p16",
+   "title": "字母大小写互换",
+   "level": "hard",
+   "tags": [
+    "位运算",
+    "字符",
+    "ASCII"
+   ],
+   "tag": [
+    "难题"
+   ],
+   "desc": "输入一个英文字母，输出它大小写互换后的字母（大写变小写，小写变大写）。",
+   "input": "一行，一个英文字母。",
+   "output": "输出一行，为互换大小写后的字母。",
+   "samples": [
+    {
+     "in": "a",
+     "out": "A"
+    }
+   ],
+   "tests": [
+    {
+     "in": "a",
+     "out": "A"
+    },
+    {
+     "in": "Z",
+     "out": "z"
+    },
+    {
+     "in": "m",
+     "out": "M"
+    },
+    {
+     "in": "B",
+     "out": "b"
+    },
+    {
+     "in": "x",
+     "out": "X"
+    }
+   ],
+   "hint": "大写字母与对应小写字母的 ASCII 码只差第 5 位（32），用异或即可互换：c ^ 32。也可以用条件表达式 c >= 'a' ? c - 32 : c + 32。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char c;\n    scanf(\"%c\", &c);\n    printf(\"%c\\n\", c ^ 32);\n    return 0;\n}"
+  },
+  {
+   "id": "2-p17",
+   "title": "整数的八进制与十六进制形式",
+   "level": "mid",
+   "tags": [
+    "格式输出",
+    "进制"
+   ],
+   "tag": [
+    "常考",
+    "易错"
+   ],
+   "desc": "输入一个非负整数 n，分行输出它的八进制形式和十六进制形式（小写字母）。",
+   "input": "一行，一个非负整数 n（0 ≤ n ≤ 100000）。",
+   "output": "共两行：第一行为八进制形式，第二行为十六进制形式。",
+   "samples": [
+    {
+     "in": "255",
+     "out": "377\nff"
+    }
+   ],
+   "tests": [
+    {
+     "in": "255",
+     "out": "377\nff"
+    },
+    {
+     "in": "8",
+     "out": "10\n8"
+    },
+    {
+     "in": "100",
+     "out": "144\n64"
+    },
+    {
+     "in": "4095",
+     "out": "7777\nfff"
+    },
+    {
+     "in": "16",
+     "out": "20\n10"
+    }
+   ],
+   "hint": "%o 输出八进制，%x 输出小写十六进制，%X 输出大写十六进制。注意输出的是形式，不是数值。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    printf(\"%o\\n\", n);\n    printf(\"%x\\n\", n);\n    return 0;\n}"
+  }
+ ]
+}

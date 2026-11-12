@@ -1,0 +1,914 @@
+{
+ "id": "6",
+ "short": "第6章",
+ "name": "函数",
+ "color": "#0f766e",
+ "intro": "教材第 6 章：函数的定义、声明与调用，形参与实参、值传递，return 语句与返回值，局部变量与全局变量，以及递归调用（阶乘、斐波那契、汉诺塔等经典模型）。",
+ "choice": [
+  {
+   "id": "6-c1",
+   "level": "easy",
+   "q": "下列关于函数定义的说法，正确的是？",
+   "options": [
+    "函数可以定义在另一个函数的内部",
+    "函数不能嵌套定义，但可以嵌套调用",
+    "一个程序只能有一个函数",
+    "函数名可以与同作用域的变量名相同"
+   ],
+   "answer": 1,
+   "explain": "C 语言的函数都是平行的，不能嵌套定义，但可以在一个函数中调用另一个函数（嵌套调用）。"
+  },
+  {
+   "id": "6-c2",
+   "level": "easy",
+   "q": "函数首部 int max(int a, int b) 中的 int 表示？",
+   "options": [
+    "形参的个数",
+    "函数返回值的类型",
+    "函数是一个整型变量",
+    "实参的类型"
+   ],
+   "answer": 1,
+   "explain": "函数首部最前面的类型是函数返回值的类型，括号内才是形参的类型与名字。"
+  },
+  {
+   "id": "6-c3",
+   "level": "easy",
+   "q": "若一个函数不需要向调用者返回结果，其类型应定义为？",
+   "options": [
+    "int",
+    "void",
+    "char",
+    "double"
+   ],
+   "answer": 1,
+   "explain": "void 表示空类型，函数不返回值，函数体中不能出现带回值的 return 语句。"
+  },
+  {
+   "id": "6-c4",
+   "level": "easy",
+   "q": "关于 C 语言函数调用时的值传递，说法正确的是？",
+   "options": [
+    "形参是实参的副本，形参的改变不影响实参",
+    "形参与实参共用同一存储单元",
+    "形参改变后实参随之改变",
+    "只能传递常量，不能传变量"
+   ],
+   "answer": 0,
+   "explain": "值传递是单向的：只把实参的值复制给形参，函数内修改形参不会影响实参。"
+  },
+  {
+   "id": "6-c5",
+   "level": "easy",
+   "q": "在函数内部定义的局部变量，其作用范围是？",
+   "options": [
+    "整个程序",
+    "从定义处开始到所在函数结束",
+    "整个源文件",
+    "从定义处到程序结束"
+   ],
+   "answer": 1,
+   "explain": "局部变量的作用域限于它所在的函数（或复合语句），离开该范围就不存在了。"
+  },
+  {
+   "id": "6-c6",
+   "level": "easy",
+   "q": "若全局变量与局部变量同名，在局部变量的作用域内？",
+   "options": [
+    "使用全局变量",
+    "使用局部变量，全局变量被屏蔽",
+    "编译出错",
+    "由编译器随机决定"
+   ],
+   "answer": 1,
+   "explain": "同名时局部变量优先，全局变量在该范围内被屏蔽，无法直接用名字访问。"
+  },
+  {
+   "id": "6-c7",
+   "level": "mid",
+   "q": "编写递归函数时必须具备的条件是？",
+   "options": [
+    "必须使用 for 循环",
+    "必须有结束递归的边界条件（含递推与回归两部分）",
+    "必须使用全局变量",
+    "必须有多个 return 语句"
+   ],
+   "answer": 1,
+   "explain": "递归要有递推公式，还必须有能终止递归的边界条件，否则会无限递归导致栈溢出。"
+  },
+  {
+   "id": "6-c8",
+   "level": "mid",
+   "q": "函数声明（原型）的作用是？",
+   "options": [
+    "为函数分配存储空间",
+    "在调用前告诉编译器函数的返回类型和参数情况",
+    "立即执行该函数",
+    "定义函数的局部变量"
+   ],
+   "answer": 1,
+   "explain": "函数声明只是给出函数的类型信息，让编译器在调用时能检查参数与返回值，函数体可以在别处定义。"
+  },
+  {
+   "id": "6-c9",
+   "level": "mid",
+   "q": "一个函数中可以出现多个 return 语句吗？",
+   "options": [
+    "不可以，只能有一个",
+    "可以，但每次调用只执行其中一个",
+    "可以，并且会全部执行",
+    "只能写在 if 语句内部"
+   ],
+   "answer": 1,
+   "explain": "可以有多个 return，程序执行到哪个就从哪个返回，其余不再执行。"
+  },
+  {
+   "id": "6-c10",
+   "level": "mid",
+   "q": "调用函数时，实参与形参应该？",
+   "options": [
+    "个数相同且类型匹配",
+    "个数可以任意",
+    "只要个数相同即可，类型随意",
+    "只要类型相同即可，个数随意"
+   ],
+   "answer": 0,
+   "explain": "实参的个数应与形参一致，类型也应一致或能自动转换，否则会出现编译警告或结果错误。"
+  },
+  {
+   "id": "6-c11",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "int x = 3, y = 8;\nswap(x, y);\nprintf(\"%d,%d\", x, y);",
+   "options": [
+    "3,8",
+    "8,3",
+    "8,8",
+    "3,3"
+   ],
+   "answer": 0,
+   "explain": "函数参数是值传递：形参 a、b 只是实参的副本，函数内交换的只是副本，x、y 不受影响，输出 3,8。要交换实参必须传地址（指针）。",
+   "pre": "void swap(int a, int b)\n{\n    int t = a;\n    a = b;\n    b = t;\n}"
+  },
+  {
+   "id": "6-c12",
+   "level": "mid",
+   "q": "以下程序的输出结果是？",
+   "code": "printf(\"%d\", f(4));",
+   "options": [
+    "24",
+    "12",
+    "6",
+    "4"
+   ],
+   "answer": 0,
+   "explain": "f(4)=4*f(3)=4*3*f(2)=4*3*2*f(1)=4*3*2*1=24，即 4 的阶乘。",
+   "pre": "int f(int n)\n{\n    if (n <= 1) return 1;\n    return n * f(n - 1);\n}"
+  },
+  {
+   "id": "6-c13",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "int a, b, c;\na = f();\nb = f();\nc = f();\nprintf(\"%d%d%d\", a, b, c);",
+   "options": [
+    "123",
+    "111",
+    "321",
+    "333"
+   ],
+   "answer": 0,
+   "explain": "static 局部变量只在第一次调用时初始化为 0，之后保持上次的值，调用三次依次返回 1、2、3。若去掉 static 则每次都输出 1。",
+   "pre": "int f()\n{\n    static int s = 0;\n    s = s + 1;\n    return s;\n}"
+  },
+  {
+   "id": "6-c14",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "int x[3] = {1, 2, 3};\nadd(x, 3);\nprintf(\"%d\", x[0]);",
+   "options": [
+    "101",
+    "1",
+    "100",
+    "3"
+   ],
+   "answer": 0,
+   "explain": "数组名作实参传的是首地址，形参 a 与实参 x 指向同一段内存，函数内修改 a[0] 就是修改 x[0]，故输出 101。数组传参不复制整个数组。",
+   "pre": "void add(int a[], int n)\n{\n    a[0] = a[0] + 100;\n}"
+  },
+  {
+   "id": "6-c15",
+   "level": "hard",
+   "q": "以下程序的输出结果是？",
+   "code": "f();\nprintf(\"%d\", x);",
+   "options": [
+    "20,10",
+    "10,10",
+    "10,20",
+    "20,20"
+   ],
+   "answer": 0,
+   "explain": "局部变量优先：函数 f 内定义的局部 x 屏蔽同名的全局 x，函数内输出 20；函数返回后 main 中的 x 仍是全局变量的 10，输出 20,10。",
+   "pre": "int x = 10;\nvoid f()\n{\n    int x = 20;\n    printf(\"%d,\", x);\n}"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "常考",
+    "易错"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nvoid swap(int a, int b)\n{\n    int t = a;\n    a = b;\n    b = t;\n}\nint main()\n{\n    int x = 1, y = 2;\n    swap(x, y);\n    printf(\"%d,%d\", x, y);\n    return 0;\n}",
+   "options": [
+    "1,2",
+    "2,1",
+    "2,2",
+    "编译错误"
+   ],
+   "answer": 0,
+   "expect": "1,2",
+   "explain": "C 函数参数是单向值传递，形参 a、b 只是实参的副本，函数内交换副本不影响 main 里的 x、y。要交换实参必须传地址（指针）。",
+   "id": "06-c16"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "难题",
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint f(void)\n{\n    static int x = 0;\n    return ++x;\n}\nint main()\n{\n    int i, s = 0;\n    for (i = 0; i < 3; i++)\n        s += f();\n    printf(\"%d,%d\", s, f());\n    return 0;\n}",
+   "options": [
+    "3,1",
+    "6,4",
+    "6,1",
+    "3,4"
+   ],
+   "answer": 1,
+   "expect": "6,4",
+   "explain": "static 局部变量只初始化一次，且函数调用结束后值仍保留。前三次调用返回 1、2、3，s=6；第四次返回 4，因此输出 6,4。",
+   "id": "06-c17"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint fact(int n)\n{\n    if (n <= 1) return 1;\n    return n * fact(n - 1);\n}\nint main()\n{\n    printf(\"%d\", fact(5));\n    return 0;\n}",
+   "options": [
+    "5",
+    "24",
+    "120",
+    "死循环"
+   ],
+   "answer": 2,
+   "expect": "120",
+   "explain": "递归求阶乘：5*4*3*2*1=120。递归必须有使递归终止的条件（n<=1 时返回 1），否则会无限递归导致栈溢出。",
+   "id": "06-c18"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "易错",
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint x = 10;\nvoid show(void)\n{\n    printf(\"%d\", x);\n}\nint main()\n{\n    int x = 20;\n    printf(\"%d,\", x);\n    show();\n    return 0;\n}",
+   "options": [
+    "20,20",
+    "10,10",
+    "20,10",
+    "10,20"
+   ],
+   "answer": 2,
+   "expect": "20,10",
+   "explain": "局部变量在其作用域内屏蔽同名的全局变量，所以 main 里输出 20；show 函数内没有局部 x，访问的是全局 x，输出 10。",
+   "id": "06-c19"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "难题"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint fib(int n)\n{\n    if (n <= 1) return 1;\n    return fib(n - 1) + fib(n - 2);\n}\nint main()\n{\n    printf(\"%d\", fib(5));\n    return 0;\n}",
+   "options": [
+    "5",
+    "8",
+    "13",
+    "16"
+   ],
+   "answer": 1,
+   "expect": "8",
+   "explain": "注意终止条件是 n<=1 返回 1（不是 0）。数列为 1,1,2,3,5,8，fib(5)=8。递归题要顺着终止条件一层层算，不能凭斐波那契的通常初值套用。",
+   "id": "06-c20"
+  }
+ ],
+ "coding": [
+  {
+   "id": "6-1",
+   "title": "用函数求两个整数的最大值",
+   "level": "easy",
+   "tags": [
+    "函数",
+    "返回值"
+   ],
+   "desc": "定义一个函数 max(int a, int b) 返回两个整数中的较大者，在主函数中读入两个整数并输出较大值。",
+   "input": "一行两个整数（绝对值不超过 10000），用空格分隔。",
+   "output": "输出一行，为较大的那个整数。",
+   "samples": [
+    {
+     "in": "3 8",
+     "out": "8"
+    }
+   ],
+   "tests": [
+    {
+     "in": "3 8",
+     "out": "8"
+    },
+    {
+     "in": "-5 2",
+     "out": "2"
+    },
+    {
+     "in": "100 100",
+     "out": "100"
+    },
+    {
+     "in": "0 7",
+     "out": "7"
+    },
+    {
+     "in": "-9 -12",
+     "out": "-9"
+    }
+   ],
+   "hint": "函数里用 if 比较 a 与 b，谁大就 return 谁；主函数只需调用这个函数并输出。",
+   "code": "#include <stdio.h>\n\nint max(int a, int b)\n{\n    if (a > b)\n        return a;\n    return b;\n}\n\nint main()\n{\n    int x, y;\n    scanf(\"%d %d\", &x, &y);\n    printf(\"%d\\n\", max(x, y));\n    return 0;\n}"
+  },
+  {
+   "id": "6-2",
+   "title": "用函数判断素数",
+   "level": "mid",
+   "tags": [
+    "函数",
+    "循环"
+   ],
+   "desc": "写一个函数 isPrime(int n)，判断 n 是否为素数，是返回 1，否则返回 0。读入一个整数并输出判断结果。",
+   "input": "一行一个正整数 n（2 ≤ n ≤ 1000000）。",
+   "output": "若 n 是素数输出 prime，否则输出 not prime。",
+   "samples": [
+    {
+     "in": "17",
+     "out": "prime"
+    }
+   ],
+   "tests": [
+    {
+     "in": "17",
+     "out": "prime"
+    },
+    {
+     "in": "4",
+     "out": "not prime"
+    },
+    {
+     "in": "97",
+     "out": "prime"
+    },
+    {
+     "in": "1",
+     "out": "not prime"
+    },
+    {
+     "in": "1000000",
+     "out": "not prime"
+    }
+   ],
+   "hint": "从 2 试除到 n-1 太慢，试除到 √n 即可；注意单独处理 n < 2 的情况。",
+   "code": "#include <stdio.h>\n\nint isPrime(int n)\n{\n    int i;\n    if (n < 2)\n        return 0;\n    for (i = 2; i * i <= n; i++)\n        if (n % i == 0)\n            return 0;\n    return 1;\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    if (isPrime(n))\n        printf(\"prime\\n\");\n    else\n        printf(\"not prime\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "6-3",
+   "title": "递归求阶乘",
+   "level": "mid",
+   "tags": [
+    "递归",
+    "函数"
+   ],
+   "desc": "用递归函数 fac(n) 求 n 的阶乘（n! = 1×2×…×n），并输出结果。",
+   "input": "一行一个正整数 n（1 ≤ n ≤ 12）。",
+   "output": "输出一行，为 n! 的整数值。",
+   "samples": [
+    {
+     "in": "5",
+     "out": "120"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5",
+     "out": "120"
+    },
+    {
+     "in": "1",
+     "out": "1"
+    },
+    {
+     "in": "10",
+     "out": "3628800"
+    },
+    {
+     "in": "12",
+     "out": "479001600"
+    },
+    {
+     "in": "3",
+     "out": "6"
+    }
+   ],
+   "hint": "递归公式：fac(1) = 1；fac(n) = n * fac(n-1)。返回值用 int 或 long long 都要注意范围。",
+   "code": "#include <stdio.h>\n\nint fac(int n)\n{\n    if (n == 1)\n        return 1;\n    return n * fac(n - 1);\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    printf(\"%d\\n\", fac(n));\n    return 0;\n}"
+  },
+  {
+   "id": "6-4",
+   "title": "递归求斐波那契数列",
+   "level": "mid",
+   "tags": [
+    "递归",
+    "函数"
+   ],
+   "desc": "斐波那契数列规定 F(1) = 1，F(2) = 1，从第三项起 F(n) = F(n-1) + F(n-2)。用递归函数求第 n 项。",
+   "input": "一行一个正整数 n（1 ≤ n ≤ 30）。",
+   "output": "输出一行，为第 n 项的值。",
+   "samples": [
+    {
+     "in": "10",
+     "out": "55"
+    }
+   ],
+   "tests": [
+    {
+     "in": "10",
+     "out": "55"
+    },
+    {
+     "in": "1",
+     "out": "1"
+    },
+    {
+     "in": "2",
+     "out": "1"
+    },
+    {
+     "in": "20",
+     "out": "6765"
+    },
+    {
+     "in": "30",
+     "out": "832040"
+    }
+   ],
+   "hint": "边界条件是 n 等于 1 或 2 时返回 1，否则返回 fib(n-1) + fib(n-2)，两处递归调用缺一不可。",
+   "code": "#include <stdio.h>\n\nint fib(int n)\n{\n    if (n == 1 || n == 2)\n        return 1;\n    return fib(n - 1) + fib(n - 2);\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    printf(\"%d\\n\", fib(n));\n    return 0;\n}"
+  },
+  {
+   "id": "6-5",
+   "title": "用函数求最大公约数",
+   "level": "mid",
+   "tags": [
+    "函数",
+    "辗转相除"
+   ],
+   "desc": "写一个函数 gcd(int a, int b)，用辗转相除法求两个正整数的最大公约数。",
+   "input": "一行两个正整数 a 与 b（1 ≤ a, b ≤ 1000000），用空格分隔。",
+   "output": "输出一行，为最大公约数。",
+   "samples": [
+    {
+     "in": "12 18",
+     "out": "6"
+    }
+   ],
+   "tests": [
+    {
+     "in": "12 18",
+     "out": "6"
+    },
+    {
+     "in": "7 13",
+     "out": "1"
+    },
+    {
+     "in": "100 75",
+     "out": "25"
+    },
+    {
+     "in": "1 5",
+     "out": "1"
+    },
+    {
+     "in": "36 24",
+     "out": "12"
+    }
+   ],
+   "hint": "辗转相除：当 b 不为 0 时反复做 r = a % b，a = b，b = r，最后 a 就是最大公约数。",
+   "code": "#include <stdio.h>\n\nint gcd(int a, int b)\n{\n    int r;\n    while (b != 0)\n    {\n        r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}\n\nint main()\n{\n    int x, y;\n    scanf(\"%d %d\", &x, &y);\n    printf(\"%d\\n\", gcd(x, y));\n    return 0;\n}"
+  },
+  {
+   "id": "6-6",
+   "title": "用函数求 1 到 n 的和",
+   "level": "easy",
+   "tags": [
+    "函数",
+    "累加"
+   ],
+   "desc": "写一个函数 sum(int n)，返回 1 + 2 + … + n，读入 n 后输出该和。",
+   "input": "一行一个正整数 n（1 ≤ n ≤ 10000）。",
+   "output": "输出一行，为累加结果。",
+   "samples": [
+    {
+     "in": "10",
+     "out": "55"
+    }
+   ],
+   "tests": [
+    {
+     "in": "10",
+     "out": "55"
+    },
+    {
+     "in": "1",
+     "out": "1"
+    },
+    {
+     "in": "100",
+     "out": "5050"
+    },
+    {
+     "in": "5000",
+     "out": "12502500"
+    },
+    {
+     "in": "77",
+     "out": "3003"
+    }
+   ],
+   "hint": "函数内部用循环把 1~n 累加到局部变量 s，最后 return s；主函数只负责输入输出。",
+   "code": "#include <stdio.h>\n\nint sum(int n)\n{\n    int i, s = 0;\n    for (i = 1; i <= n; i++)\n        s = s + i;\n    return s;\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    printf(\"%d\\n\", sum(n));\n    return 0;\n}"
+  },
+  {
+   "id": "6-7",
+   "title": "递归求 x 的 n 次幂",
+   "level": "mid",
+   "tags": [
+    "递归",
+    "函数"
+   ],
+   "desc": "用递归函数 power(int x, int n) 计算 x 的 n 次方（n 为非负整数）。",
+   "input": "一行两个整数 x 与 n（1 ≤ x ≤ 100，0 ≤ n ≤ 10），用空格分隔。",
+   "output": "输出一行，为 x 的 n 次方的整数结果。",
+   "samples": [
+    {
+     "in": "2 10",
+     "out": "1024"
+    }
+   ],
+   "tests": [
+    {
+     "in": "2 10",
+     "out": "1024"
+    },
+    {
+     "in": "5 0",
+     "out": "1"
+    },
+    {
+     "in": "3 4",
+     "out": "81"
+    },
+    {
+     "in": "10 3",
+     "out": "1000"
+    },
+    {
+     "in": "7 2",
+     "out": "49"
+    }
+   ],
+   "hint": "边界条件：n == 0 时返回 1；否则返回 x * power(x, n-1)。",
+   "code": "#include <stdio.h>\n\nint power(int x, int n)\n{\n    if (n == 0)\n        return 1;\n    return x * power(x, n - 1);\n}\n\nint main()\n{\n    int x, n;\n    scanf(\"%d %d\", &x, &n);\n    printf(\"%d\\n\", power(x, n));\n    return 0;\n}"
+  },
+  {
+   "id": "6-8",
+   "title": "用函数求数组元素的最大值",
+   "level": "mid",
+   "tags": [
+    "函数",
+    "数组参数"
+   ],
+   "desc": "写一个函数 maxOfArray(int a[], int n)，返回数组 a 中 n 个元素的最大值，并输出最大值的下标（从 0 开始）。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 100）；第二行 n 个整数，用空格分隔。",
+   "output": "第一行输出最大值，第二行输出该最大值第一次出现的下标。",
+   "samples": [
+    {
+     "in": "5\n3 9 2 9 1",
+     "out": "9\n1"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n3 9 2 9 1",
+     "out": "9\n1"
+    },
+    {
+     "in": "1\n7",
+     "out": "7\n0"
+    },
+    {
+     "in": "4\n-1 -5 -2 -9",
+     "out": "-1\n0"
+    },
+    {
+     "in": "3\n100 200 300",
+     "out": "300\n2"
+    },
+    {
+     "in": "6\n5 5 5 5 5 5",
+     "out": "5\n0"
+    }
+   ],
+   "hint": "把数组名和长度一起传给函数（数组作参数时传的是首地址）；下标可以在主函数里用循环再找一次最大值第一次出现的位置。",
+   "code": "#include <stdio.h>\n\nint maxOfArray(int a[], int n)\n{\n    int i, m = a[0];\n    for (i = 1; i < n; i++)\n        if (a[i] > m)\n            m = a[i];\n    return m;\n}\n\nint main()\n{\n    int n, i, a[100], m, pos = 0;\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%d\", &a[i]);\n    m = maxOfArray(a, n);\n    for (i = 0; i < n; i++)\n        if (a[i] == m)\n        {\n            pos = i;\n            break;\n        }\n    printf(\"%d\\n\", m);\n    printf(\"%d\\n\", pos);\n    return 0;\n}"
+  },
+  {
+   "id": "6-9",
+   "title": "递归把十进制转成二进制",
+   "level": "mid",
+   "tags": [
+    "递归",
+    "数制转换"
+   ],
+   "desc": "用递归函数把十进制正整数转换成二进制输出（从高位到低位）。",
+   "input": "一行一个正整数 n（1 ≤ n ≤ 1000000）。",
+   "output": "输出一行，为 n 的二进制表示（无前导 0）。",
+   "samples": [
+    {
+     "in": "10",
+     "out": "1010"
+    }
+   ],
+   "tests": [
+    {
+     "in": "10",
+     "out": "1010"
+    },
+    {
+     "in": "1",
+     "out": "1"
+    },
+    {
+     "in": "255",
+     "out": "11111111"
+    },
+    {
+     "in": "1000",
+     "out": "1111101000"
+    },
+    {
+     "in": "63",
+     "out": "111111"
+    }
+   ],
+   "hint": "递归思路：若 n > 1 先递归处理 n/2，再输出 n%2，这样输出的顺序正好是从高位到低位。",
+   "code": "#include <stdio.h>\n\nvoid toBin(int n)\n{\n    if (n > 1)\n        toBin(n / 2);\n    printf(\"%d\", n % 2);\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    toBin(n);\n    printf(\"\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "6-10",
+   "title": "汉诺塔的移动次数",
+   "level": "mid",
+   "tags": [
+    "递归",
+    "递推"
+   ],
+   "desc": "有三根柱子，n 个大小不同的圆盘从 A 柱按规则全部移到 C 柱，求最少需要移动多少次。用递归函数 hanoi(n) 计算。",
+   "input": "一行一个正整数 n（1 ≤ n ≤ 30）。",
+   "output": "输出一行，为最少移动次数。",
+   "samples": [
+    {
+     "in": "1",
+     "out": "1"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1",
+     "out": "1"
+    },
+    {
+     "in": "3",
+     "out": "7"
+    },
+    {
+     "in": "10",
+     "out": "1023"
+    },
+    {
+     "in": "20",
+     "out": "1048575"
+    },
+    {
+     "in": "30",
+     "out": "1073741823"
+    }
+   ],
+   "hint": "递推关系：hanoi(1) = 1，hanoi(n) = 2 * hanoi(n-1) + 1；也可直接用公式 2^n - 1。",
+   "code": "#include <stdio.h>\n\nlong long hanoi(int n)\n{\n    if (n == 1)\n        return 1;\n    return 2 * hanoi(n - 1) + 1;\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    printf(\"%lld\\n\", hanoi(n));\n    return 0;\n}"
+  },
+  {
+   "id": "6-p11",
+   "title": "用函数输出 1 到 n 内的所有素数",
+   "level": "hard",
+   "tags": [
+    "函数",
+    "循环",
+    "素数"
+   ],
+   "tag": [
+    "常考"
+   ],
+   "desc": "编写函数判断一个整数是否为素数，并在 main 函数中输出 1 到 n 之间的所有素数。",
+   "input": "一行，一个正整数 n（2 ≤ n ≤ 1000）。",
+   "output": "输出一行，为 1 到 n 之间的所有素数，数与数之间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "10",
+     "out": "2 3 5 7"
+    }
+   ],
+   "tests": [
+    {
+     "in": "10",
+     "out": "2 3 5 7"
+    },
+    {
+     "in": "30",
+     "out": "2 3 5 7 11 13 17 19 23 29"
+    },
+    {
+     "in": "2",
+     "out": "2"
+    },
+    {
+     "in": "100",
+     "out": "2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97"
+    },
+    {
+     "in": "7",
+     "out": "2 3 5 7"
+    }
+   ],
+   "hint": "判断素数只需用 j 从 2 试到 sqrt(i)（写 j*j<=i 也行）。1 不是素数，循环从 2 开始；找到因子就 break，用一个标志变量记录是否为素数。",
+   "code": "#include <stdio.h>\n\nint isPrime(int n)\n{\n    int j;\n    if (n < 2)\n        return 0;\n    for (j = 2; j * j <= n; j++)\n        if (n % j == 0)\n            return 0;\n    return 1;\n}\n\nint main()\n{\n    int n, i, first = 1;\n    scanf(\"%d\", &n);\n    for (i = 2; i <= n; i++)\n        if (isPrime(i))\n        {\n            if (!first)\n                printf(\" \");\n            printf(\"%d\", i);\n            first = 0;\n        }\n    printf(\"\\n\");\n    return 0;\n}"
+  },
+  {
+   "id": "6-p12",
+   "title": "值传递与地址传递的差别",
+   "level": "hard",
+   "tags": [
+    "函数",
+    "参数传递",
+    "指针"
+   ],
+   "tag": [
+    "易错",
+    "难题"
+   ],
+   "desc": "分别写两个交换函数：swap1 用普通参数（值传递），swap2 用指针参数（地址传递）。输入两个整数，先调用 swap1 输出两个数，再调用 swap2 输出两个数。",
+   "input": "一行，两个整数 a、b（-1000 ≤ a, b ≤ 1000）。",
+   "output": "共两行：第一行为调用 swap1 之后 a、b 的值，第二行为调用 swap2 之后 a、b 的值，数与数之间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "1 2",
+     "out": "1 2\n2 1"
+    }
+   ],
+   "tests": [
+    {
+     "in": "1 2",
+     "out": "1 2\n2 1"
+    },
+    {
+     "in": "5 9",
+     "out": "5 9\n9 5"
+    },
+    {
+     "in": "100 200",
+     "out": "100 200\n200 100"
+    },
+    {
+     "in": "-3 7",
+     "out": "-3 7\n7 -3"
+    },
+    {
+     "in": "8 8",
+     "out": "8 8\n8 8"
+    }
+   ],
+   "hint": "值传递时函数里交换的只是形参副本，实参根本不受影响，所以第一行仍按原顺序输出；地址传递时函数用 *x、*y 直接改主函数里的变量，交换才真正生效。",
+   "code": "#include <stdio.h>\n\nvoid swap1(int x, int y)\n{\n    int t;\n    t = x;\n    x = y;\n    y = t;\n}\n\nvoid swap2(int *x, int *y)\n{\n    int t;\n    t = *x;\n    *x = *y;\n    *y = t;\n}\n\nint main()\n{\n    int a, b;\n    scanf(\"%d%d\", &a, &b);\n    swap1(a, b);\n    printf(\"%d %d\\n\", a, b);\n    swap2(&a, &b);\n    printf(\"%d %d\\n\", a, b);\n    return 0;\n}"
+  },
+  {
+   "id": "6-p13",
+   "title": "用函数分解质因数",
+   "level": "hard",
+   "tags": [
+    "函数",
+    "循环",
+    "分解"
+   ],
+   "tag": [
+    "难题"
+   ],
+   "desc": "编写函数，把输入的正整数分解成质因数连乘的形式并输出。",
+   "input": "一行，一个正整数 n（2 ≤ n ≤ 100000）。",
+   "output": "输出一行，格式为 n=质因数*质因数*...，质因数按从小到大排列，乘号用 *。",
+   "samples": [
+    {
+     "in": "12",
+     "out": "12=2*2*3"
+    }
+   ],
+   "tests": [
+    {
+     "in": "12",
+     "out": "12=2*2*3"
+    },
+    {
+     "in": "7",
+     "out": "7=7"
+    },
+    {
+     "in": "100",
+     "out": "100=2*2*5*5"
+    },
+    {
+     "in": "360",
+     "out": "360=2*2*2*3*3*5"
+    },
+    {
+     "in": "97",
+     "out": "97=97"
+    }
+   ],
+   "hint": "从 i=2 开始试，只要能整除就一直除下去（用 while），除完再让 i 加一。注意别用原来的 n 直接参与判题，最好先把它存到局部变量里。乘号用 first 标记只在第一个因数前不加。",
+   "code": "#include <stdio.h>\n\nvoid factor(int n)\n{\n    int i, first = 1, m = n;\n    printf(\"%d=\", n);\n    for (i = 2; i <= m; i++)\n        while (m % i == 0)\n        {\n            if (!first)\n                printf(\"*\");\n            printf(\"%d\", i);\n            first = 0;\n            m = m / i;\n        }\n    printf(\"\\n\");\n}\n\nint main()\n{\n    int n;\n    scanf(\"%d\", &n);\n    factor(n);\n    return 0;\n}"
+  },
+  {
+   "id": "6-p14",
+   "title": "判断回文数",
+   "level": "mid",
+   "tags": [
+    "函数",
+    "循环",
+    "回文"
+   ],
+   "tag": [
+    "常考"
+   ],
+   "desc": "编写函数把整数逆序，再在主函数中判断输入的整数是否为回文数（正着读和倒着读相同的数）。",
+   "input": "一行，一个正整数 m（1 ≤ m ≤ 100000000）。",
+   "output": "输出一行：是回文数输出 yes，否则输出 no。",
+   "samples": [
+    {
+     "in": "121",
+     "out": "yes"
+    }
+   ],
+   "tests": [
+    {
+     "in": "121",
+     "out": "yes"
+    },
+    {
+     "in": "123",
+     "out": "no"
+    },
+    {
+     "in": "1001",
+     "out": "yes"
+    },
+    {
+     "in": "12321",
+     "out": "yes"
+    },
+    {
+     "in": "10",
+     "out": "no"
+    }
+   ],
+   "hint": "逆序用循环：r = r * 10 + n % 10; n = n / 10;。注意用局部变量保存原数，比较的是逆序结果与原数是否相等。",
+   "code": "#include <stdio.h>\n\nint reverse(int n)\n{\n    int r = 0;\n    while (n > 0)\n    {\n        r = r * 10 + n % 10;\n        n = n / 10;\n    }\n    return r;\n}\n\nint main()\n{\n    int m;\n    scanf(\"%d\", &m);\n    if (reverse(m) == m)\n        printf(\"yes\\n\");\n    else\n        printf(\"no\\n\");\n    return 0;\n}"
+  }
+ ]
+}

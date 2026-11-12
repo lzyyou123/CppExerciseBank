@@ -1,0 +1,893 @@
+{
+ "id": "10",
+ "short": "第10章",
+ "name": "文件",
+ "color": "#4d7c0f",
+ "intro": "教材第 10 章：文件指针与 fopen、fclose，文件打开方式（r / w / a / r+ 等），字符读写 fgetc、fputc，字符串读写 fgets、fputs，格式化读写 fprintf、fscanf，文件结束判断 feof 与 EOF，以及文件复制、排序等综合应用。",
+ "choice": [
+  {
+   "id": "10-c1",
+   "level": "easy",
+   "q": "C 语言中用于打开文件的函数是？",
+   "options": [
+    "open",
+    "fopen",
+    "fileopen",
+    "create"
+   ],
+   "answer": 1,
+   "explain": "标准库函数 fopen 用于打开文件，成功返回文件指针，失败返回 NULL。"
+  },
+  {
+   "id": "10-c2",
+   "level": "easy",
+   "q": "fopen 函数的返回值类型是？",
+   "options": [
+    "int",
+    "FILE *",
+    "char *",
+    "void"
+   ],
+   "answer": 1,
+   "explain": "fopen 返回指向 FILE 结构体的指针（文件指针），后续的读写函数都通过它来操作文件。"
+  },
+  {
+   "id": "10-c3",
+   "level": "easy",
+   "q": "要以\"只写\"方式打开文本文件，若文件不存在则新建、存在则清空原内容，应使用的打开方式是？",
+   "options": [
+    "\"r\"",
+    "\"w\"",
+    "\"a\"",
+    "\"r+\""
+   ],
+   "answer": 1,
+   "explain": "\"w\" 为只写方式：文件不存在就创建，存在则把原内容全部清掉重新写。"
+  },
+  {
+   "id": "10-c4",
+   "level": "easy",
+   "q": "关闭文件应使用的函数是？",
+   "options": [
+    "fclose",
+    "close",
+    "fileclose",
+    "end"
+   ],
+   "answer": 0,
+   "explain": "fclose(fp) 关闭文件并把缓冲区中的数据写入磁盘，释放文件指针占用的资源。"
+  },
+  {
+   "id": "10-c5",
+   "level": "easy",
+   "q": "从文件中读取一个字符应使用？",
+   "options": [
+    "fgetc",
+    "fputc",
+    "fread",
+    "fscanf"
+   ],
+   "answer": 0,
+   "explain": "fgetc(fp) 从文件中读一个字符并返回其 ASCII 码，读到文件末尾返回 EOF；fputc 是写字符。"
+  },
+  {
+   "id": "10-c6",
+   "level": "easy",
+   "q": "判断文件是否已读到末尾，可使用的函数是？",
+   "options": [
+    "feof",
+    "ferror",
+    "fflush",
+    "eof"
+   ],
+   "answer": 0,
+   "explain": "feof(fp) 在文件结束标志被读过之后返回非 0 值，常用于循环读取时的判断。"
+  },
+  {
+   "id": "10-c7",
+   "level": "mid",
+   "q": "把格式化的数据按指定格式写入文件，应使用？",
+   "options": [
+    "fprintf",
+    "fscanf",
+    "fgets",
+    "fputs"
+   ],
+   "answer": 0,
+   "explain": "fprintf(fp, \"格式\", 变量表) 与 printf 用法类似，只是多了一个文件指针参数，用于写文件。"
+  },
+  {
+   "id": "10-c8",
+   "level": "mid",
+   "q": "关于 fgets 函数，说法正确的是？",
+   "options": [
+    "从文件中读取一个字符",
+    "从文件中读取一行字符串（最多 n-1 个字符）",
+    "向文件写入一行",
+    "把文件指针移到开头"
+   ],
+   "answer": 1,
+   "explain": "fgets(s, n, fp) 最多读 n-1 个字符，遇换行或文件结束即停止，并在末尾自动加 '\\0'。"
+  },
+  {
+   "id": "10-c9",
+   "level": "mid",
+   "q": "用\"a\"方式打开文件与用\"w\"方式打开文件的主要区别是？",
+   "options": [
+    "没有区别",
+    "\"a\"在文件末尾追加，不覆盖原有内容；\"w\"会清空原有内容",
+    "\"a\"只能读",
+    "\"w\"不能创建文件"
+   ],
+   "answer": 1,
+   "explain": "\"a\" 为追加方式，写入的数据接在原文件末尾；\"w\" 则会把文件原有内容清空。"
+  },
+  {
+   "id": "10-c10",
+   "level": "mid",
+   "q": "文件使用完毕后必须调用 fclose 关闭，主要原因是？",
+   "options": [
+    "不关闭会占用内存导致编译失败",
+    "刷新缓冲区、保证数据真正写入磁盘并释放文件资源",
+    "关闭后才能读取",
+    "关闭文件会自动删除文件"
+   ],
+   "answer": 1,
+   "explain": "写文件时数据先进入缓冲区，fclose 会把缓冲区内容写入磁盘；不关闭可能造成数据丢失，长时间打开还会耗尽文件句柄。"
+  },
+  {
+   "id": "10-c11",
+   "level": "mid",
+   "q": "以下程序执行后输出结果是？",
+   "code": "FILE *fp;\nint n = 0;\nfp = fopen(\"t10a.txt\", \"w\");\nfprintf(fp, \"%d\", 123);\nfclose(fp);\nfp = fopen(\"t10a.txt\", \"r\");\nfscanf(fp, \"%d\", &n);\nfclose(fp);\nprintf(\"%d\", n + 1);",
+   "options": [
+    "124",
+    "123",
+    "1",
+    "0"
+   ],
+   "answer": 0,
+   "explain": "先用 \"w\" 方式把 123 以文本形式写入文件，关闭后再用 \"r\" 方式读出到 n=123，输出 n+1 即 124。文件使用完必须 fclose，否则缓冲区内容可能未真正写入。"
+  },
+  {
+   "id": "10-c12",
+   "level": "mid",
+   "q": "以下程序执行后输出结果是？",
+   "code": "FILE *fp;\nint c, n = 0;\nfp = fopen(\"t10b.txt\", \"w\");\nfputs(\"abcd\", fp);\nfclose(fp);\nfp = fopen(\"t10b.txt\", \"r\");\nwhile ((c = fgetc(fp)) != EOF)\n    n++;\nfclose(fp);\nprintf(\"%d\", n);",
+   "options": [
+    "4",
+    "5",
+    "0",
+    "1"
+   ],
+   "answer": 0,
+   "explain": "fputs 写入 4 个字符 abcd（不含额外内容），逐字符读到文件末尾 EOF 为止，计数 4。EOF 是文件结束标志，不是文件中的字符，故不计入。"
+  },
+  {
+   "id": "10-c13",
+   "level": "hard",
+   "q": "以下程序先后两次以 \"w\" 方式打开同一文件，输出结果是？",
+   "code": "FILE *fp;\nchar s[10] = {0};\nfp = fopen(\"t10c.txt\", \"w\");\nfputs(\"AAAA\", fp);\nfclose(fp);\nfp = fopen(\"t10c.txt\", \"w\");\nfputs(\"B\", fp);\nfclose(fp);\nfp = fopen(\"t10c.txt\", \"r\");\nfscanf(fp, \"%s\", s);\nfclose(fp);\nprintf(\"%s\", s);",
+   "options": [
+    "B",
+    "AAAAB",
+    "AAAA",
+    "AB"
+   ],
+   "answer": 0,
+   "explain": "\"w\" 方式打开会清空原文件内容再从头写。第二次打开时把 AAAA 抹掉，只写入 B，所以读出 B。若要追加应使用 \"a\" 方式。"
+  },
+  {
+   "id": "10-c14",
+   "level": "hard",
+   "q": "若把上题第二次打开的方式由 \"w\" 改成 \"a\"，同样的代码输出结果是？",
+   "code": "FILE *fp;\nchar s[10] = {0};\nfp = fopen(\"t10d.txt\", \"w\");\nfputs(\"AAAA\", fp);\nfclose(fp);\nfp = fopen(\"t10d.txt\", \"a\");\nfputs(\"B\", fp);\nfclose(fp);\nfp = fopen(\"t10d.txt\", \"r\");\nfscanf(fp, \"%s\", s);\nfclose(fp);\nprintf(\"%s\", s);",
+   "options": [
+    "AAAAB",
+    "B",
+    "AAAA",
+    "BAAAA"
+   ],
+   "answer": 0,
+   "explain": "\"a\" 为追加方式，保留原内容并把新内容写到文件末尾，故文件内容为 AAAAB。r 只读、w 清空重写、a 末尾追加，是文件打开方式最常考的三种。"
+  },
+  {
+   "id": "10-c15",
+   "level": "mid",
+   "q": "以下程序执行后输出结果是？",
+   "code": "FILE *fp;\nint n = 0;\nchar ch;\nfp = fopen(\"t10e.txt\", \"w\");\nfprintf(fp, \"%s\", \"12\");\nfprintf(fp, \"%s\", \"345\");\nfclose(fp);\nfp = fopen(\"t10e.txt\", \"r\");\nwhile (fscanf(fp, \"%c\", &ch) != EOF)\n    n++;\nfclose(fp);\nprintf(\"%d\", n);",
+   "options": [
+    "5",
+    "6",
+    "2",
+    "3"
+   ],
+   "answer": 0,
+   "explain": "两次 fprintf 连续向同一文件写入 \"12\" 和 \"345\"，中间没有换行或空格，文件内容就是 12345，共 5 个字符，逐个读入计数得 5。"
+  },
+  {
+   "level": "mid",
+   "tag": [
+    "常考"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    FILE *fp = fopen(\"qt10_a.txt\", \"w\");\n    fputs(\"abc\", fp);\n    fclose(fp);\n\n    fp = fopen(\"qt10_a.txt\", \"r\");\n    fseek(fp, 0, SEEK_END);\n    printf(\"%ld\", ftell(fp));\n    fclose(fp);\n    return 0;\n}",
+   "options": [
+    "0",
+    "3",
+    "4",
+    "随机值"
+   ],
+   "answer": 1,
+   "expect": "3",
+   "explain": "写入 3 个字符后文件长度为 3 字节。fseek(fp,0,SEEK_END) 把位置指针移到文件末尾，ftell 返回当前位置相对文件开头的字节偏移，即 3。",
+   "id": "10-c16"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "常考",
+    "难题"
+   ],
+   "q": "下列程序的运行结果是：",
+   "code": "#include <stdio.h>\nint main()\n{\n    FILE *fp = fopen(\"qt10_b.txt\", \"w\");\n    fprintf(fp, \"12 34\");\n    fclose(fp);\n\n    fp = fopen(\"qt10_b.txt\", \"r\");\n    int a, b, n;\n    n = fscanf(fp, \"%d%d\", &a, &b);\n    printf(\"%d,%d,%d\", n, a, b);\n    fclose(fp);\n    return 0;\n}",
+   "options": [
+    "2,12,34",
+    "1,12,34",
+    "0,0,0",
+    "12,34,0"
+   ],
+   "answer": 0,
+   "expect": "2,12,34",
+   "explain": "fscanf 的返回值是成功读入的数据项个数，两个 %d 都读成功故返回 2，a=12、b=34。可用返回值判断读取是否成功。",
+   "id": "10-c17"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错",
+    "常考"
+   ],
+   "q": "关于文件打开方式，下列说法正确的是：",
+   "code": null,
+   "options": [
+    "用 \"w\" 打开已存在的文件时，原内容会被清空（截断）",
+    "用 \"w\" 打开不存在的文件会失败，返回 NULL",
+    "用 \"r\" 打开不存在的文件会自动新建一个空文件",
+    "用 \"a\" 打开文件后，写入的数据会覆盖文件开头的内容"
+   ],
+   "answer": 0,
+   "explain": "\"w\" 会创建文件或把已有文件截断为 0 长度；\"r\" 打开不存在的文件直接失败返回 NULL；\"a\" 是追加，写入的数据总在文件末尾。打开文件后必须判断返回值是否为 NULL。",
+   "id": "10-c18"
+  },
+  {
+   "level": "hard",
+   "tag": [
+    "易错"
+   ],
+   "q": "关于 fgetc 与 feof，下列说法正确的是：",
+   "code": null,
+   "options": [
+    "fgetc 返回 char，读到文件尾返回 -1 的 char 形式",
+    "fgetc 返回 int，读到文件尾返回 EOF（值为 -1），必须用 int 接收才能正确判断结束",
+    "feof 在刚打开文件时就返回真，可用于判断文件是否为空",
+    "读取二进制文件时不能用 fgetc，因为会丢失数据"
+   ],
+   "answer": 1,
+   "explain": "fgetc 的返回值类型是 int，这样既能返回 0~255 的字节值，也能返回 -1（EOF）。若用 char 接收，值 0xFF 的字节会与 EOF 混淆，导致判断错误。feof 只在读操作失败后才置位，不能用来预判文件是否为空。",
+   "id": "10-c19"
+  }
+ ],
+ "coding": [
+  {
+   "id": "10-1",
+   "title": "写入文件后读回求和",
+   "level": "easy",
+   "tags": [
+    "文件",
+    "fprintf",
+    "fscanf"
+   ],
+   "desc": "从键盘读入 n 个整数，用 fprintf 把它们写入文件 f101.txt，再从文件中用 fscanf 读出这 n 个数并求它们的和输出。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；第二行 n 个整数，用空格分隔。",
+   "output": "输出一行，为这 n 个数的和。",
+   "samples": [
+    {
+     "in": "5\n1 2 3 4 5",
+     "out": "15"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n1 2 3 4 5",
+     "out": "15"
+    },
+    {
+     "in": "1\n7",
+     "out": "7"
+    },
+    {
+     "in": "4\n10 -10 20 -20",
+     "out": "0"
+    },
+    {
+     "in": "3\n100 200 300",
+     "out": "600"
+    },
+    {
+     "in": "6\n1 1 1 1 1 1",
+     "out": "6"
+    }
+   ],
+   "hint": "写文件用 fopen(\"f101.txt\", \"w\") 加 fprintf(fp, \"%d \", x)，写完后必须 fclose；读文件重新 fopen 用 \"r\" 模式，再用 fscanf(fp, \"%d\", &x) 逐个读。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n, i, x, s = 0;\n    FILE *fp;\n    scanf(\"%d\", &n);\n    fp = fopen(\"f101.txt\", \"w\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &x);\n        fprintf(fp, \"%d \", x);\n    }\n    fclose(fp);\n    fp = fopen(\"f101.txt\", \"r\");\n    for (i = 0; i < n; i++)\n    {\n        fscanf(fp, \"%d\", &x);\n        s = s + x;\n    }\n    fclose(fp);\n    printf(\"%d\\n\", s);\n    remove(\"f101.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-2",
+   "title": "写入字符串并读回长度",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "fputc",
+    "fgetc"
+   ],
+   "desc": "把键盘输入的一个字符串写入文件 f102.txt（用 fputc 逐个字符写入），再从文件中用 fgetc 逐个读出并统计字符个数输出。",
+   "input": "一行不含空格的字符串（长度不超过 100）。",
+   "output": "输出一行，为文件中字符的个数（不含结束符 '\\0'）。",
+   "samples": [
+    {
+     "in": "hello",
+     "out": "5"
+    }
+   ],
+   "tests": [
+    {
+     "in": "hello",
+     "out": "5"
+    },
+    {
+     "in": "a",
+     "out": "1"
+    },
+    {
+     "in": "China",
+     "out": "5"
+    },
+    {
+     "in": "abcdefghij",
+     "out": "10"
+    },
+    {
+     "in": "2024C",
+     "out": "5"
+    }
+   ],
+   "hint": "fputc(ch, fp) 写入一个字符；读取时用 while ((ch = fgetc(fp)) != EOF) 循环，每读一个计数加 1。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char s[105];\n    int i = 0, cnt = 0;\n    char ch;\n    FILE *fp;\n    scanf(\"%s\", s);\n    fp = fopen(\"f102.txt\", \"w\");\n    while (s[i] != '\\0')\n    {\n        fputc(s[i], fp);\n        i++;\n    }\n    fclose(fp);\n    fp = fopen(\"f102.txt\", \"r\");\n    while ((ch = fgetc(fp)) != EOF)\n        cnt++;\n    fclose(fp);\n    printf(\"%d\\n\", cnt);\n    remove(\"f102.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-3",
+   "title": "统计文件中的字母个数",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "字符判断"
+   ],
+   "desc": "把键盘输入的字符串写入文件 f103.txt，再从文件中读出，统计其中字母（a~z 与 A~Z）的个数。",
+   "input": "一行不含空格的字符串（长度不超过 100）。",
+   "output": "输出一行，为字母的个数。",
+   "samples": [
+    {
+     "in": "abc123",
+     "out": "3"
+    }
+   ],
+   "tests": [
+    {
+     "in": "abc123",
+     "out": "3"
+    },
+    {
+     "in": "abc",
+     "out": "3"
+    },
+    {
+     "in": "123",
+     "out": "0"
+    },
+    {
+     "in": "C2024ok",
+     "out": "3"
+    },
+    {
+     "in": "HelloWorld",
+     "out": "10"
+    }
+   ],
+   "hint": "读出字符后判断 (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')，满足才计数；注意 fgetc 的返回值要用 int 或 char 接住后与 EOF 比较。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char s[105];\n    int i = 0, cnt = 0;\n    char ch;\n    FILE *fp;\n    scanf(\"%s\", s);\n    fp = fopen(\"f103.txt\", \"w\");\n    fputs(s, fp);\n    fclose(fp);\n    fp = fopen(\"f103.txt\", \"r\");\n    while ((ch = fgetc(fp)) != EOF)\n        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))\n            cnt++;\n    fclose(fp);\n    printf(\"%d\\n\", cnt);\n    remove(\"f103.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-4",
+   "title": "追加方式写文件",
+   "level": "easy",
+   "tags": [
+    "文件",
+    "追加模式"
+   ],
+   "desc": "先以\"w\"方式把第一个字符串写入文件 f104.txt，再以\"a\"方式把第二个字符串追加到文件末尾，最后把文件内容读出来输出。",
+   "input": "一行两个不含空格的字符串，用空格分隔。",
+   "output": "输出一行，为文件中的完整内容（两个字符串直接相连）。",
+   "samples": [
+    {
+     "in": "abc def",
+     "out": "abcdef"
+    }
+   ],
+   "tests": [
+    {
+     "in": "abc def",
+     "out": "abcdef"
+    },
+    {
+     "in": "Hello World",
+     "out": "HelloWorld"
+    },
+    {
+     "in": "C is fun",
+     "out": "Cis"
+    },
+    {
+     "in": "12 34",
+     "out": "1234"
+    },
+    {
+     "in": "x y",
+     "out": "xy"
+    }
+   ],
+   "hint": "先 fopen(\"f104.txt\", \"w\") 写入第一个串并 fclose，再 fopen(\"f104.txt\", \"a\") 写入第二个串，这样不会清空原有内容。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char a[60], b[60], ch;\n    FILE *fp;\n    scanf(\"%s %s\", a, b);\n    fp = fopen(\"f104.txt\", \"w\");\n    fputs(a, fp);\n    fclose(fp);\n    fp = fopen(\"f104.txt\", \"a\");\n    fputs(b, fp);\n    fclose(fp);\n    fp = fopen(\"f104.txt\", \"r\");\n    while ((ch = fgetc(fp)) != EOF)\n        printf(\"%c\", ch);\n    printf(\"\\n\");\n    fclose(fp);\n    remove(\"f104.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-5",
+   "title": "格式化读写学生信息",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "fprintf",
+    "fscanf"
+   ],
+   "desc": "把学生的姓名和成绩用 fprintf 按\"姓名 成绩\"的格式写入文件 f105.txt，再用 fscanf 读回并输出。",
+   "input": "一行：姓名（不含空格）和一个整数成绩，用空格分隔。",
+   "output": "输出一行：姓名和成绩，中间用一个空格分隔。",
+   "samples": [
+    {
+     "in": "Tom 85",
+     "out": "Tom 85"
+    }
+   ],
+   "tests": [
+    {
+     "in": "Tom 85",
+     "out": "Tom 85"
+    },
+    {
+     "in": "Amy 100",
+     "out": "Amy 100"
+    },
+    {
+     "in": "Bob 0",
+     "out": "Bob 0"
+    },
+    {
+     "in": "Cathy 59",
+     "out": "Cathy 59"
+    },
+    {
+     "in": "Dan 61",
+     "out": "Dan 61"
+    }
+   ],
+   "hint": "写入格式串写成 \"%s %d\"，读回时的格式串要与写入时一致，fscanf 才知道怎么切分。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char name[20], name2[20];\n    int score, score2;\n    FILE *fp;\n    scanf(\"%s %d\", name, &score);\n    fp = fopen(\"f105.txt\", \"w\");\n    fprintf(fp, \"%s %d\", name, score);\n    fclose(fp);\n    fp = fopen(\"f105.txt\", \"r\");\n    fscanf(fp, \"%s %d\", name2, &score2);\n    fclose(fp);\n    printf(\"%s %d\\n\", name2, score2);\n    remove(\"f105.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-6",
+   "title": "复制文件内容",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "文件复制"
+   ],
+   "desc": "把字符串写入源文件 f106a.txt，再把源文件内容逐个字符复制到目标文件 f106b.txt，最后输出目标文件中的内容。",
+   "input": "一行不含空格的字符串（长度不超过 100）。",
+   "output": "输出一行，为目标文件中的内容。",
+   "samples": [
+    {
+     "in": "hello",
+     "out": "hello"
+    }
+   ],
+   "tests": [
+    {
+     "in": "hello",
+     "out": "hello"
+    },
+    {
+     "in": "abc",
+     "out": "abc"
+    },
+    {
+     "in": "C2024",
+     "out": "C2024"
+    },
+    {
+     "in": "copy",
+     "out": "copy"
+    },
+    {
+     "in": "x",
+     "out": "x"
+    }
+   ],
+   "hint": "读源文件、写目标文件两个文件要同时打开；用 while ((ch = fgetc(fsrc)) != EOF) fputc(ch, fdst) 完成复制，最后两个都要 fclose。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    char s[105], ch;\n    FILE *fs, *fd;\n    scanf(\"%s\", s);\n    fs = fopen(\"f106a.txt\", \"w\");\n    fputs(s, fs);\n    fclose(fs);\n    fs = fopen(\"f106a.txt\", \"r\");\n    fd = fopen(\"f106b.txt\", \"w\");\n    while ((ch = fgetc(fs)) != EOF)\n        fputc(ch, fd);\n    fclose(fs);\n    fclose(fd);\n    fd = fopen(\"f106b.txt\", \"r\");\n    while ((ch = fgetc(fd)) != EOF)\n        printf(\"%c\", ch);\n    printf(\"\\n\");\n    fclose(fd);\n    remove(\"f106a.txt\");\n    remove(\"f106b.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-7",
+   "title": "求文件中的最大值",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "最值"
+   ],
+   "desc": "把 n 个整数写入文件 f107.txt，再从文件中读出，求其中的最大值并输出。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；第二行 n 个整数，用空格分隔。",
+   "output": "输出一行，为这些数中的最大值。",
+   "samples": [
+    {
+     "in": "5\n3 9 2 9 1",
+     "out": "9"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n3 9 2 9 1",
+     "out": "9"
+    },
+    {
+     "in": "1\n-7",
+     "out": "-7"
+    },
+    {
+     "in": "4\n-1 -5 -2 -9",
+     "out": "-1"
+    },
+    {
+     "in": "3\n100 200 300",
+     "out": "300"
+    },
+    {
+     "in": "6\n5 4 3 2 1 0",
+     "out": "5"
+    }
+   ],
+   "hint": "先写文件再以读方式重新打开；打擂台求最大值时初值取读到的第一个数，避免与负数比较出错。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n, i, x, m;\n    FILE *fp;\n    scanf(\"%d\", &n);\n    fp = fopen(\"f107.txt\", \"w\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &x);\n        fprintf(fp, \"%d \", x);\n    }\n    fclose(fp);\n    fp = fopen(\"f107.txt\", \"r\");\n    fscanf(fp, \"%d\", &m);\n    for (i = 1; i < n; i++)\n    {\n        fscanf(fp, \"%d\", &x);\n        if (x > m)\n            m = x;\n    }\n    fclose(fp);\n    printf(\"%d\\n\", m);\n    remove(\"f107.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-8",
+   "title": "按行读取文件",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "fgets"
+   ],
+   "desc": "把两个字符串分别写入文件 f108.txt 的两行，再用 fgets 逐行读出，输出每行的内容以及总行数。",
+   "input": "一行两个不含空格的字符串，用空格分隔。",
+   "output": "先输出两行（每行一个字符串），最后一行输出行数。",
+   "samples": [
+    {
+     "in": "abc def",
+     "out": "abc\ndef\n2"
+    }
+   ],
+   "tests": [
+    {
+     "in": "abc def",
+     "out": "abc\ndef\n2"
+    },
+    {
+     "in": "Hello World",
+     "out": "Hello\nWorld\n2"
+    },
+    {
+     "in": "1 2",
+     "out": "1\n2\n2"
+    },
+    {
+     "in": "apple banana",
+     "out": "apple\nbanana\n2"
+    },
+    {
+     "in": "x y",
+     "out": "x\ny\n2"
+    }
+   ],
+   "hint": "fprintf 写入时每行末尾加 '\\n'；读时用 while (fgets(buf, sizeof(buf), fp) != NULL) 循环，判断行数并去掉读到的换行符再输出。",
+   "code": "#include <stdio.h>\n#include <string.h>\n\nint main()\n{\n    char a[60], b[60], buf[100];\n    int lines = 0, len;\n    FILE *fp;\n    scanf(\"%s %s\", a, b);\n    fp = fopen(\"f108.txt\", \"w\");\n    fprintf(fp, \"%s\\n%s\\n\", a, b);\n    fclose(fp);\n    fp = fopen(\"f108.txt\", \"r\");\n    while (fgets(buf, sizeof(buf), fp) != NULL)\n    {\n        len = strlen(buf);\n        if (len > 0 && buf[len - 1] == '\\n')\n            buf[len - 1] = '\\0';\n        if (buf[0] == '\\0')\n            continue;\n        printf(\"%s\\n\", buf);\n        lines++;\n    }\n    fclose(fp);\n    printf(\"%d\\n\", lines);\n    remove(\"f108.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-9",
+   "title": "统计文件中的正数个数",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "计数"
+   ],
+   "desc": "把 n 个整数写入文件 f109.txt，再读出并统计其中正数的个数。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；第二行 n 个整数，用空格分隔。",
+   "output": "输出一行，为正数的个数。",
+   "samples": [
+    {
+     "in": "5\n3 -1 5 0 2",
+     "out": "3"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n3 -1 5 0 2",
+     "out": "3"
+    },
+    {
+     "in": "1\n-5",
+     "out": "0"
+    },
+    {
+     "in": "3\n0 0 0",
+     "out": "0"
+    },
+    {
+     "in": "4\n1 2 3 4",
+     "out": "4"
+    },
+    {
+     "in": "6\n-1 -2 -3 -4 -5 -6",
+     "out": "0"
+    }
+   ],
+   "hint": "写入后重新以 \"r\" 打开，循环 n 次 fscanf 读一个数，判断大于 0 就计数。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n, i, x, cnt = 0;\n    FILE *fp;\n    scanf(\"%d\", &n);\n    fp = fopen(\"f109.txt\", \"w\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &x);\n        fprintf(fp, \"%d \", x);\n    }\n    fclose(fp);\n    fp = fopen(\"f109.txt\", \"r\");\n    for (i = 0; i < n; i++)\n    {\n        fscanf(fp, \"%d\", &x);\n        if (x > 0)\n            cnt++;\n    }\n    fclose(fp);\n    printf(\"%d\\n\", cnt);\n    remove(\"f109.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-10",
+   "title": "文件数据排序输出",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "排序",
+    "综合"
+   ],
+   "desc": "把 n 个整数写入文件 f110.txt，再读出到数组中用冒泡排序按从小到大排好序后输出。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 50）；第二行 n 个整数，用空格分隔。",
+   "output": "输出一行排序后的 n 个数，中间用一个空格分隔，行末没有多余空格。",
+   "samples": [
+    {
+     "in": "5\n5 3 8 1 9",
+     "out": "1 3 5 8 9"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n5 3 8 1 9",
+     "out": "1 3 5 8 9"
+    },
+    {
+     "in": "1\n4",
+     "out": "4"
+    },
+    {
+     "in": "4\n4 3 2 1",
+     "out": "1 2 3 4"
+    },
+    {
+     "in": "6\n1 1 2 2 3 3",
+     "out": "1 1 2 2 3 3"
+    },
+    {
+     "in": "3\n-2 5 0",
+     "out": "-2 0 5"
+    }
+   ],
+   "hint": "综合运用：先写文件，再把数据 fscanf 进数组，用冒泡排序（两层循环 + 临时变量交换），最后按格式输出。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    int n, i, j, t, a[50];\n    FILE *fp;\n    scanf(\"%d\", &n);\n    fp = fopen(\"f110.txt\", \"w\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &a[i]);\n        fprintf(fp, \"%d \", a[i]);\n    }\n    fclose(fp);\n    fp = fopen(\"f110.txt\", \"r\");\n    for (i = 0; i < n; i++)\n        fscanf(fp, \"%d\", &a[i]);\n    fclose(fp);\n    for (i = 0; i < n - 1; i++)\n        for (j = 0; j < n - 1 - i; j++)\n            if (a[j] > a[j + 1])\n            {\n                t = a[j];\n                a[j] = a[j + 1];\n                a[j + 1] = t;\n            }\n    for (i = 0; i < n; i++)\n    {\n        printf(\"%d\", a[i]);\n        if (i < n - 1)\n            printf(\" \");\n    }\n    printf(\"\\n\");\n    remove(\"f110.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-p11",
+   "title": "统计文件中字母、数字和其他字符的个数",
+   "level": "mid",
+   "tags": [
+    "文件",
+    "fgetc",
+    "EOF"
+   ],
+   "tag": [
+    "常考",
+    "易错"
+   ],
+   "desc": "输入一个不含空格的字符串，先把它写入文件 f111.txt，再用 fgetc 逐个字符读回，统计其中字母、数字和其他字符各有多少个。",
+   "input": "一行，一个长度不超过 200 的字符串（不含空格）。",
+   "output": "输出一行，三个整数，依次为字母个数、数字个数和其他字符个数，中间用空格分隔。",
+   "samples": [
+    {
+     "in": "abc123",
+     "out": "3 3 0"
+    }
+   ],
+   "tests": [
+    {
+     "in": "abc123",
+     "out": "3 3 0"
+    },
+    {
+     "in": "a1B2c3!",
+     "out": "3 3 1"
+    },
+    {
+     "in": "hello",
+     "out": "5 0 0"
+    },
+    {
+     "in": "2024",
+     "out": "0 4 0"
+    },
+    {
+     "in": "Ab!2",
+     "out": "2 1 1"
+    }
+   ],
+   "hint": "fgetc 的返回值必须用 int 型变量接收，才能正确判断 EOF：while ((ch = fgetc(fp)) != EOF)。判断字母用 (ch>='a'&&ch<='z') || (ch>='A'&&ch<='Z')，数字用 ch>='0' && ch<='9'。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    FILE *fp;\n    int ch;\n    int letters = 0, digits = 0, others = 0;\n    char s[300];\n    scanf(\"%s\", s);\n    fp = fopen(\"f111.txt\", \"w\");\n    fprintf(fp, \"%s\", s);\n    fclose(fp);\n    fp = fopen(\"f111.txt\", \"r\");\n    while ((ch = fgetc(fp)) != EOF)\n    {\n        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))\n            letters++;\n        else if (ch >= '0' && ch <= '9')\n            digits++;\n        else\n            others++;\n    }\n    fclose(fp);\n    remove(\"f111.txt\");\n    printf(\"%d %d %d\\n\", letters, digits, others);\n    return 0;\n}"
+  },
+  {
+   "id": "10-p12",
+   "title": "读到文件末尾求平均值",
+   "level": "hard",
+   "tags": [
+    "文件",
+    "fscanf",
+    "EOF"
+   ],
+   "tag": [
+    "易错"
+   ],
+   "desc": "输入 n 个整数，把它们写入文件 f112.txt；再打开文件，用 fscanf 反复读数直到文件结束，求出这些数的平均值（保留 2 位小数）。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 100）；第二行 n 个整数。",
+   "output": "输出一行，为文件中所有整数的平均值，保留 2 位小数。",
+   "samples": [
+    {
+     "in": "5\n1 2 3 4 5",
+     "out": "3.00"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n1 2 3 4 5",
+     "out": "3.00"
+    },
+    {
+     "in": "3\n2 4 6",
+     "out": "4.00"
+    },
+    {
+     "in": "4\n-1 0 1 2",
+     "out": "0.50"
+    },
+    {
+     "in": "1\n10",
+     "out": "10.00"
+    },
+    {
+     "in": "6\n1 2 3 4 5 6",
+     "out": "3.50"
+    }
+   ],
+   "hint": "判断读到末尾要写 while (fscanf(fp, \"%d\", &x) == 1)，表示成功读到一个整数；写成 != EOF 时，读失败会重复处理，容易多算或死循环。平均值要用 (double)s / c 计算。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    FILE *fp;\n    int n, i, x, s = 0, c = 0;\n    scanf(\"%d\", &n);\n    fp = fopen(\"f112.txt\", \"w\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &x);\n        fprintf(fp, \"%d \", x);\n    }\n    fclose(fp);\n    fp = fopen(\"f112.txt\", \"r\");\n    while (fscanf(fp, \"%d\", &x) == 1)\n    {\n        s = s + x;\n        c++;\n    }\n    fclose(fp);\n    remove(\"f112.txt\");\n    printf(\"%.2f\\n\", (double)s / c);\n    return 0;\n}"
+  },
+  {
+   "id": "10-p13",
+   "title": "读出文件数据排序后写回并输出",
+   "level": "hard",
+   "tags": [
+    "文件",
+    "排序",
+    "读写"
+   ],
+   "tag": [
+    "难题"
+   ],
+   "desc": "输入 n 个整数写入文件 f113.txt，再从文件中读出这 n 个数，用冒泡排序按从小到大排好，把排序结果重新写回同一个文件，最后读出文件内容逐行输出。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 100）；第二行 n 个整数。",
+   "output": "输出 n 行，每行一个整数，为排序后文件中的内容。",
+   "samples": [
+    {
+     "in": "5\n5 3 1 4 2",
+     "out": "1\n2\n3\n4\n5"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n5 3 1 4 2",
+     "out": "1\n2\n3\n4\n5"
+    },
+    {
+     "in": "3\n9 8 7",
+     "out": "7\n8\n9"
+    },
+    {
+     "in": "1\n5",
+     "out": "5"
+    },
+    {
+     "in": "6\n2 2 1 3 3 0",
+     "out": "0\n1\n2\n2\n3\n3"
+    },
+    {
+     "in": "4\n-1 -5 0 3",
+     "out": "-5\n-1\n0\n3"
+    }
+   ],
+   "hint": "写文件后必须 fclose 才能保证数据真正落盘；重写同一个文件时要用 \"w\" 模式重新打开（会自动清空）。排序在数组里做，排好后再统一写回，不要边读边写。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    FILE *fp;\n    int n, i, j, t, x, a[100];\n    scanf(\"%d\", &n);\n    fp = fopen(\"f113.txt\", \"w\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &a[i]);\n        fprintf(fp, \"%d\\n\", a[i]);\n    }\n    fclose(fp);\n    fp = fopen(\"f113.txt\", \"r\");\n    for (i = 0; i < n; i++)\n        fscanf(fp, \"%d\", &a[i]);\n    fclose(fp);\n    for (i = 0; i < n - 1; i++)\n        for (j = 0; j < n - 1 - i; j++)\n            if (a[j] > a[j + 1])\n            {\n                t = a[j];\n                a[j] = a[j + 1];\n                a[j + 1] = t;\n            }\n    fp = fopen(\"f113.txt\", \"w\");\n    for (i = 0; i < n; i++)\n        fprintf(fp, \"%d\\n\", a[i]);\n    fclose(fp);\n    fp = fopen(\"f113.txt\", \"r\");\n    while (fscanf(fp, \"%d\", &x) == 1)\n        printf(\"%d\\n\", x);\n    fclose(fp);\n    remove(\"f113.txt\");\n    return 0;\n}"
+  },
+  {
+   "id": "10-p14",
+   "title": "把文件中的负数全部改成 0",
+   "level": "hard",
+   "tags": [
+    "文件",
+    "读入修改",
+    "重写"
+   ],
+   "tag": [
+    "难题",
+    "常考"
+   ],
+   "desc": "输入 n 个整数写入文件 f114.txt，然后把文件中所有的负数都改成 0，再读出文件内容逐行输出。",
+   "input": "第一行一个正整数 n（1 ≤ n ≤ 100）；第二行 n 个整数。",
+   "output": "输出 n 行，每行一个整数，为修改后文件中的内容。",
+   "samples": [
+    {
+     "in": "5\n-1 2 -3 4 -5",
+     "out": "0\n2\n0\n4\n0"
+    }
+   ],
+   "tests": [
+    {
+     "in": "5\n-1 2 -3 4 -5",
+     "out": "0\n2\n0\n4\n0"
+    },
+    {
+     "in": "3\n1 2 3",
+     "out": "1\n2\n3"
+    },
+    {
+     "in": "4\n-5 -6 -7 -8",
+     "out": "0\n0\n0\n0"
+    },
+    {
+     "in": "1\n-100",
+     "out": "0"
+    },
+    {
+     "in": "6\n0 -1 0 -2 3 -4",
+     "out": "0\n0\n0\n0\n3\n0"
+    }
+   ],
+   "hint": "思路是“读出来—改—写回去”：先用 \"w\" 写原始数据并关闭，再用 \"r\" 读进数组，把小于 0 的元素置 0，然后用 \"w\" 模式重新打开同一个文件整体重写（\"w\" 会清空原内容），最后读回输出。",
+   "code": "#include <stdio.h>\n\nint main()\n{\n    FILE *fp;\n    int n, i, x, a[100];\n    scanf(\"%d\", &n);\n    for (i = 0; i < n; i++)\n        scanf(\"%d\", &a[i]);\n    fp = fopen(\"f114.txt\", \"w\");\n    for (i = 0; i < n; i++)\n        fprintf(fp, \"%d \", a[i]);\n    fclose(fp);\n    fp = fopen(\"f114.txt\", \"r\");\n    for (i = 0; i < n; i++)\n        fscanf(fp, \"%d\", &a[i]);\n    fclose(fp);\n    for (i = 0; i < n; i++)\n        if (a[i] < 0)\n            a[i] = 0;\n    fp = fopen(\"f114.txt\", \"w\");\n    for (i = 0; i < n; i++)\n        fprintf(fp, \"%d \", a[i]);\n    fclose(fp);\n    fp = fopen(\"f114.txt\", \"r\");\n    while (fscanf(fp, \"%d\", &x) == 1)\n        printf(\"%d\\n\", x);\n    fclose(fp);\n    remove(\"f114.txt\");\n    return 0;\n}"
+  }
+ ]
+}

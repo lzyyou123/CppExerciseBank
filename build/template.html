@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++练习题 · 分章题库</title>
+<style>
+:root{
+  --blue:#2563eb;
+  --blue-dark:#1d4ed8;
+  --blue-soft:#eff6ff;
+  --ink:#0f172a;
+  --ink-2:#334155;
+  --ink-3:#64748b;
+  --line:#e2e8f0;
+  --bg:#f6f8fc;
+  --card:#ffffff;
+  --code-bg:#1e293b;
+  --code-ink:#e2e8f0;
+  --radius:12px;
+  --chap-color:#2563eb;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Segoe UI",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;}
+input{font-family:inherit;}
+
+.app{display:flex;min-height:100vh;}
+
+/* ============ 侧边栏 ============ */
+.sidebar{
+  width:272px;flex:0 0 272px;
+  background:#fff;
+  border-right:1px solid var(--line);
+  padding:20px 16px 28px;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.brand{display:flex;gap:11px;align-items:center;margin-bottom:20px;}
+.logo{
+  width:42px;height:42px;flex:0 0 42px;border-radius:11px;
+  background:linear-gradient(135deg,#2563eb,#38bdf8);
+  color:#fff;font-weight:700;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  letter-spacing:.5px;
+}
+.brand h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.2px;}
+.brand p{margin:1px 0 0;font-size:12px;color:var(--ink-3);}
+
+.progress-box{
+  background:var(--blue-soft);border:1px solid #dbeafe;
+  border-radius:10px;padding:11px 12px;margin-bottom:14px;
+}
+.progress-text{display:flex;justify-content:space-between;font-size:12px;color:#1e40af;margin-bottom:7px;font-weight:600;}
+.progress-bar{height:6px;background:#dbeafe;border-radius:99px;overflow:hidden;}
+.progress-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#38bdf8);border-radius:99px;transition:width .3s;}
+
+.search-box{margin-bottom:12px;position:relative;}
+.search-box input{
+  width:100%;padding:8px 11px;border:1px solid var(--line);border-radius:9px;
+  font-size:13px;outline:none;background:#fbfdff;color:var(--ink);
+}
+.search-box input:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+
+#chapterNav{display:flex;flex-direction:column;gap:2px;}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 10px;border:none;background:transparent;border-radius:9px;
+  text-align:left;font-size:13.5px;color:var(--ink-2);width:100%;
+  transition:background .15s,color .15s;
+}
+.nav-item:hover{background:#f1f5f9;}
+.nav-item.active{background:var(--blue-soft);color:var(--blue-dark);font-weight:700;}
+.nav-dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px;}
+.nav-num{font-size:11px;color:var(--ink-3);margin-left:auto;font-variant-numeric:tabular-nums;}
+.nav-item.active .nav-num{color:var(--blue-dark);}
+
+.side-foot{margin-top:18px;font-size:11.5px;color:#94a3b8;line-height:1.6;border-top:1px dashed var(--line);padding-top:12px;}
+
+/* ============ 主区 ============ */
+.main{flex:1;min-width:0;padding:26px 34px 70px;max-width:1180px;}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:16px;}
+.topbar h2{
+  font-size:22px;margin:0 0 5px;font-weight:700;letter-spacing:.2px;
+  display:flex;align-items:center;gap:9px;
+}
+.topbar h2::before{
+  content:"";width:5px;height:21px;border-radius:3px;background:var(--chap-color);display:inline-block;
+}
+.topbar p{margin:0;font-size:13px;color:var(--ink-3);line-height:1.6;}
+.toolbar{display:flex;gap:8px;flex:0 0 auto;padding-top:4px;}
+.toolbar button{
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  padding:7px 13px;border-radius:8px;font-size:12.5px;transition:.15s;
+}
+.toolbar button:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);}
+
+.tabs{display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:0;}
+.tabs button{
+  position:relative;border:none;background:transparent;
+  padding:9px 16px 11px;font-size:14px;color:var(--ink-3);font-weight:600;
+  border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;
+}
+.tabs button:hover{color:var(--blue);}
+.tabs button.active{color:var(--blue-dark);border-bottom-color:var(--blue);}
+.tabs button span{font-size:11.5px;color:#94a3b8;font-weight:400;margin-left:3px;}
+.tabs button.active span{color:var(--blue);}
+.tabs button.tabs-chip{
+  margin-left:auto;margin-right:2px;align-self:center;margin-bottom:6px;
+  padding:5px 11px;border:1px solid var(--line);border-radius:999px;
+  font-size:12px;color:#64748b;font-weight:600;background:#fff;transition:.15s;
+}
+.tabs button.tabs-chip:hover:not(:disabled){border-color:#fcd34d;color:#b45309;background:#fffbeb;}
+.tabs button.tabs-chip.on{border-color:#f59e0b;background:#fef3c7;color:#b45309;}
+.tabs button.tabs-chip:disabled{opacity:.45;cursor:not-allowed;}
+.focus-bar{
+  margin-bottom:14px;padding:10px 14px;border-radius:9px;font-size:13px;
+  background:#fffbeb;border:1px solid #fcd34d;color:#92400e;
+}
+
+/* ============ 题目卡片 ============ */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px 16px;margin-bottom:14px;
+  box-shadow:0 1px 2px rgba(15,23,42,.03);
+  transition:box-shadow .18s,border-color .18s;
+}
+.card:hover{box-shadow:0 4px 14px rgba(15,23,42,.06);border-color:#cbd5e1;}
+.card.is-mastered{border-left:3px solid #10b981;}
+.card-head{display:flex;align-items:center;gap:8px;margin-bottom:11px;flex-wrap:wrap;}
+.tag-no{
+  font-size:11.5px;font-weight:700;color:#fff;background:var(--chap-color);
+  padding:2px 9px;border-radius:6px;letter-spacing:.3px;
+}
+.tag-type{font-size:11.5px;color:var(--ink-3);background:#f1f5f9;padding:2px 8px;border-radius:6px;}
+.tag-level{font-size:11.5px;padding:2px 8px;border-radius:6px;font-weight:600;}
+.lv-1{background:#ecfdf5;color:#047857;}
+.lv-2{background:#eff6ff;color:#1d4ed8;}
+.lv-3{background:#fff7ed;color:#c2410c;}
+/* ===== 重点题标注：常考 / 易错 / 难题 ===== */
+.tag-mark{font-size:11.5px;padding:2px 8px;border-radius:6px;font-weight:700;border:1px solid transparent;white-space:nowrap;}
+.tag-exam{background:#fffbeb;color:#b45309;border-color:#fcd34d;}
+.tag-mistake{background:#fef2f2;color:#b91c1c;border-color:#fca5a5;}
+.tag-hard{background:#f5f3ff;color:#6d28d9;border-color:#c4b5fd;}
+.qid{margin-left:auto;font-size:11px;color:#cbd5e1;font-family:Consolas,monospace;}
+.card.is-mastered .qid{color:#10b981;}
+
+.q-title{font-size:16px;font-weight:700;margin:0 0 10px;color:var(--ink);}
+.q-body{font-size:14.5px;color:var(--ink-2);line-height:1.85;margin-bottom:12px;}
+.q-body p{margin:0 0 8px;}
+.q-body p:last-child{margin-bottom:0;}
+
+.section{margin-bottom:11px;}
+.section h4{
+  font-size:12.5px;color:var(--blue-dark);margin:0 0 4px;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+}
+.section h4::before{content:"";width:3px;height:12px;background:var(--chap-color);border-radius:2px;display:inline-block;}
+.section p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.8;}
+
+/* 代码块 */
+pre.code{
+  background:var(--code-bg);color:var(--code-ink);
+  padding:13px 15px;border-radius:9px;overflow-x:auto;
+  font-family:Consolas,"Cascadia Mono","Courier New",monospace;
+  font-size:13px;line-height:1.65;margin:10px 0 12px;
+  tab-size:4;
+}
+pre.code.light{
+  background:#f8fafc;color:var(--ink);border:1px solid var(--line);
+  font-size:13px;
+}
+.tok-kw{color:#7dd3fc;font-weight:600;}
+.tok-str{color:#86efac;}
+.tok-num{color:#fcd34d;}
+.tok-com{color:#94a3b8;font-style:italic;}
+.tok-pre{color:#f9a8d4;}
+.tok-fn{color:#c4b5fd;}
+
+/* 选项 */
+ul.options{list-style:none;padding:0;margin:0 0 6px;display:flex;flex-direction:column;gap:7px;}
+ul.options li{
+  display:flex;gap:9px;align-items:flex-start;
+  padding:9px 12px;border:1px solid var(--line);border-radius:9px;
+  font-size:14px;color:var(--ink-2);cursor:pointer;transition:.15s;background:#fdfefe;
+}
+ul.options li:hover{border-color:#bfdbfe;background:#f8fbff;}
+ul.options li.picked{border-color:var(--blue);background:var(--blue-soft);}
+ul.options li b{
+  flex:0 0 21px;height:21px;border-radius:6px;background:#f1f5f9;color:var(--ink-3);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+}
+ul.options li.picked b{background:var(--blue);color:#fff;}
+ul.options li.right{border-color:#10b981;background:#f0fdf4;}
+ul.options li.right b{background:#10b981;color:#fff;}
+ul.options li.wrong{border-color:#f87171;background:#fef2f2;}
+ul.options li.wrong b{background:#f87171;color:#fff;}
+ul.options li em{font-style:normal;font-family:Consolas,monospace;background:#f1f5f9;padding:0 4px;border-radius:3px;font-size:13px;}
+
+/* 样例 */
+.samples{display:flex;flex-direction:column;gap:9px;margin:10px 0 12px;}
+.sample{
+  border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fbfdff;
+}
+.sample-h{
+  font-size:12px;font-weight:700;color:var(--ink-3);
+  padding:5px 12px;background:#f1f5f9;border-bottom:1px solid var(--line);
+}
+.sample pre{
+  margin:0;padding:9px 12px;font-family:Consolas,"Cascadia Mono",monospace;
+  font-size:13px;color:var(--ink);white-space:pre-wrap;word-break:break-all;line-height:1.6;
+}
+.sample pre + .sample-h{border-top:1px solid var(--line);}
+
+/* 操作区 */
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:13px;border-top:1px dashed var(--line);}
+.actions button{
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  padding:7px 14px;border-radius:8px;font-size:12.5px;font-weight:600;transition:.15s;
+}
+.actions button:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);}
+.actions button.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+.actions button.primary:hover{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff;}
+.actions button.on{background:#ecfdf5;border-color:#10b981;color:#047857;}
+
+/* 答案区 */
+.answer,.hint{
+  margin-top:12px;border-radius:9px;padding:13px 15px;
+  animation:fade .22s ease;
+}
+@keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+.answer{background:#f8fbff;border:1px solid #dbeafe;}
+.hint{background:#fffbeb;border:1px solid #fde68a;}
+.hint h5,.answer h5{
+  margin:0 0 7px;font-size:12.5px;font-weight:700;
+}
+.hint h5{color:#b45309;}
+.answer h5{color:var(--blue-dark);}
+.answer .ans-line{font-size:14px;margin-bottom:6px;color:var(--ink);}
+.answer .ans-line b{color:#047857;font-size:15px;}
+.answer .explain{font-size:13.5px;color:var(--ink-2);line-height:1.8;}
+.hint p{margin:0;font-size:13.5px;color:#78350f;line-height:1.8;}
+.answer pre.code{margin:10px 0 0;}
+.copy-btn{
+  float:right;border:1px solid #334155;background:#0f172a;color:#cbd5e1;
+  font-size:11px;padding:2px 8px;border-radius:5px;margin-top:2px;
+}
+.copy-btn:hover{background:#1e293b;color:#fff;}
+
+/* 空态 / 搜索结果 */
+.empty{
+  text-align:center;padding:60px 20px;color:#94a3b8;font-size:14px;
+  background:#fff;border:1px dashed var(--line);border-radius:var(--radius);
+}
+.search-result-head{
+  font-size:13px;color:var(--ink-3);margin-bottom:12px;
+  background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 14px;
+}
+.search-result-head b{color:var(--blue-dark);}
+
+/* Toast */
+#toast{
+  position:fixed;left:50%;bottom:38px;transform:translateX(-50%) translateY(16px);
+  background:rgba(15,23,42,.92);color:#fff;padding:9px 18px;border-radius:9px;
+  font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:99;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* 响应式 */
+@media (max-width:900px){
+  .app{flex-direction:column;}
+  .sidebar{
+    width:100%;flex:none;height:auto;position:static;
+    border-right:none;border-bottom:1px solid var(--line);padding:14px 14px 10px;
+  }
+  .brand{margin-bottom:12px;}
+  #chapterNav{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px;}
+  .nav-item{width:auto;flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);}
+  .nav-num{display:none;}
+  .main{padding:18px 14px 60px;max-width:none;}
+  .topbar{flex-direction:column;gap:10px;}
+  .topbar h2{font-size:19px;}
+  .toolbar{width:100%;}
+  .toolbar button{flex:1;}
+  pre.code{font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">C</div>
+      <div>
+        <h1>C++练习题</h1>
+        <p>徐英慧《C语言程序设计》第3版 · 选择题 + 编程题</p>
+      </div>
+    </div>
+    <div class="progress-box">
+      <div class="progress-text"><span>已看答案进度</span><span id="progText">0 / 0</span></div>
+      <div class="progress-bar"><i id="progBar"></i></div>
+    </div>
+    <div class="search-box">
+      <input id="searchInput" type="text" placeholder="搜索题目关键词（如 指针、闰年）">
+    </div>
+    <nav id="chapterNav"></nav>
+    <div class="side-foot">
+      答案默认隐藏，点击「查看答案」后才显示。<br>
+      标记为「已掌握」的题目会记录在本机浏览器，刷新不丢失。
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h2 id="chapTitle">加载中…</h2>
+        <p id="chapIntro"></p>
+      </div>
+      <div class="toolbar">
+        <button id="expandAll">全部展开</button>
+        <button id="collapseAll">全部收起</button>
+        <button id="resetProgress">清除记录</button>
+      </div>
+    </header>
+    <div class="tabs" id="tabs">
+      <button data-tab="choice" class="active">选择题<span id="cntChoice"></span></button>
+      <button data-tab="coding">编程题<span id="cntCoding"></span></button>
+      <button class="tabs-chip" id="btnFocus" type="button" title="只显示标注了常考 / 易错 / 难题的题目">★ 只看重点题<span id="cntFocus"></span></button>
+    </div>
+    <div id="content"></div>
+  </main>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ================= 数据（构建时注入） ================= */
+const DATA = /*__DATA__*/[];
+
+/* ================= 状态 ================= */
+const STORE_KEY = 'cpp_quiz_progress_v1';
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch(e){ progress = {}; }
+
+let curChap = 0;
+let curTab = 'choice';
+let focusOnly = false;
+let searchMode = false;
+let searchHits = [];
+let searchKw = '';
+
+function saveProgress(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(progress)); } catch(e){}
+}
+function totalCount(){
+  let n = 0;
+  DATA.forEach(c => n += c.choice.length + c.coding.length);
+  return n;
+}
+function updateProgress(){
+  const total = totalCount();
+  const seen = Object.keys(progress).filter(k => progress[k].seen).length;
+  document.getElementById('progText').textContent = seen + ' / ' + total;
+  document.getElementById('progBar').style.width = (total ? seen / total * 100 : 0) + '%';
+}
+
+/* ================= 工具函数 ================= */
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+const KW = ['alignas','auto','bool','break','case','catch','char','class','const','constexpr','continue','default','delete','do','double','else','enum','explicit','extern','false','float','for','friend','goto','if','inline','int','long','namespace','new','nullptr','operator','private','protected','public','return','short','signed','sizeof','static','struct','switch','template','this','throw','true','try','typedef','typeid','typename','union','unsigned','using','virtual','void','volatile','while','string','vector','cout','cin','cerr','endl','printf','scanf','main'];
+function highlight(code){
+  const src = esc(code);
+  return src.replace(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|(&quot;[\s\S]*?&quot;|&#39;[\s\S]*?&#39;)|(^[ \t]*#[a-z]+)|\b([A-Za-z_]\w*)\b|\b(\d+\.?\d*)\b/gm,
+    function(m, com, str, pre, word, num){
+      if (com) return '<span class="tok-com">' + com + '</span>';
+      if (str) return '<span class="tok-str">' + str + '</span>';
+      if (pre) return '<span class="tok-pre">' + pre + '</span>';
+      if (word) return KW.indexOf(word) >= 0 ? '<span class="tok-kw">' + word + '</span>' : word;
+      if (num) return '<span class="tok-num">' + num + '</span>';
+      return m;
+    });
+}
+function codeBlock(code, withCopy){
+  const btn = withCopy ? '<button class="copy-btn" data-copy="1">复制代码</button>' : '';
+  return '<pre class="code">' + btn + highlight(code) + '</pre>';
+}
+
+/* ================= 渲染 ================= */
+function renderNav(){
+  const nav = document.getElementById('chapterNav');
+  nav.innerHTML = DATA.map((c, i) =>
+    '<button class="nav-item' + (i === curChap ? ' active' : '') + '" data-chap="' + i + '">' +
+      '<span class="nav-dot" style="background:' + c.color + '"></span>' +
+      '<span>' + esc(c.short) + '</span>' +
+      '<span class="nav-num">' + (c.choice.length + c.coding.length) + '</span>' +
+    '</button>'
+  ).join('');
+}
+
+function levelTag(lv){
+  const map = {1:['基础','lv-1'],2:['进阶','lv-2'],3:['挑战','lv-3'],
+               easy:['基础','lv-1'],mid:['进阶','lv-2'],hard:['挑战','lv-3']};
+  const v = map[lv] || map[1];
+  return '<span class="tag-level ' + v[1] + '">' + v[0] + '</span>';
+}
+
+function choiceHTML(q, idx, chapColor){
+  const optLetters = ['A','B','C','D','E','F'];
+  const opts = q.options.map((o, i) =>
+    '<li data-opt="' + i + '"><b>' + optLetters[i] + '</b><span>' + o + '</span></li>'
+  ).join('');
+  return '<article class="card' + (progress[q.id] && progress[q.id].mastered ? ' is-mastered' : '') + '" data-qid="' + q.id + '" style="--chap-color:' + chapColor + '">' +
+    '<div class="card-head">' +
+      '<span class="tag-no">第 ' + (idx + 1) + ' 题</span>' +
+      '<span class="tag-type">选择题</span>' +
+      levelTag(q.level || 1) +
+      '<span class="qid">' + q.id + '</span>' +
+    '</div>' +
+    '<div class="q-body">' + q.q + '</div>' +
+    (q.code ? codeBlock(q.code, false) : '') +
+    '<ul class="options">' + opts + '</ul>' +
+    '<div class="actions">' +
+      '<button class="btn-answer primary" data-act="answer">查看答案</button>' +
+      '<button class="btn-master' + (progress[q.id] && progress[q.id].mastered ? ' on' : '') + '" data-act="master">标记已掌握</button>' +
+    '</div>' +
+    '<div class="answer" hidden>' +
+      '<h5>正确答案：' + optLetters[q.answer] + '</h5>' +
+      '<div class="ans-line">选项内容：<b>' + q.options[q.answer] + '</b></div>' +
+      '<div class="explain">' + q.explain + '</div>' +
+    '</div>' +
+  '</article>';
+}
+
+function codingHTML(q, idx, chapColor){
+  const samples = q.samples.map((s, i) =>
+    '<div class="sample">' +
+      '<div class="sample-h">输入样例 ' + (i + 1) + '</div>' +
+      '<pre>' + (s.in === '' ? '（无输入）' : esc(s.in)) + '</pre>' +
+      '<div class="sample-h">输出样例 ' + (i + 1) + '</div>' +
+      '<pre>' + esc(s.out) + '</pre>' +
+    '</div>'
+  ).join('');
+  return '<article class="card' + (progress[q.id] && progress[q.id].mastered ? ' is-mastered' : '') + '" data-qid="' + q.id + '" style="--chap-color:' + chapColor + '">' +
+    '<div class="card-head">' +
+      '<span class="tag-no">第 ' + (idx + 1) + ' 题</span>' +
+      '<span class="tag-type">编程题</span>' +
+      levelTag(q.level || 2) +
+      (q.tags ? q.tags.map(t => '<span class="tag-type">' + esc(t) + '</span>').join('') : '') +
+      '<span class="qid">' + q.id + '</span>' +
+    '</div>' +
+    '<h3 class="q-title">' + esc(q.title) + '</h3>' +
+    '<div class="section"><h4>问题描述</h4><p>' + q.desc + '</p></div>' +
+    '<div class="section"><h4>输入形式</h4><p>' + q.input + '</p></div>' +
+    '<div class="section"><h4>输出形式</h4><p>' + q.output + '</p></div>' +
+    '<div class="samples">' + samples + '</div>' +
+    '<div class="actions">' +
+      '<button class="btn-hint" data-act="hint">查看思路提示</button>' +
+      '<button class="btn-answer primary" data-act="answer">查看参考代码</button>' +
+      '<button class="btn-master' + (progress[q.id] && progress[q.id].mastered ? ' on' : '') + '" data-act="master">标记已掌握</button>' +
+    '</div>' +
+    '<div class="hint" hidden><h5>思路提示</h5><p>' + q.hint + '</p></div>' +
+    '<div class="answer" hidden><h5>参考代码（C++）</h5>' + codeBlock(q.code, true) + '</div>' +
+  '</article>';
+}
+
+function renderContent(){
+  const box = document.getElementById('content');
+  const tabs = document.getElementById('tabs');
+  const chapTitle = document.getElementById('chapTitle');
+  const chapIntro = document.getElementById('chapIntro');
+
+  if (searchMode){
+    tabs.style.display = 'none';
+    chapTitle.textContent = '搜索结果：' + searchKw;
+    chapIntro.textContent = '共命中 ' + searchHits.length + ' 道题（选择题 ' +
+      searchHits.filter(h => h.type === 'choice').length + ' 道，编程题 ' +
+      searchHits.filter(h => h.type === 'coding').length + ' 道）';
+    document.documentElement.style.setProperty('--chap-color', '#2563eb');
+    if (!searchHits.length){
+      box.innerHTML = '<div class="empty">没有找到包含「' + esc(searchKw) + '」的题目，换个关键词试试。</div>';
+      return;
+    }
+    box.innerHTML = searchHits.map(h => h.html).join('');
+    bindCards(box);
+    return;
+  }
+
+  tabs.style.display = 'flex';
+  const c = DATA[curChap];
+  document.documentElement.style.setProperty('--chap-color', c.color);
+  chapTitle.textContent = c.name;
+  chapIntro.textContent = c.intro;
+  document.getElementById('cntChoice').textContent = c.choice.length + ' 题';
+  document.getElementById('cntCoding').textContent = c.coding.length + ' 题';
+  const focusList = (curTab === 'choice' ? c.choice : c.coding).filter(q => q.tag && q.tag.length);
+  const focusCount = focusList.length;
+  document.getElementById('cntFocus').textContent = focusCount ? '（本章 ' + focusCount + '）' : '';
+  const btnFocus = document.getElementById('btnFocus');
+  if (btnFocus){
+    btnFocus.classList.toggle('on', focusOnly);
+    btnFocus.disabled = false;
+  }
+  document.querySelectorAll('#tabs button').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === curTab));
+
+  if (curTab === 'choice'){
+    const idxs = c.choice.map((q, i) => i)
+      .filter(i => !focusOnly || (c.choice[i].tag && c.choice[i].tag.length));
+    if (!idxs.length){
+      box.innerHTML = '<div class="empty">' + (focusOnly ? '本章暂无标注为重点的题目。' : '本章暂无选择题。') + '</div>';
+      return;
+    }
+    box.innerHTML = idxs.map(i => choiceHTML(c.choice[i], i, c.color)).join('');
+    if (focusOnly){
+      box.insertAdjacentHTML('afterbegin',
+        '<div class="focus-bar">已筛出本章 ' + idxs.length + ' 道重点题（常考 / 易错 / 难题），共 ' + c.choice.length + ' 道选择题。</div>');
+    }
+  } else {
+    if (!c.coding.length){ box.innerHTML = '<div class="empty">本章暂无编程题。</div>'; return; }
+    const idxs = c.coding.map((q, i) => i)
+      .filter(i => !focusOnly || (c.coding[i].tag && c.coding[i].tag.length));
+    if (!idxs.length){
+      box.innerHTML = '<div class="empty">本章暂无标注为重点的编程题。</div>';
+      return;
+    }
+    box.innerHTML = idxs.map(i => codingHTML(c.coding[i], i, c.color)).join('');
+    if (focusOnly){
+      box.insertAdjacentHTML('afterbegin',
+        '<div class="focus-bar">已筛出本章 ' + idxs.length + ' 道重点题（常考 / 易错 / 难题），共 ' + c.coding.length + ' 道编程题。</div>');
+    }
+  }
+  bindCards(box);
+}
+
+/* ================= 卡片交互 ================= */
+function markSeen(qid){
+  if (!progress[qid]) progress[qid] = {};
+  progress[qid].seen = true;
+  saveProgress();
+  updateProgress();
+}
+
+function bindCards(root){
+  root.querySelectorAll('.card').forEach(card => {
+    const qid = card.dataset.qid;
+    const answerBox = card.querySelector('.answer');
+    const hintBox = card.querySelector('.hint');
+    const btnAns = card.querySelector('[data-act="answer"]');
+    const btnHint = card.querySelector('[data-act="hint"]');
+    const btnMaster = card.querySelector('[data-act="master"]');
+
+    if (progress[qid] && progress[qid].seen){
+      btnAns.textContent = card.querySelector('.hint') ? '收起参考代码' : '收起答案';
+      btnAns.classList.remove('primary');
+    }
+
+    if (btnAns){
+      btnAns.addEventListener('click', () => {
+        const open = !answerBox.hidden;
+        answerBox.hidden = open;
+        btnAns.textContent = open ? (btnHint ? '查看参考代码' : '查看答案') : (btnHint ? '收起参考代码' : '收起答案');
+        btnAns.classList.toggle('primary', open);
+        if (!open) markSeen(qid);
+      });
+    }
+    if (btnHint){
+      btnHint.addEventListener('click', () => {
+        const open = !hintBox.hidden;
+        hintBox.hidden = open;
+        btnHint.textContent = open ? '查看思路提示' : '收起思路提示';
+        if (!open){ hintBox.style.animation = 'none'; void hintBox.offsetWidth; hintBox.style.animation = ''; }
+      });
+    }
+    if (btnMaster){
+      btnMaster.addEventListener('click', () => {
+        if (!progress[qid]) progress[qid] = {};
+        const now = !progress[qid].mastered;
+        progress[qid].mastered = now;
+        if (now) progress[qid].seen = true;
+        saveProgress();
+        updateProgress();
+        btnMaster.classList.toggle('on', now);
+        card.classList.toggle('is-mastered', now);
+        if (!now) markSeenToBtn(card);
+        toast(now ? '已标记为已掌握' : '已取消标记');
+      });
+    }
+
+    // 选择题选项：仅自测选中，不判分
+    const opts = card.querySelectorAll('ul.options li');
+    opts.forEach(li => {
+      li.addEventListener('click', () => {
+        opts.forEach(x => x.classList.remove('picked','right','wrong'));
+        li.classList.add('picked');
+      });
+    });
+
+    // 复制代码
+    const copyBtn = card.querySelector('.copy-btn');
+    if (copyBtn){
+      copyBtn.addEventListener('click', () => {
+        const pre = copyBtn.parentElement;
+        const text = pre.innerText.replace(/^复制代码\s*/, '');
+        copyText(text);
+      });
+    }
+  });
+}
+
+function markSeenToBtn(card){
+  const btnAns = card.querySelector('[data-act="answer"]');
+  if (!btnAns) return;
+  if (progress[card.dataset.qid] && progress[card.dataset.qid].seen){
+    btnAns.textContent = card.querySelector('.hint') ? '收起参考代码' : '收起答案';
+    btnAns.classList.remove('primary');
+  } else {
+    btnAns.textContent = card.querySelector('.hint') ? '查看参考代码' : '查看答案';
+    btnAns.classList.add('primary');
+  }
+}
+
+function copyText(text){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(() => toast('代码已复制'), () => fallbackCopy(text));
+  } else fallbackCopy(text);
+}
+function fallbackCopy(text){
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast('代码已复制'); } catch(e){ toast('复制失败，请手动选中'); }
+  document.body.removeChild(ta);
+}
+
+let toastTimer = null;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+/* ================= 搜索 ================= */
+function doSearch(kw){
+  kw = kw.trim();
+  if (!kw){ searchMode = false; renderContent(); return; }
+  searchKw = kw;
+  searchMode = true;
+  searchHits = [];
+  const low = kw.toLowerCase();
+  DATA.forEach(c => {
+    c.choice.forEach((q, i) => {
+      const hay = (q.q + ' ' + (q.code || '') + ' ' + q.options.join(' ') + ' ' + q.explain + ' ' + (q.tag || []).join(' ')).toLowerCase();
+      if (hay.indexOf(low) >= 0)
+        searchHits.push({ type:'choice', html: choiceHTML(q, i, c.color), chap: c.short });
+    });
+    c.coding.forEach((q, i) => {
+      const hay = (q.title + ' ' + q.desc + ' ' + q.input + ' ' + q.output + ' ' + q.hint + ' ' + q.code + ' ' + (q.tags||[]).join(' ')).toLowerCase();
+      if (hay.indexOf(low) >= 0)
+        searchHits.push({ type:'coding', html: codingHTML(q, i, c.color), chap: c.short });
+    });
+  });
+  renderContent();
+}
+
+/* ================= 事件绑定 ================= */
+document.getElementById('chapterNav').addEventListener('click', e => {
+  const btn = e.target.closest('.nav-item');
+  if (!btn) return;
+  curChap = parseInt(btn.dataset.chap, 10);
+  searchMode = false;
+  document.getElementById('searchInput').value = '';
+  renderNav();
+  renderContent();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  if (btn.id === 'btnFocus'){
+    focusOnly = !focusOnly;
+    renderContent();
+    return;
+  }
+  if (!btn.dataset.tab) return;
+  focusOnly = false;
+  curTab = btn.dataset.tab;
+  renderContent();
+});
+
+document.getElementById('expandAll').addEventListener('click', () => {
+  document.querySelectorAll('#content .answer, #content .hint').forEach(el => el.hidden = false);
+  document.querySelectorAll('#content .card').forEach(card => {
+    markSeen(card.dataset.qid);
+    card.querySelectorAll('[data-act="answer"]').forEach(b => {
+      b.textContent = card.querySelector('.hint') ? '收起参考代码' : '收起答案';
+      b.classList.remove('primary');
+    });
+    card.querySelectorAll('[data-act="hint"]').forEach(b => b.textContent = '收起思路提示');
+  });
+});
+
+document.getElementById('collapseAll').addEventListener('click', () => {
+  document.querySelectorAll('#content .answer, #content .hint').forEach(el => el.hidden = true);
+  document.querySelectorAll('#content .card').forEach(card => {
+    markSeenToBtn(card);
+    card.querySelectorAll('[data-act="hint"]').forEach(b => b.textContent = '查看思路提示');
+  });
+});
+
+document.getElementById('resetProgress').addEventListener('click', () => {
+  const cnt = Object.keys(progress).length;
+  const codeCnt = Object.keys(codeStore).filter(k => (codeStore[k] || '').trim()).length;
+  const clearProgress = () => {
+    progress = {};
+    try { localStorage.removeItem(STORE_KEY); } catch(e){}
+    updateProgress(); renderContent();
+  };
+  showConfirm('清除本机记录？当前有 ' + cnt + ' 道题的作答/掌握记录、' + codeCnt + ' 道题存了代码。', [
+    { text: '清除记录', cls: 'ok', fn: () => { clearProgress(); toast('已清除 ' + cnt + ' 道题的作答记录（代码框内容仍保留）'); } },
+    { text: '连代码一起清空', cls: 'alt', fn: () => {
+        clearProgress();
+        codeStore = {};
+        try { localStorage.removeItem(CODE_KEY); } catch(e){}
+        renderContent();
+        toast('记录与代码已全部清空');
+      } },
+    { text: '取消' }
+  ]);
+});
+
+let searchTimer = null;
+document.getElementById('searchInput').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  const v = e.target.value;
+  searchTimer = setTimeout(() => doSearch(v), 260);
+});
+
+/* ================= 启动 ================= */
+renderNav();
+renderContent();
+updateProgress();
+</script>
+</body>
+</html>
