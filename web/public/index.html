@@ -10331,7 +10331,7 @@ function markSeen(qid){
   updateProgress();
 }
 
-const JUDGE_URL = (location.protocol === 'file:') ? 'http://127.0.0.1:8765/api/judge' : '/api/judge';
+const JUDGE_URL = (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && location.port === '8765') ? '/api/judge' : 'http://127.0.0.1:8765/api/judge';
 
 /* ---- 页内确认条：替代原生 confirm，避免被浏览器拦截导致点了没反应 ---- */
 let confirmBar = null;
